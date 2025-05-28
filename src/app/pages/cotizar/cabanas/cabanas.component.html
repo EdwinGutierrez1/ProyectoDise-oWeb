@@ -1,0 +1,53 @@
+    <!-- cabanas.component.html -->
+    <div class="cabanas-container">
+        <h1 class="titulo">¡Elige la Cabaña!</h1>
+        
+        <div class="cabanas-grid">
+        <!-- Cabaña #1 -->
+        <div 
+            class="cabana-card" 
+            [class.selected]="selectedCabana === 1"
+            (click)="selectCabana(1)">
+            <div class="image-container">
+            <img src="/cabañapequeña.jpg" alt="Cabaña pequeña" class="cabana-image">
+            </div>
+            <div class="cabana-info">
+            <h3>Cabaña #1</h3>
+            <p class="capacity">👥 Parejas</p>
+            </div>
+        </div>
+    
+        <!-- Cabaña #2 -->
+        <div 
+            class="cabana-card" 
+            [class.selected]="selectedCabana === 2"
+            (click)="selectCabana(2)">
+            <div class="image-container">
+            <img src="/cabañamediana.jpg" alt="Cabaña mediana" class="cabana-image">
+            </div>
+            <div class="cabana-info">
+            <h3>Cabaña #2</h3>
+            <p class="capacity">👥 3-6 personas</p>
+            </div>
+        </div>
+    
+        <!-- Cabaña #3 -->
+        <div 
+            class="cabana-card" 
+            [class.selected]="selectedCabana === 3"
+            (click)="selectCabana(3)">
+            <div class="image-container">
+            <img src="/cabañagrande.jpeg" alt="Cabaña grande" class="cabana-image">
+            </div>
+            <div class="cabana-info">
+            <h3>Cabaña #3</h3>
+            <p class="capacity">👥 6-10 personas</p>
+            </div>
+        </div>
+        </div>
+    
+        <!-- Precio -->
+        <div class="precio-container" *ngIf="selectedCabana">
+        <p class="precio">Valor: ${{ getPrecio() | number:'1.0-0' }} por noche</p>
+        </div>
+    </div>

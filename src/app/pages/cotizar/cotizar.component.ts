@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { CabanasComponent } from "./cabanas/cabanas.component";
 
 @Component({
   selector: 'app-cotizar',
   standalone: true,
-  imports: [],  // <-- Aquí importas navbar para poder usarlo
+  imports: [CabanasComponent],  // <-- Aquí importas navbar para poder usarlo
   templateUrl: './cotizar.component.html',
   styleUrls: ['./cotizar.component.css']
 })
