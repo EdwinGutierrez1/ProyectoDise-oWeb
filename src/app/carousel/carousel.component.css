@@ -134,28 +134,40 @@
 
 /* Para pantallas pequeñas (teléfonos en posición horizontal) */
 @media (max-width: 768px) {
-  .carousel-container {
-    width: 95%;
-    margin: 3vh auto 2vh;
-    border-radius: 5px;
+  .carousel-caption {
+    left: 5%;
+    bottom: 8%;
+    padding: 1rem;
+    max-width: 90%;
+    text-align: left;
   }
 
-  .carousel-image {
-    height: 60vh;
+  .carousel-caption h2 {
+    font-size: 1.5rem; /* Reduce tamaño del título */
+  }
+
+  .carousel-caption .btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
   }
 }
 
-/* Para teléfonos en vista vertical */
 @media (max-width: 576px) {
-  .carousel-container {
-    width: 100%; /* Usa todo el ancho */
-    max-width: none;
-    margin: 0; /* Elimina márgenes */
-    border-radius: 0; /* Sin bordes redondeados */
+  .carousel-caption {
+    left: 5%;
+    bottom: 5%;
+    padding: 0.5rem;
+    max-width: 90%;
+    text-align: left;
   }
 
-  .carousel-image {
-    height: calc(100vh - 56px); /* Usa toda la pantalla menos el navbar */
+  .carousel-caption h2 {
+    font-size: 1.2rem; /* Aún más pequeño para teléfonos */
+  }
+
+  .carousel-caption .btn {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
   }
 }
 
