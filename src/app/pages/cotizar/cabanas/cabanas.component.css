@@ -4,8 +4,8 @@
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
-    border-top: 2px solid #d6d6d6;
-    border-bottom: 2px solid #d6d6d6;
+    border-top: 2px solid #c4c3c3;
+    border-bottom: 2px solid #c4c3c3;
 }
 
 .titulo {
@@ -13,7 +13,8 @@
     font-size: 2.5rem;
     font-weight: bold;
     color: #333;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    margin-top: 20px;
 }
 
 .cabanas-grid {
@@ -41,7 +42,6 @@
 .cabana-card.selected {
     border-color: #28a745;
     border-width: 2.8px;
-    background-color: #d4edda;
     box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
     background-color: #CCECCC;
 }
@@ -96,7 +96,7 @@
     padding: 15px 30px;
     border-radius: 10px;
     display: inline-block;
-    border: 2px solid #dee2e6;
+    border: 2px solid #caccce;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra mejorada pero más sutil */
 }
 
@@ -107,8 +107,9 @@
         gap: 15px;
     }
     
-    .titulo {
-        font-size: 4rem;
+    .titulo {   
+        font-size: 2rem;
+        margin-top: 20px;
     }
     
     .precio {
