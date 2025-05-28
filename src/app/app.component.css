@@ -2,3 +2,7 @@ h1{
     font-size: 40px;
     color: #09f;            
 }
+
+.content-container {
+    padding-top: 120px; /* Ajusta este valor según la altura de tu navbar */
+}

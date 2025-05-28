@@ -2,7 +2,7 @@
 
 /* Contenedor de la sección del carrusel */
 .carousel-seccion {
-  margin-top: 80px;
+  margin-top: 0;
   padding: 1px; /* Se usa para evitar que los márgenes internos afecten el diseño */
 }
 
