@@ -95,19 +95,20 @@
   margin-bottom: 20px;
   padding: 0.5rem 1.5rem;
   font-weight: bold;
-  border: 2px solid var(--color-tercero);
+  border: 2px solid #006400; /* Cambia aquí tu color */
   border-radius: 15px;
-  color: var(--color-tercero);
+  color: #006400; /* Color del texto visible */
   background-color: white;
-  transition: transform 0.3s ease; /*ease: Tipo de aceleración de la animación.*/
+  transition: transform 0.3s ease;
 }
+
 
 /* Efecto al pasar el cursor sobre el botón */
 .btn-primary:hover {
   background-color: white !important;
-  border: 2px solid var(--color-tercero) !important;
-  color: var(--color-tercero) !important;
-  transform: scale(1.06); /* Aumenta ligeramente el tamaño */
+  border: 2px solid #006400 !important;
+  color: #006400 !important;
+  transform: scale(1.06);
 }
 
 /* Tamaño del título dentro del carrusel */
