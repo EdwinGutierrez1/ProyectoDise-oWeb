@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carousel',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './carousel.component.css'
 })
 export class CarouselComponent {
+  constructor(private router: Router) {}
 
+  goToCotizar() {
+    this.router.navigate(['/cotizar']);
+  }
 }

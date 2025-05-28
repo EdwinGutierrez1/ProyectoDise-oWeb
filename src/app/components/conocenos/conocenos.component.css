@@ -1,0 +1,156 @@
+/*--------- Estilos de la sección Conócenos --------------*/
+
+/* Contenedor principal de la sección */
+.content-box {
+    padding: 40px; /* Espaciado interno de 40px */
+    border-radius: 15px; /* Esquinas redondeadas de 15px */
+    height: 100%; /* Ocupa toda la altura disponible */
+    display: flex; /* Usa Flexbox para organizar el contenido */
+    align-items: center; /* Centra los elementos verticalmente */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    overflow: hidden; /* Oculta el contenido que se desborde del contenedor */
+  }
+  
+  /* Alineación de las filas en la sección */
+  .row {
+    align-items: center; /* Alinea verticalmente las columnas dentro de la fila */
+  }
+  
+  /* Estilos para las cajas de contenido dentro de la sección */
+  .caja-conocenos, .caja-propietarios, .caja-cabaña {
+    height: 100%; /* Ocupa toda la altura disponible */
+    display: flex; /* Usa Flexbox para organizar el contenido */
+    flex-direction: column; /* Organiza los elementos en una columna */
+    justify-content: center; /* Centra los elementos dentro de la caja */
+  }
+  
+  /* Estilos para las imágenes dentro de las cajas */
+  .caja-propietarios img,
+  .caja-cabaña img {
+    width: calc(100% + 50px); /* Increased width by 3px */
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
+  }
+  
+  /* Estilos generales de la sección "Conócenos" */
+  .conocenos-seccion {
+    padding: 80px 0; /* Espaciado superior e inferior de 80px */
+  }
+  
+  /* Estilos para el título de la sección */
+  .titulo-conocenos {
+    font-size: 50px; /* Tamaño de fuente grande para el título */
+    text-align: center; /* Centra el texto */
+    margin-bottom: 30px; /* Espaciado inferior de 30px */
+    margin-top: -30px; /* Ajusta la posición hacia arriba */
+  }
+  
+  /* Estilos para la descripción de la sección */
+  .descripcion-conocenos {
+    text-align: justify; /* Justifica el texto */
+    font-size: 25px; /* Tamaño de fuente*/
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 100%; /* Evita que el contenido se expanda más allá del contenedor */
+    padding: 15px; /* Espaciado interno */
+  }
+  
+  /*descripción 2 con un tamaño de fuente mayor */
+  .descripcion-2 {
+    text-align: justify; /* Justifica el texto */
+    font-size: 25px; /* Tamaño de fuente ligeramente más grande */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 100%; /* Evita que el contenido se expanda más allá del contenedor */
+    padding: 15px; /* Espaciado interno */
+  }
+  
+  /* Efecto hover para resaltar las cajas de propietarios y cabañas */
+  .caja-cabaña:hover, 
+  .caja-propietarios:hover {
+    transform: scale(1.03); /* Aumenta ligeramente el tamaño al pasar el mouse */
+    transition: 0.3s ease-in-out; /* Hace que la transición sea suave y fluida */
+  }
+
+@media (max-width: 992px) {
+  .content-box {
+    padding: 20px;
+    flex-direction: column;
+  }
+  .titulo-conocenos {
+    font-size: 36px;
+    margin-top: 0;
+  }
+  .descripcion-conocenos, .descripcion-2 {
+    font-size: 18px;
+    padding: 10px;
+  }
+  .caja-propietarios img,
+  .caja-cabaña img {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .conocenos-seccion {
+    padding: 40px 0;
+  }
+  .titulo-conocenos {
+    font-size: 28px;
+  }
+  .descripcion-conocenos, .descripcion-2 {
+    font-size: 16px;
+    padding: 8px;
+  }
+  .content-box {
+    padding: 10px;
+  }
+  .caja-propietarios img,
+  .caja-cabaña img {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .conocenos-seccion {
+    padding: 20px 0;
+  }
+  .titulo-conocenos {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  .descripcion-conocenos, .descripcion-2 {
+    font-size: 14px;
+    padding: 5px;
+  }
+  .caja-propietarios img,
+  .caja-cabaña img {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 992px) {
+  .caja-propietarios img,
+  .caja-cabaña img {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .caja-propietarios img,
+  .caja-cabaña img {
+    width: 95%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .caja-propietarios img,
+  .caja-cabaña img {
+    width: 98%;
+    max-width: 240px;
+  }
+}
