@@ -1,0 +1,160 @@
+/* ---------- Estilos del Navbar -------------- */
+.navbar {
+    position: fixed;
+    z-index: 1050;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, #163d13 0%, #1e521a 20%, #2a6825 50%, #1e521a 80%, #163d13 100%);
+}
+
+@media (min-width: 1200px) {
+    .navbar .container {
+        max-width: 90%;
+    }
+}
+
+@media (min-width: 1600px) {
+    .navbar .container {
+        max-width: 85%;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar-brand {
+        margin-left: 0px;
+    }
+
+    .navbar-nav {
+        margin-right: 0px;
+    }
+}
+
+.navbar .navbar-brand .navbar-logo {
+    max-height: 62px;
+}
+
+.navbar .navbar-brand .navbar-titulo {
+    max-height: 50px;
+}
+
+.navbar .nav-link {
+    font-size: 22px;
+    margin-left: 30px;
+    position: relative;
+    color: white;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: white !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    text-decoration: none !important;
+    opacity: 1 !important;
+}
+
+.navbar .nav-link.active {
+    color: white;
+    font-weight: 600;
+}
+
+.navbar .nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: 0%;
+    height: 2px;
+    background-color: white;
+    transition: all 0.6s ease;
+    transform-origin: center;
+}
+
+.navbar .nav-item:hover .nav-link::before {
+    width: 80%;
+}
+
+.navbar .navbar-toggler {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.navbar .toggle-btn {
+    cursor: pointer;
+    position: relative;
+    top: 5px;
+    z-index: 1100;
+}
+
+.navbar .toggle-btn .bar {
+    width: 25px;
+    height: 3px;
+    margin: 7px 0 7px auto;
+    transition: all 0.2s ease-in-out;
+    background-color: white;
+}
+
+.navbar .toggle-btn .bar:nth-child(2) {
+    width: 35px;
+}
+
+#toggle-menu {
+    display: none;
+}
+
+#toggle-menu:checked + label.toggle-btn .bar:nth-child(2) {
+    transform: translateX(50px);
+    opacity: 0;
+}
+
+#toggle-menu:checked + label.toggle-btn .bar:nth-child(1) {
+    transform: translateY(12px) rotate(45deg);
+}
+
+#toggle-menu:checked + label.toggle-btn .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ----------------- Media Query para pantallas pequeñas ------------------ */
+@media (max-width: 991.98px) { /*Breakpoint*/
+  /* Acercamos los links a la izquierda */
+    .navbar-collapse .nav-link {
+        margin-left: 5px;
+        padding-left: 0;
+        font-size: 19px;
+    }
+
+    .navbar-collapse .nav-item {
+        margin-left: 0;
+    }
+
+    .navbar-collapse {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Desactivamos el hover animado (línea blanca animada) */
+    .navbar-collapse .nav-item:hover .nav-link::before {
+        display: none;
+    }
+
+    /* Estilo alternativo de hover: subrayado simple */
+    .navbar-collapse .nav-link:hover {
+        text-decoration: underline !important;
+        background: none !important;
+        box-shadow: none !important;
+    }
+}
+
+.navbar-brand {
+    transition: transform 0.4s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.04);
+}

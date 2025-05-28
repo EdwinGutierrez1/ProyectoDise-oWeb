@@ -1,0 +1,38 @@
+    <nav class="navbar navbar-expand-lg" id="secccionavbar">
+    <div class="container">
+        <!-- El siguiente enlace es solo un ejemplo. 
+        En una versión final, debería dirigir al usuario a la página oficial donde puede reservar su estadía en el glamping. -->
+        <a class="navbar-brand" href="https://acortar.link/vYpBeb" target="_blank">
+        <img [src]="logoPath" alt="Logo" class="navbar-logo" /> 
+        <img src="Nombre.png" alt="Título" class="navbar-titulo" />
+        </a>
+
+        <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        >
+        <!-- Checkbox oculto solo para animación -->
+        <input type="checkbox" name="toggle-menu" id="toggle-menu" hidden />
+        <label for="toggle-menu" class="toggle-btn">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </label>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="#secccionavbar">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="#conocenos">Conócenos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#Galeria">Galería</a></li>
+            <li class="nav-item"><a class="nav-link" href="#Cotizar">Cotizar</a></li>
+            <li class="nav-item"><a class="nav-link" href="#Contacto">Contacto</a></li>
+        </ul>
+        </div>
+    </div>
+    </nav>

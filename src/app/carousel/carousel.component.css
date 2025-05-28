@@ -1,0 +1,162 @@
+/* ---------- Estilos del Carrusel ------------- */
+
+/* Contenedor de la sección del carrusel */
+.carousel-seccion {
+  margin-top: 80px;
+  padding: 1px; /* Se usa para evitar que los márgenes internos afecten el diseño */
+}
+
+/* Estilo del título del carrusel */
+.titulo {
+  text-align: center; /* Centra el texto */
+  font-size: 2rem; /* Tamaño de fuente grande*/
+  margin: 1rem;
+  padding: 10px;
+}
+
+/* ---------- Controles del Carrusel ------------- */
+
+/* Estilos de los iconos de navegación del carrusel */
+.carousel .carousel-control-prev-icon,
+.carousel .carousel-control-next-icon {
+  opacity: 1 !important; /* Asegura que sean completamente visibles */
+  width: 50px !important; /* Aumenta el tamaño para mejor visibilidad */
+  height: 50px !important;
+  filter: drop-shadow(
+    0px 0px 5px rgba(0, 0, 0, 0.5)
+  ) !important; /* Agrega sombra para resaltar */
+  background-size: 100% !important; /* Asegura que la imagen del ícono llene su área */
+}
+
+/* Ajustes para la navegación del carrusel específico */
+#carouselExampleAutoplaying .carousel-control-prev,
+#carouselExampleAutoplaying .carousel-control-next {
+  opacity: 1 !important; /* Hace los controles completamente visibles */
+  width: 10% !important; /* Amplía el área clickeable para facilitar la navegación */
+}
+
+/* ----- Fondos de Imágenes -----*/
+
+/* Se asignan imágenes de fondo a diferentes diapositivas del carrusel */
+.bg-img-1 {
+  background-image: url('/cabana1.jpeg');
+}
+
+.bg-img-2 {
+  background-image: url('/cabana2.jpg');
+}
+
+.bg-img-3 {
+  background-image: url('/pareja.jpg');
+}
+
+.bg-img-4 {
+  background-image: url('/desayuno.jpg');
+}
+
+/* ---------- Contenedor principal del Carrusel ------------- */
+
+.carousel-container {
+  width: 95%; /* Se mantiene un ancho proporcional */
+  max-width: 1600px; /* Define un límite de tamaño */
+  margin: 5vh auto 4vh; /* Centrado con márgenes proporcionales */
+  overflow: hidden; /*se usa para ocultar cualquier contenido que exceda los límites del contenedor. */
+  border-radius: 10px; /* Bordes redondeados */
+  transition: all 0.3s ease-in-out; /* Suaviza cambios de tamaño */
+}
+
+/* ---------- Imagenes del Carrusel ------------- */
+.carousel-image {
+  height: 80vh; /* Altura basada en el viewport */
+  background-repeat: no-repeat; /*Si la imagen es más pequeña que el contenedor, no se replicará para llenar el espacio vacío.*/
+  background-size: cover; /* la imagen de fondo para cubrir completamente el área del contenedor.*/
+  background-position: center; /*Centra la imagen dentro del contenedor.*/
+}
+
+.carousel-item {
+  position: relative;
+}
+
+/* ---------- Estilos del texto y botón ------------- */
+
+/* Posición del texto dentro del carrusel */
+.carousel-caption {
+  position: absolute; /*Por encima de otros elemenetos */
+  bottom: 10%; /* Ubicación en la parte inferior */
+  left: 10%; /* Separación desde la izquierda */
+  color: white; /* Color del texto */
+  padding: 2rem;
+  max-width: 80%; /* Evita que el texto ocupe demasiado espacio */
+}
+
+/* Estilos del botón dentro del carrusel */
+.carousel-caption .btn {
+  margin-top: 1rem;
+  margin-bottom: 20px;
+  padding: 0.5rem 1.5rem;
+  font-weight: bold;
+  border: 2px solid var(--color-tercero);
+  border-radius: 15px;
+  color: var(--color-tercero);
+  background-color: white;
+  transition: transform 0.3s ease; /*ease: Tipo de aceleración de la animación.*/
+}
+
+/* Efecto al pasar el cursor sobre el botón */
+.btn-primary:hover {
+  background-color: white !important;
+  border: 2px solid var(--color-tercero) !important;
+  color: var(--color-tercero) !important;
+  transform: scale(1.06); /* Aumenta ligeramente el tamaño */
+}
+
+/* Tamaño del título dentro del carrusel */
+.carousel-caption h2 {
+  font-size: 2.3rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); /* Agrega sombra para mejorar la legibilidad */
+}
+
+/*Ajustes Responsivos*/
+
+/* Para pantallas medianas (tablets) */
+@media (max-width: 992px) {
+  .carousel-container {
+    width: 95%;
+    margin: 4vh auto 3vh;
+    border-radius: 8px;
+  }
+
+  .carousel-image {
+    height: 70vh; /* Reduce la altura del carrusel */
+  }
+}
+
+/* Para pantallas pequeñas (teléfonos en posición horizontal) */
+@media (max-width: 768px) {
+  .carousel-container {
+    width: 95%;
+    margin: 3vh auto 2vh;
+    border-radius: 5px;
+  }
+
+  .carousel-image {
+    height: 60vh;
+  }
+}
+
+/* Para teléfonos en vista vertical */
+@media (max-width: 576px) {
+  .carousel-container {
+    width: 100%; /* Usa todo el ancho */
+    max-width: none;
+    margin: 0; /* Elimina márgenes */
+    border-radius: 0; /* Sin bordes redondeados */
+  }
+
+  .carousel-image {
+    height: calc(100vh - 56px); /* Usa toda la pantalla menos el navbar */
+  }
+}
+
+
