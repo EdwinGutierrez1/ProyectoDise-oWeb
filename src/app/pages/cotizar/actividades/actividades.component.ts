@@ -47,7 +47,7 @@ export class ActividadesComponent {
       imagen: '/spa-pareja.jpg',
       descripcion: 'Disfruta de una experiencia relajante y romántica en nuestro spa especializado para parejas. Un momento perfecto para conectar y relajarse juntos.',
       incluye: [
-        'Masaje relajante de 60 minutos para ambos',
+        'Masaje relajante para ambos',
         'Acceso a sauna y jacuzzi privado',
         'Aromaterapia personalizada',
         'Bebidas detox y aperitivos saludables',

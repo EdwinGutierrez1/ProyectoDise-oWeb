@@ -4,7 +4,6 @@
     margin: 0 auto;
     padding: 50px 20px;
     font-family: Arial, sans-serif;
-    border-top: 2px solid #c4c3c3;
     border-bottom: 2px solid #c4c3c3;
 }
 
@@ -96,7 +95,7 @@
 }
 
 .precio {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: #28a745;
     font-weight: bold;
     margin-bottom: 0;
@@ -104,11 +103,11 @@
 }
 
 .por-persona {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #28a745;
     margin-top: 0;
     padding-top: 0;
-    font-weight: normal;
+    font-weight: 600;
 }
 
 /* Modal Styles */
