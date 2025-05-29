@@ -93,49 +93,57 @@
     margin: 30px 0;
 }
 
-/* Cuadros de información - MISMO TAMAÑO Y CENTRADOS */
+/* Cuadros de información - CENTRADOS Y OPTIMIZADOS */
 .cuadro-info {
-    width: 350px;
+    width: 400px;
     height: 80px;
     border: 2px solid #ccc;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center; /* CENTRADO HORIZONTAL */
+    align-items: center; /* CENTRADO VERTICAL */
     padding: 15px 20px;
     background-color: white;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumenta el desenfoque y opacidad */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    gap: 20px; /* Espacio uniforme entre elementos */
 }   
 
 .cuadro-label {
     font-weight: bold;
-    font-size: 1.3rem;
-    text-align: left;
+    font-size: 1.4rem;
     color: #000;
-    margin: 0;
-    white-space: nowrap; /* <-- Esto evita que el texto se divida en varias líneas */
+    white-space: nowrap;
     display: flex;
-    align-items: center;  /* <-- Esto lo centra verticalmente */
-    height: 100%;          /* Opcional: asegura que tome toda la altura del contenedor */
-
+    align-items: center;
+    justify-content: center; /* CENTRADO DEL TEXTO */
+    text-align: center;
+    flex-shrink: 0;
+    min-width: 150px; /* Ancho mínimo consistente */
 }
-/* Contenedor del contador - AL LADO DEL TEXTO */
+
+/* Contenedor del contador - COMPLETAMENTE CENTRADO */
 .contador-box {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 15px;
+    justify-content: center;
+    gap: 12px;
     flex: 1;
+    max-width: 200px;
 }
 
-/* Contenedor del precio - AL LADO DEL TEXTO */
+/* Contenedor del precio - PERFECTAMENTE CENTRADO */
 .precio-box {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: bold;
     color: #333;
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     flex: 1;
+    white-space: nowrap;
 }
 
 /* Botones del contador */
@@ -154,6 +162,7 @@
     align-items: center;
     justify-content: center;
     user-select: none;
+    flex-shrink: 0;
 }
 
 .contador-btn:hover:not(:disabled) {
@@ -192,6 +201,10 @@
     text-align: center;
     padding: 8px 12px;
     background-color: transparent;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Estilos que ya no se usan pero mantenemos por compatibilidad */
@@ -273,17 +286,24 @@
     }
 
     .cuadro-info {
-        width: 300px;
+        width: 350px;
         height: 70px;
         padding: 12px 15px;
+        gap: 15px; /* Gap más pequeño en móvil */
     }
 
     .cuadro-label {
         font-size: 1.1rem;
+        min-width: 120px;
     }
 
     .contador-box {
         gap: 10px;
+        max-width: 150px;
+    }
+
+    .precio-box {
+        font-size: 1.4rem;
     }
 
     .contador-btn {
@@ -296,9 +316,5 @@
         font-size: 1.4rem;
         min-width: 35px;
         padding: 4px 8px;
-    }
-
-    .precio-box {
-        font-size: 1.4rem;
     }
 }
