@@ -294,7 +294,13 @@
 
     .cuadro-label {
         font-size: 1.1rem;
-        min-width: 120px;
+        min-width: 130px; /* CORREGIDO: Ancho uniforme para ambos textos */
+        text-align: left; /* CORREGIDO: Alineación consistente */
+        justify-content: flex-start; /* CORREGIDO: Justificación uniforme */
+    }
+
+    .cuadro-label-precio {
+        margin-left: 6px;;
     }
 
     .contador-box {
@@ -310,6 +316,10 @@
         width: 30px;
         height: 30px;
         font-size: 1.2rem;
+        /* CORREGIDO: Mejor centrado de iconos en móvil */
+        line-height: 1;
+        padding: 0;
+        border-width: 1px; /* Borde más delgado en móvil para mejor proporción */
     }
 
     .contador-display {
