@@ -1,0 +1,73 @@
+<!-- Reemplaza tu actual formulario-section con esto -->
+<div class="formulario-section">
+  <div class="formulario-container">
+    <h2 class="formulario-titulo">Cotiza tu experiencia</h2>
+    <p class="formulario-subtitulo">Complete sus datos para finalizar la reserva</p>
+
+    <form method="POST" id="cotizar-form">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <i class="fas fa-user"></i>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <i class="fas fa-envelope"></i>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <i class="fas fa-phone"></i>
+          <input type="tel" class="form-control" id="telefono" name="telefono" required>
+        </div>
+
+        <div class="form-group">
+          <label for="fecha">Fecha de llegada</label>
+          <i class="fas fa-calendar"></i>
+          <input type="date" class="form-control" id="fecha" name="fecha" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="comentarios">Comentarios</label>
+        <i class="fas fa-comment"></i>
+        <textarea class="form-control" id="comentarios" name="comentarios" rows="3"></textarea>
+      </div>
+
+      <div class="resumen-container">
+        <h4>Resumen de tu reserva:</h4>
+        <ul id="resumen-reserva">
+          <li></li>
+        </ul>
+        <h4 class="total-resumen">Total: $<span id="total-final">50</span></h4>
+      </div>
+
+      <div class="botones-container">
+        <button class="btn-volver" id="volver-btn">
+          <i class="fas fa-arrow-left"></i> Volver a los servicios
+        </button>
+        <button type="submit" class="btn-cotizar">
+          <i class="fas fa-paper-plane"></i> Cotizar
+        </button>
+      </div>
+    </form>
+
+    <div class="caracteristicas">
+      <div class="caracteristica">
+        <i class="fas fa-check-circle"></i>
+        <span>Confirmación inmediata</span>
+      </div>
+      <div class="caracteristica">
+        <i class="fas fa-lock"></i>
+        <span>Pago seguro</span>
+      </div>
+      <div class="caracteristica">
+        <i class="fas fa-heart"></i>
+        <span>Satisfacción garantizada</span>
+      </div>
+    </div>
+  </div>
+</div>
