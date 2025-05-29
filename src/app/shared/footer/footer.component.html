@@ -1,0 +1,114 @@
+<!-- Creacion de la seccion de contactos/footer -->
+<section id="Contacto">
+    <!-- Creacion de un contenedor para la informacion del footer-->
+    <div class="container-fluid">
+        <!-- Creacion de un footer con un padding vertical de 5 -->
+        <footer class="pt-5 pb-0">
+            <!-- Creacion de la fila para los elementos-->
+            <div class="row">
+                <!-- Columna izquierda: Logo, nombre y redes sociales -->
+                <div class="col-md-4">
+                    <!-- Título para esta sección -->
+                    <h5>Nosotros</h5>
+                    <!-- Div con el logo y el nombre de la empresa -->
+                    <div class="logoYNombre">
+                        <!-- Imagen del logo -->
+                        <img src="logoDia.png" alt="Logo de la empresa">
+                        <!-- Imagen del nombre -->
+                        <img src="Nombre.png" alt="Nombre de la empresa">
+                        <!-- Cierre del div -->
+                    </div>
+
+                    <!-- Creacion de div para los iconos de las redes sociales -->
+                    <div class="redes-sociales">
+                        <!-- Parrafo con el texto de seguirnos -->
+                        <p>Síguenos</p>
+                        <!-- Iconos de las redes sociales -->
+                        <div class="social-icons">
+                            <!-- Icono de Facebook -->
+                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <!-- Icono de Instagram -->
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <!-- Icono de Twitter -->
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <!-- Icono de WhatsApp -->
+                            <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                            <!-- Cierre del div de los iconos -->
+                        </div>
+                        <!-- Cierre del div de las redes sociales -->
+                    </div>
+                    <!-- Cierre de la columna izquierda -->
+                </div>
+
+                <!-- Columna central: Información de contacto -->
+                <!-- Le damos el tamaño a la columna, ademas de una clase de Bootstrap para centrar el texto -->
+                <div class="col-md-4 text-center">
+                    <!-- Titulo para esta seccion -->
+                    <h5>Contáctanos</h5>
+                    <!-- Lista con la informacion de contacto, estilo de flex en columna, ademasd e una clae-->
+                    <ul class="flex-column contact-info">
+                        <!-- Elementos de la lista, margen de fondo de 2 -->
+                        <li class="nav-item mb-2">
+                            <!-- Icono de ubicacion -->
+                            <i class="fas fa-map-marker-alt"></i>
+                            <!-- Texto con la direccion -->
+                            <span class="direccion-contactanos">Dirección: Km 3 vía Cúcuta</span>
+                        </li>
+                        <!-- Elementos de la lista, margen de fondo de 2-->
+                        <li class="nav-item mb-2">
+                            <!-- Icono de telefono -->
+                            <i class="fas fa-phone"></i>
+                            <!-- Texto con el telefono -->
+                            <span class="telefono-contactanos">Teléfono: 300 987 6543</span>
+                        </li>
+                        <!-- Elementos de la lista, margen de fondo de 2 -->
+                        <li class="nav-item mb-2">
+                            <!-- Icono de correo electronico -->
+                            <i class="fas fa-envelope"></i>
+                            <!-- Texto con el correo electronico -->
+                            <span class="email-contactanos">Email: MontañaEncantada&#64;gmail.com</span>
+                        </li>
+                        <!-- Elementos de la lista, margen de fondo de 2 -->
+                        <li class="nav-item mb-2">
+                            <!-- Icono de reloj -->
+                            <i class="fas fa-clock"></i>
+                            <!-- Texto con el horario -->
+                            <span class="horario-contactanos">Horario: Lunes a Domingo 8am - 6pm</span>
+                        </li>
+                        <!-- Cierre de la lista -->
+                    </ul>
+                    <!-- Cierre de la columna central -->
+                </div>
+
+                <!-- Columna derecha: Mapa -->
+                <!-- Le damos el tamaño a la columna -->
+                <div class="col-md-4">
+                    <!-- Titulo para esta seccion -->
+                    <h5>Nuestra Ubicación</h5>
+                    <!-- Contenedor del mapa -->
+                    <div class="map-container">
+                        <!-- Mapa de Google Maps -->
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53199.945795559695!2d-73.132978!3d7.11838125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e68157af751c0ed%3A0x75a0e4551148c36c!2sBucaramanga%2C%20Santander!5e1!3m2!1ses-419!2sco!4v1742333859578!5m2!1ses-419!2sco"
+                            width="80%" height="230" style="border:0; border-radius: 10px;" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <!-- Cierre del contenedor del mapa -->
+                    </div>
+                    <!-- Cierre de la columna derecha -->
+                </div>
+                <!-- Cierre de la fila -->
+            </div>
+
+            <!-- Div con la informacion de derechos de autor -->
+            <!-- d-flex: para darle un display flex, le damos estilo de columna, y justifica el contenido con espacio entre ellos
+          da un padding vertical de 4 y un margen vetical de 4 y por ultimo un borde superior -->
+            <div class="d-flex flex-column flex-sm-row justify-content-between pt-4 mt-4 mb-0 pb-0 border-top">
+                <!-- Parrafo con la informacion de derechos de autor -->
+                <p>&copy; 2024 Montaña Encantada. Todos los derechos reservados.</p>
+            </div>
+            <!-- Cierre del footer -->
+        </footer>
+        <!-- Cierre del contenedor -->
+    </div>
+    <!-- Cierre de la seccion de contactos -->
+</section>
