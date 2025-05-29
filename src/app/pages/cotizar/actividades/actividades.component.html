@@ -1,0 +1,132 @@
+<!-- actividades.component.html -->
+<div class="actividades-container">
+    <h1 class="titulo">¡Selecciona las actividades!</h1>
+    
+    <div class="actividades-grid">
+        <!-- Spa en pareja -->
+        <div 
+            class="actividad-card" 
+            [class.selected]="isActividadSelected(1)"
+            (click)="openModal(1)">
+            <div class="image-container">
+                <img src="/fotospa.jpg" alt="Spa en pareja" class="actividad-image">
+            </div>
+            <div class="actividad-info">
+                <h3>Spa en pareja</h3>
+                <p class="precio">$150.000</p>
+            </div>
+        </div>
+
+        <!-- Picnic gourmet -->
+        <div 
+            class="actividad-card" 
+            [class.selected]="isActividadSelected(2)"
+            (click)="openModal(2)">
+            <div class="image-container">
+                <img src="/fotopicnic.png" alt="Picnic gourmet" class="actividad-image">
+            </div>
+            <div class="actividad-info">
+                <h3>Picnic gourmet en la naturaleza</h3>
+                <p class="precio">$100.000</p>
+            </div>
+        </div>
+
+        <!-- Kayak -->
+        <div 
+            class="actividad-card" 
+            [class.selected]="isActividadSelected(3)"
+            (click)="openModal(3)">
+            <div class="image-container">
+                <img src="fotokayak.jpg" alt="Kayak" class="actividad-image">
+            </div>
+            <div class="actividad-info">
+                <h3>Kayak en río</h3>
+                <p class="precio">$50.000 por persona</p>
+            </div>
+        </div>
+
+        <!-- Bici de montaña -->
+        <div 
+            class="actividad-card" 
+            [class.selected]="isActividadSelected(4)"
+            (click)="openModal(4)">
+            <div class="image-container">
+                <img src="fotobici.jpg" alt="Bici de montaña" class="actividad-image">
+            </div>
+            <div class="actividad-info">
+                <h3>Ruta en bici de montaña</h3>
+                <p class="precio">$45.000 por persona</p>
+            </div>
+        </div>
+
+        <!-- Senderismo -->
+        <div 
+            class="actividad-card" 
+            [class.selected]="isActividadSelected(5)"
+            (click)="openModal(5)">
+            <div class="image-container">
+                <img src="/fotocascada.jpg" alt="Senderismo" class="actividad-image">
+            </div>
+            <div class="actividad-info">
+                <h3>Senderismo a cascada natural escondida</h3>
+                <p class="precio">$60.000 por persona</p>
+            </div>
+        </div>
+
+        <!-- Escalada -->
+        <div 
+            class="actividad-card" 
+            [class.selected]="isActividadSelected(6)"
+            (click)="openModal(6)">
+            <div class="image-container">
+                <img src="fotoescalada.jpg" alt="Escalada en roca" class="actividad-image">
+            </div>
+            <div class="actividad-info">
+                <h3>Escalada en roca</h3>
+                <p class="precio">$70.000</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>{{ selectedActivityData?.nombre }}</h2>
+            <button class="close-btn" (click)="closeModal()">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="modal-image-container">
+                <img [src]="selectedActivityData?.imagen" [alt]="selectedActivityData?.nombre" class="modal-image">
+            </div>
+            
+            <div class="modal-info">
+                <p class="modal-precio">{{ selectedActivityData?.precio }}</p>
+                <div class="modal-descripcion">
+                    <h3>Descripción:</h3>
+                    <p>{{ selectedActivityData?.descripcion }}</p>
+                </div>
+                
+                <div class="modal-incluye">
+                    <h3>Incluye:</h3>
+                    <ul>
+                        <li *ngFor="let item of selectedActivityData?.incluye">{{ item }}</li>
+                    </ul>
+                </div>
+                
+                <div class="modal-duracion">
+                    <h3>Duración:</h3>
+                    <p>{{ selectedActivityData?.duracion }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="elegir-btn" (click)="elegirActividad()">
+                {{ isActividadSelected(selectedActivityId!) ? 'Quitar' : 'Elegir' }}
+            </button>
+        </div>
+    </div>
+</div>
