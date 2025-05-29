@@ -25,6 +25,19 @@ export class ActividadesComponent {
   selectedActivityId: number | null = null;
   selectedActivityData: Actividad | null = null;
 
+  // IDs de actividades que son "por persona"
+  private actividadesPorPersona: number[] = [3, 4, 5, 6]; // Kayak, Bici, Senderismo, Escalada
+
+  // Iconos para cada actividad
+  private activityIcons: { [key: number]: string } = {
+    1: '🧘‍♀️', // Spa en pareja
+    2: '🍎',   // Picnic gourmet
+    3: '🛶',   // Kayak
+    4: '🚵‍♂️', // Bici de montaña
+    5: '🥾',   // Senderismo
+    6: '⛰️ '    // Escalada en roca
+  };
+
   // Datos de las actividades
   private actividades: Actividad[] = [
     {
@@ -40,7 +53,7 @@ export class ActividadesComponent {
         'Bebidas detox y aperitivos saludables',
         'Toallas y batas de spa'
       ],
-      duracion: '2.5 horas'
+      duracion: '2 horas'
     },
     {
       id: 2,
@@ -61,7 +74,7 @@ export class ActividadesComponent {
     {
       id: 3,
       nombre: 'Kayak en lago o río',
-      precio: '$50.000 por persona',
+      precio: '$50.000',
       imagen: '/kayak.jpg',
       descripcion: 'Aventura acuática perfecta para explorar los hermosos paisajes naturales desde una perspectiva única. Ideal para principiantes y expertos.',
       incluye: [
@@ -77,7 +90,7 @@ export class ActividadesComponent {
     {
       id: 4,
       nombre: 'Ruta en bici de montaña',
-      precio: '$45.000 por persona',
+      precio: '$45.000',
       imagen: '/bici-montana.jpg',
       descripcion: 'Recorre senderos naturales y disfruta de paisajes espectaculares en esta emocionante aventura sobre dos ruedas por terrenos montañosos.',
       incluye: [
@@ -93,7 +106,7 @@ export class ActividadesComponent {
     {
       id: 5,
       nombre: 'Senderismo a cascada natural escondida',
-      precio: '$60.000 por persona',
+      precio: '$60.000',
       imagen: '/senderismo.jpg',
       descripcion: 'Descubre una cascada secreta a través de senderos naturales. Una caminata moderada que te llevará a uno de los lugares más hermosos de la región.',
       incluye: [
@@ -120,9 +133,18 @@ export class ActividadesComponent {
         'Clase básica de técnicas',
         'Seguro de actividad'
       ],
-      duracion: '3.5 horas'
+      duracion: '3 horas'
     }
   ];
+
+  /**
+   * Verifica si una actividad es "por persona"
+   * @param actividadId - ID de la actividad
+   * @returns true si la actividad es por persona
+   */
+  isPorPersona(actividadId: number): boolean {
+    return this.actividadesPorPersona.includes(actividadId);
+  }
 
   /**
    * Abre el modal con la información de la actividad seleccionada
@@ -186,6 +208,15 @@ export class ActividadesComponent {
     return this.actividades.filter(actividad => 
       this.selectedActividades.includes(actividad.id)
     );
+  }
+
+  /**
+   * Obtiene el icono correspondiente a una actividad
+   * @param activityId - ID de la actividad
+   * @returns Emoji del icono o string vacío si no existe
+   */
+  getActivityIcon(activityId: number): string {
+    return this.activityIcons[activityId] || '';
   }
 
   /**

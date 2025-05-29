@@ -10,7 +10,7 @@
 
 .titulo {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 50px;
@@ -50,7 +50,7 @@
 
 .image-container {
     width: 100%;
-    height: 250px;
+    height: 300px;
     margin-bottom: 10px;
     border-radius: 8px;
     overflow: hidden;
@@ -69,7 +69,7 @@
 }
 
 .actividad-info h3 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: #1f1f1f;
     margin: 0 0 8px 0;
@@ -77,13 +77,38 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: 1.3;
+    hyphens: auto;
+    word-wrap: break-word;
+}
+
+/* Títulos largos más pequeños */
+.actividad-info h3[data-long="true"],
+.actividad-info h3.long-title {
+    font-size: 1.05rem;
+    line-height: 1.2;
+}
+
+.precio-container {
+    text-align: center;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .precio {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #28a745;
     font-weight: bold;
-    margin: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.por-persona {
+    font-size: 0.9rem;
+    color: #28a745;
+    margin-top: 0;
+    padding-top: 0;
+    font-weight: normal;
 }
 
 /* Modal Styles */
@@ -118,11 +143,22 @@
     border-bottom: 2px solid #f0f0f0;
 }
 
-.modal-header h2 {
-    font-size: 1.8rem;
+/* Título del modal alineado a la izquierda */
+.modal-title {
+    font-size: 1.6rem;
     font-weight: bold;
     color: #333;
     margin: 0;
+    text-align: left;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.activity-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
 }
 
 .close-btn {
@@ -138,6 +174,7 @@
     justify-content: center;
     border-radius: 50%;
     transition: all 0.3s ease;
+    flex-shrink: 0;
 }
 
 .close-btn:hover {
@@ -158,7 +195,7 @@
 
 .modal-image {
     width: 100%;
-    height: 250px;
+    height: 280px;
     object-fit: cover;
     border-radius: 10px;
 }
@@ -167,23 +204,46 @@
     flex: 1;
 }
 
+.modal-precio-container {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 .modal-precio {
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: bold;
     color: #28a745;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.modal-por-persona {
+    font-size: 1rem;
+    color: #28a745;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-weight: normal;
+}
+
+.modal-descripcion {
     margin-bottom: 20px;
 }
 
-.modal-descripcion,
-.modal-incluye,
 .modal-duracion {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
+
+.modal-incluye {
+    margin-bottom: 30px;
+}
+
 
 .modal-descripcion h3,
 .modal-incluye h3,
 .modal-duracion h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 8px;
@@ -193,11 +253,24 @@
 .modal-duracion p {
     color: #666;
     line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+/* Estilos para duración en línea */
+.duracion-inline {
+    display: inline;
+    margin-bottom: 0 !important;
+}
+
+.duracion-valor {
+    font-weight: normal;
+    color: #666;
 }
 
 .modal-incluye ul {
     color: #666;
     padding-left: 20px;
+    font-size: 0.95rem;
 }
 
 .modal-incluye li {
@@ -205,8 +278,48 @@
     line-height: 1.4;
 }
 
+/* Estilos compactos para el seguro de accidentes con más espacio superior */
+.modal-seguro {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 35px;
+    margin-bottom: 0;
+    padding: 6px 10px;
+    background-color: #e3f2fd;
+    border-radius: 4px;
+    border: 1px solid #bbdefb;
+}
+
+.shield-icon {
+    width: 14px;
+    height: 14px;
+    color: #1976d2;
+    flex-shrink: 0;
+}
+
+.seguro-text {
+    font-size: 0.8rem;
+    color: #1565c0;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.seguro-link {
+    color: #1976d2;
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.seguro-link:hover {
+    color: #0d47a1;
+    text-decoration: none;
+}
+
 .modal-footer {
-    padding: 20px 30px;
+    padding: 30px 30px 40px 30px;
     border-top: 2px solid #f0f0f0;
     display: flex;
     justify-content: center;
@@ -217,7 +330,7 @@
     color: white;
     border: none;
     padding: 12px 40px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
@@ -234,6 +347,15 @@
     transform: scale(0.95);
 }
 
+.quitar-btn {
+    background-color: #dc3545 !important;
+}
+
+.quitar-btn:hover {
+    background-color: #c82333 !important;
+    transform: scale(1.05);
+}
+
 /* Responsive design */
 @media (max-width: 1200px) {
     .actividades-grid {
@@ -248,7 +370,7 @@
     }
 
     .titulo {
-        font-size: 2rem;
+        font-size: 1.8rem;
         margin-top: 20px;
         margin-bottom: 30px;
     }
@@ -265,7 +387,7 @@
     }
 
     .image-container {
-        height: 200px;
+        height: 240px;
     }
 
     .actividad-info h3 {
@@ -273,8 +395,17 @@
         min-height: 50px;
     }
 
+    .actividad-info h3[data-long="true"],
+    .actividad-info h3.long-title {
+        font-size: 1rem;
+    }
+
     .precio {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
+    }
+
+    .por-persona {
+        font-size: 0.8rem;
     }
 
     /* Modal responsive */
@@ -293,20 +424,50 @@
         max-width: 100%;
     }
 
+    .modal-image {
+        height: 220px;
+    }
+
     .modal-header {
         padding: 15px 20px;
     }
 
-    .modal-header h2 {
-        font-size: 1.5rem;
+    .modal-title {
+        font-size: 1.4rem;
+        gap: 8px;
+    }
+
+    .activity-icon {
+        font-size: 1.6rem;
     }
 
     .modal-footer {
-        padding: 15px 20px;
+        padding: 20px 20px 30px 20px;
     }
 
     .elegir-btn {
         padding: 10px 30px;
-        font-size: 1.1rem;
+        font-size: 1rem;
+    }
+
+    .modal-precio {
+        font-size: 1.8rem !important;
+    }
+
+    .modal-por-persona {
+        font-size: 0.9rem !important;
+    }
+
+    .seguro-text {
+        font-size: 0.75rem;
+    }
+
+    .shield-icon {
+        width: 12px;
+        height: 12px;
+    }
+
+    .modal-seguro {
+        margin-top: 25px;
     }
 }

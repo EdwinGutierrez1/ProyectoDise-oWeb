@@ -13,7 +13,9 @@
             </div>
             <div class="actividad-info">
                 <h3>Spa en pareja</h3>
-                <p class="precio">$150.000</p>
+                <div class="precio-container">
+                    <p class="precio">$150.000</p>
+                </div>
             </div>
         </div>
 
@@ -27,7 +29,9 @@
             </div>
             <div class="actividad-info">
                 <h3>Picnic gourmet en la naturaleza</h3>
-                <p class="precio">$100.000</p>
+                <div class="precio-container">
+                    <p class="precio">$100.000</p>
+                </div>
             </div>
         </div>
 
@@ -41,7 +45,10 @@
             </div>
             <div class="actividad-info">
                 <h3>Kayak en río</h3>
-                <p class="precio">$50.000 por persona</p>
+                <div class="precio-container">
+                    <p class="precio">$50.000</p>
+                    <p class="por-persona">por persona</p>
+                </div>
             </div>
         </div>
 
@@ -55,7 +62,10 @@
             </div>
             <div class="actividad-info">
                 <h3>Ruta en bici de montaña</h3>
-                <p class="precio">$45.000 por persona</p>
+                <div class="precio-container">
+                    <p class="precio">$45.000</p>
+                    <p class="por-persona">por persona</p>
+                </div>
             </div>
         </div>
 
@@ -68,8 +78,11 @@
                 <img src="/fotocascada.jpg" alt="Senderismo" class="actividad-image">
             </div>
             <div class="actividad-info">
-                <h3>Senderismo a cascada natural escondida</h3>
-                <p class="precio">$60.000 por persona</p>
+                <h3>Senderismo a cascada natural</h3>
+                <div class="precio-container">
+                    <p class="precio">$60.000</p>
+                    <p class="por-persona">por persona</p>
+                </div>
             </div>
         </div>
 
@@ -83,7 +96,10 @@
             </div>
             <div class="actividad-info">
                 <h3>Escalada en roca</h3>
-                <p class="precio">$70.000</p>
+                <div class="precio-container">
+                    <p class="precio">$70.000</p>
+                    <p class="por-persona">por persona</p>
+                </div>
             </div>
         </div>
     </div>
@@ -93,7 +109,10 @@
 <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
         <div class="modal-header">
-            <h2>{{ selectedActivityData?.nombre }}</h2>
+            <h2 class="modal-title">
+                <span class="activity-icon">{{ getActivityIcon(selectedActivityId!) }}</span>
+                {{ selectedActivityData?.nombre }}
+            </h2>
             <button class="close-btn" (click)="closeModal()">&times;</button>
         </div>
         
@@ -103,28 +122,42 @@
             </div>
             
             <div class="modal-info">
-                <p class="modal-precio">{{ selectedActivityData?.precio }}</p>
                 <div class="modal-descripcion">
-                    <h3>Descripción:</h3>
+                    <h3>Descripción</h3>
                     <p>{{ selectedActivityData?.descripcion }}</p>
                 </div>
                 
                 <div class="modal-incluye">
-                    <h3>Incluye:</h3>
+                    <h3>Incluye</h3>
                     <ul>
                         <li *ngFor="let item of selectedActivityData?.incluye">{{ item }}</li>
                     </ul>
                 </div>
                 
                 <div class="modal-duracion">
-                    <h3>Duración:</h3>
-                    <p>{{ selectedActivityData?.duracion }}</p>
+                    <h3 class="duracion-inline">Duración: <span class="duracion-valor">{{ selectedActivityData?.duracion }}</span></h3>
+                </div>
+
+                <!-- Seguro de accidentes (solo para actividades que no sean spa ni picnic) -->
+                <div class="modal-seguro" *ngIf="selectedActivityId !== 1 && selectedActivityId !== 2">
+                    <svg class="shield-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.1 15.1,18 14,18H10C8.9,18 8,17.1 8,16V13C8,12.4 8.4,11.5 9,11.5V10C9,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.2,9.2 10.2,10V11.5H13.8V10C13.8,9.2 12.8,8.2 12,8.2Z"/>
+                    </svg>
+                    <span class="seguro-text">Cubierto por <a href="https://www.sura.co/seguros/personas/vida/accidentes-personales" target="_blank" class="seguro-link">seguro de accidentes</a></span>
+                </div>
+                
+                <div class="modal-precio-container">
+                    <p class="modal-precio">{{ selectedActivityData?.precio }}</p>
+                    <p class="modal-por-persona" *ngIf="isPorPersona(selectedActivityId!)">por persona</p>
                 </div>
             </div>
         </div>
         
         <div class="modal-footer">
-            <button class="elegir-btn" (click)="elegirActividad()">
+            <button 
+                class="elegir-btn" 
+                [class.quitar-btn]="isActividadSelected(selectedActivityId!)"
+                (click)="elegirActividad()">
                 {{ isActividadSelected(selectedActivityId!) ? 'Quitar' : 'Elegir' }}
             </button>
         </div>
