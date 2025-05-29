@@ -31,12 +31,37 @@
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
-.titulo {  
-    font-size: 2.2rem;
+    :host {
+        padding: 1rem 2rem; /* Reducir padding superior de 2rem a 1rem */
+    }
+
+    .titulo {  
+        margin-top: 0; 
+        padding-top: 0;
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem; /* Opcional: también puedes reducir el margen inferior */
+    }
+
+    .descripcion-pagina {
+        font-size: 1rem;
+        max-width: 95%;
+        margin-bottom: 2.5rem; /* Opcional: reducir espacio después del párrafo */
+    }
 }
 
-.descripcion-pagina {
-    font-size: 1rem;
-    max-width: 95%;
-}
+/* Para pantallas aún más pequeñas (móviles en orientación vertical) */
+@media (max-width: 480px) {
+    :host {
+        padding: 0.5rem 1.5rem; /* Aún menos padding en pantallas muy pequeñas */
+    }
+
+    .titulo {
+        font-size: 2rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .descripcion-pagina {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
 }

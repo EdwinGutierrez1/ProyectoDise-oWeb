@@ -20,7 +20,7 @@
 .cabanas-grid {
     display: flex;
     justify-content: space-between;
-    gap: 40px; /* Aumentado de 20px a 40px para mayor separación */
+    gap: 40px;
     margin-bottom: 30px;
 }
 
@@ -28,7 +28,7 @@
     flex: 1.2;
     border: 2px solid #ccc;
     border-radius: 10px;
-    padding: 25px 35px; /* Volviendo a los valores originales */
+    padding: 25px 35px;
     cursor: pointer;
     transition: all 0.3s ease;
     background-color: white;
@@ -48,7 +48,7 @@
 
 .image-container {
     width: 100%;
-    height: 400px; /* Volviendo al valor original */
+    height: 400px;
     margin-bottom: 10px;
     border-radius: 8px;
     overflow: hidden;
@@ -63,7 +63,7 @@
 
 .cabana-info {
     text-align: center;
-    margin-top: 20px; /* Volviendo al valor original */
+    margin-top: 20px;
 }
 
 .cabana-info h3 {
@@ -83,9 +83,108 @@
     gap: 5px;
 }
 
+/* Estilos para el contador de personas - ESPACIO REDUCIDO */
+.personas-container {
+    text-align: center;
+    margin: 20px 0 15px 0; /* Reducido de 30px 0 a 20px 0 15px 0 */
+    padding: 20px; /* Reducido de 25px a 20px */
+    border-radius: 15px;
+}
+
+.contador-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.contador-label {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.contador-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 2px solid #babdc0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+.contador-btn {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #28a745;
+    background-color: #28a745;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.contador-btn:hover:not(:disabled) {
+    background-color: #218838;
+    border-color: #218838;
+    transform: scale(1.05);
+}
+
+.contador-btn:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.contador-btn:disabled {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+}
+
+.contador-btn-minus {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.contador-btn-minus:hover:not(:disabled) {
+    background-color: #c82333;
+    border-color: #c82333;
+}
+
+.contador-display {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #333;
+    min-width: 60px;
+    text-align: center;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.range-info {
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* PRECIO CON MENOS ESPACIO ARRIBA */
 .precio-container {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px; /* Reducido de 20px a 10px para menos espacio */
+    margin-bottom: 15px;
 }
 
 .precio {
@@ -97,7 +196,8 @@
     border-radius: 10px;
     display: inline-block;
     border: 2px solid #caccce;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra mejorada pero más sutil */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
 }
 
 /* Responsive design */
@@ -115,6 +215,36 @@
     .precio {
         font-size: 1.3rem;
         padding: 12px 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12); /* Sombra ajustada para móvil */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    }
+
+    .personas-container {
+        margin: 15px 0 10px 0; /* Ajustado para móvil también */
+        padding: 15px; /* Reducido para móvil */
+    }
+
+    .contador-label {
+        font-size: 1.3rem;
+    }
+
+    .contador-container {
+        gap: 15px;
+        padding: 8px 15px;
+    }
+
+    .contador-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.6rem;
+    }
+
+    .contador-display {
+        font-size: 2rem;
+        min-width: 50px;
+        padding: 8px 12px;
+    }
+
+    .precio-container {
+        margin-top: 8px; /* Aún menos espacio en móvil */
     }
 }

@@ -58,7 +58,11 @@
     text-align: center; /* Centra el texto dentro de su área */
     width: 90%; /* Limita el ancho del texto al 90% del overlay */
   }
-  
+
+  .text-center{
+    font-size: 50px;
+  }
+
   /* Estilos responsivos para galerías en pantallas grandes */
   @media (min-width: 768px) {
     .row.gallery {

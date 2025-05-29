@@ -5,7 +5,47 @@
   <title>Glamping Montaña Encantada</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="Logo.png">
+  <!-- Favicon inicial -->
+  <link id="favicon" rel="icon" type="image/png" href="iconoPaginaDia.png">
+  
+  <script>
+    // Función para actualizar el favicon según la hora del día
+    function updateFavicon() {
+      const currentHour = new Date().getHours();
+      const isDayTime = currentHour >= 6 && currentHour < 18;
+      
+      // Remover favicon existente para forzar recarga
+      const existingFavicon = document.getElementById('favicon');
+      if (existingFavicon) {
+        existingFavicon.remove();
+      }
+      
+      // Crear nuevo favicon
+      const newFavicon = document.createElement('link');
+      newFavicon.id = 'favicon';
+      newFavicon.rel = 'icon';
+      newFavicon.type = 'image/png';
+      
+      // Asignar ruta según la hora del día (con timestamp para evitar caché)
+      const timestamp = Date.now();
+      if (isDayTime) {
+        newFavicon.href = `iconoPaginaDia.png?v=${timestamp}`;
+      } else {
+        newFavicon.href = `iconoPaginaNoche.png?v=${timestamp}`;
+      }
+      
+      // Agregar al head
+      document.head.appendChild(newFavicon);
+    }
+    
+    // Ejecutar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      updateFavicon();
+      
+      // Actualizar cada minuto para detectar cambios de hora
+      setInterval(updateFavicon, 60000);
+    });
+  </script>
 </head>
 <body>
   <app-root></app-root>
