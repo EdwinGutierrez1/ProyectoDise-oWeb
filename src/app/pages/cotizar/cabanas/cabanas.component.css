@@ -2,7 +2,7 @@
 .cabanas-container {
     max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 50px 20px;
     font-family: Arial, sans-serif;
     border-top: 2px solid #c4c3c3;
     border-bottom: 2px solid #c4c3c3;
@@ -268,6 +268,12 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
+
+    .cabanas-container {
+        padding: 30px 20px;
+    }
+    
+
     .cabanas-grid {
         flex-direction: column;
         gap: 15px;
