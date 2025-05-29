@@ -46,32 +46,28 @@
         </div>
     </div>
 
-    <!-- Contador para cantidad de personas -->
-    <div class="personas-container" *ngIf="selectedCabana">
-        <div class="contador-group">
-            <label class="contador-label">Número de personas</label>
-            <div class="contador-container">
+    <!-- Contador y Precio en la misma línea -->
+    <div class="contador-precio-container" *ngIf="selectedCabana">
+        <!-- Cuadro 1: Número de personas -->
+        <div class="cuadro-info">
+            <div class="cuadro-label">No. de personas</div>
+            <div class="contador-box">
                 <button 
-                    class="contador-btn contador-btn-minus" 
-                    (click)="decrementarPersonas()"
-                    [disabled]="!canDecrement() || isContadorFijo()">
-                    -
-                </button>
-                <div class="contador-display">
-                    {{ cantidadPersonas }}
-                </div>
+                class="contador-btn contador-btn-minus" 
+                (click)="decrementarPersonas()"
+                [disabled]="!canDecrement() || isContadorFijo()">-</button>
+                <div class="contador-display">{{ cantidadPersonas }}</div>
                 <button 
-                    class="contador-btn contador-btn-plus" 
-                    (click)="incrementarPersonas()"
-                    [disabled]="!canIncrement() || isContadorFijo()">
-                    +
-                </button>
+                class="contador-btn contador-btn-plus" 
+                (click)="incrementarPersonas()"
+                [disabled]="!canIncrement() || isContadorFijo()">+</button>
+            </div>
+            </div>
+        
+            <!-- Cuadro 2: Valor por noche -->
+            <div class="cuadro-info">
+            <div class="cuadro-label">Valor por noche: </div>
+            <div class="precio-box">${{ getPrecio() | number:'1.0-0' }}</div>
             </div>
         </div>
-    </div>
-
-    <!-- Precio -->
-    <div class="precio-container" *ngIf="selectedCabana">
-        <p class="precio">Valor: ${{ getPrecio() | number:'1.0-0' }} por noche</p>
-    </div>
 </div>

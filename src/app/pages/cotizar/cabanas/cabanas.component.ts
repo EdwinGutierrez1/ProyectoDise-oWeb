@@ -13,16 +13,16 @@ export class CabanasComponent {
   selectedCabana: number | null = null;
   cantidadPersonas: number = 0;
 
-  // Precios por tipo de cabaña
-  private precios = {
-    1: 150000, // Cabaña #1 - 2 parejas (4 personas fijas)
-    2: 300000, // Cabaña #2 - 3-6 personas
-    3: 500000  // Cabaña #3 - 6-10 personas
+  // Precios base por tipo de cabaña
+  private preciosBase = {
+    1: 150000, // Cabaña #1 - 2 personas (1 pareja)
+    2: 300000, // Cabaña #2 - 3-4 personas (precio base)
+    3: 500000  // Cabaña #3 - 6-8 personas (precio base)
   };
 
   // Rangos de personas por cabaña
   private rangosPersonas = {
-    1: { min: 2, max: 2 }, // Cabaña #1: exactamente 4 personas (2 parejas)
+    1: { min: 2, max: 2 }, // Cabaña #1: exactamente 2 personas (1 pareja)
     2: { min: 3, max: 6 }, // Cabaña #2: 3-6 personas
     3: { min: 6, max: 10 } // Cabaña #3: 6-10 personas
   };
@@ -60,14 +60,43 @@ export class CabanasComponent {
   }
 
   /**
-   * Obtiene el precio de la cabaña seleccionada
-   * @returns Precio de la cabaña seleccionada
+   * Obtiene el precio de la cabaña seleccionada con lógica variable
+   * @returns Precio de la cabaña seleccionada según cantidad de personas
    */
   getPrecio(): number {
-    if (this.selectedCabana && this.precios[this.selectedCabana as keyof typeof this.precios]) {
-      return this.precios[this.selectedCabana as keyof typeof this.precios];
+    if (!this.selectedCabana || !this.preciosBase[this.selectedCabana as keyof typeof this.preciosBase]) {
+      return 0;
     }
-    return 0;
+
+    const precioBase = this.preciosBase[this.selectedCabana as keyof typeof this.preciosBase];
+
+    // Lógica de precios variables según cantidad de personas
+    switch (this.selectedCabana) {
+      case 1:
+        // Cabaña #1: precio fijo
+        return precioBase;
+      
+      case 2:
+        // Cabaña #2: 
+        // - 3-4 personas: precio base (300,000)
+        // - 5-6 personas: 350,000
+        if (this.cantidadPersonas >= 5 && this.cantidadPersonas <= 6) {
+          return 350000;
+        }
+        return precioBase;
+      
+      case 3:
+        // Cabaña #3:
+        // - 6-8 personas: precio base (500,000)
+        // - 9-10 personas: 600,000
+        if (this.cantidadPersonas >= 9 && this.cantidadPersonas <= 10) {
+          return 600000;
+        }
+        return precioBase;
+      
+      default:
+        return precioBase;
+    }
   }
 
   /**
@@ -123,7 +152,7 @@ export class CabanasComponent {
     if (!this.selectedCabana) return null;
 
     const capacidades = {
-      1: '2 Parejas',
+      1: '1 Pareja',
       2: '3-6 personas',
       3: '6-10 personas'
     };
@@ -156,7 +185,7 @@ export class CabanasComponent {
     if (!this.selectedCabana) return null;
 
     const capacidades = {
-      1: '2 Parejas',
+      1: '1 Pareja',
       2: '3-6 personas',
       3: '6-10 personas'
     };
@@ -175,5 +204,28 @@ export class CabanasComponent {
   getRangoPersonas(): { min: number; max: number } | null {
     if (!this.selectedCabana) return null;
     return this.rangosPersonas[this.selectedCabana as keyof typeof this.rangosPersonas];
+  }
+
+  /**
+   * Obtiene información de precios según la cantidad de personas
+   * @returns String con información de precios
+   */
+  getPrecioInfo(): string {
+    if (!this.selectedCabana) return '';
+
+    switch (this.selectedCabana) {
+      case 1:
+        return 'Precio fijo para pareja';
+      case 2:
+        return this.cantidadPersonas >= 5 ? 
+          'Precio para 5-6 personas' : 
+          'Precio para 3-4 personas';
+      case 3:
+        return this.cantidadPersonas >= 9 ? 
+          'Precio para 9-10 personas' : 
+          'Precio para 6-8 personas';
+      default:
+        return '';
+    }
   }
 }
