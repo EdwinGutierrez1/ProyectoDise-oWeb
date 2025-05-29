@@ -9,7 +9,7 @@
                 <!-- Columna izquierda: Logo, nombre y redes sociales -->
                 <div class="col-md-4">
                     <!-- Título para esta sección -->
-                    <h5>Nosotros</h5>
+                    <h5 class="title">Nosotros</h5>
                     <!-- Div con el logo y el nombre de la empresa -->
                     <div class="logoYNombre">
                         <!-- Imagen del logo -->
@@ -22,7 +22,7 @@
                     <!-- Creacion de div para los iconos de las redes sociales -->
                     <div class="redes-sociales">
                         <!-- Parrafo con el texto de seguirnos -->
-                        <p>Síguenos</p>
+                        <p style="font-size: 18px;">Síguenos</p>
                         <!-- Iconos de las redes sociales -->
                         <div class="social-icons">
                             <!-- Icono de Facebook -->
@@ -44,37 +44,44 @@
                 <!-- Le damos el tamaño a la columna, ademas de una clase de Bootstrap para centrar el texto -->
                 <div class="col-md-4 text-center">
                     <!-- Titulo para esta seccion -->
-                    <h5>Contáctanos</h5>
+                    <h5 class="title">Contáctanos</h5>
                     <!-- Lista con la informacion de contacto, estilo de flex en columna, ademasd e una clae-->
                     <ul class="flex-column contact-info">
-                        <!-- Elementos de la lista, margen de fondo de 2 -->
-                        <li class="nav-item mb-2">
-                            <!-- Icono de ubicacion -->
-                            <i class="fas fa-map-marker-alt"></i>
-                            <!-- Texto con la direccion -->
-                            <span class="direccion-contactanos">Dirección: Km 3 vía Cúcuta</span>
-                        </li>
-                        <!-- Elementos de la lista, margen de fondo de 2-->
-                        <li class="nav-item mb-2">
-                            <!-- Icono de telefono -->
-                            <i class="fas fa-phone"></i>
-                            <!-- Texto con el telefono -->
-                            <span class="telefono-contactanos">Teléfono: 300 987 6543</span>
-                        </li>
-                        <!-- Elementos de la lista, margen de fondo de 2 -->
-                        <li class="nav-item mb-2">
-                            <!-- Icono de correo electronico -->
-                            <i class="fas fa-envelope"></i>
-                            <!-- Texto con el correo electronico -->
-                            <span class="email-contactanos">Email: MontañaEncantada&#64;gmail.com</span>
-                        </li>
-                        <!-- Elementos de la lista, margen de fondo de 2 -->
-                        <li class="nav-item mb-2">
-                            <!-- Icono de reloj -->
-                            <i class="fas fa-clock"></i>
-                            <!-- Texto con el horario -->
-                            <span class="horario-contactanos">Horario: Lunes a Domingo 8am - 6pm</span>
-                        </li>
+                        <!-- Grupo principal: Teléfono y Email -->
+                        <div class="contacto-grupo-principal">
+                            <!-- Elementos de la lista, margen de fondo de 2-->
+                            <li class="nav-item mb-2">
+                                <!-- Icono de telefono -->
+                                <i class="fas fa-phone"></i>
+                                <!-- Texto con el telefono -->
+                                <span class="telefono-contactanos">Teléfono: 300 987 6543</span>
+                            </li>
+                            <!-- Elementos de la lista, margen de fondo de 2 -->
+                            <li class="nav-item mb-2">
+                                <!-- Icono de correo electronico -->
+                                <i class="fas fa-envelope"></i>
+                                <!-- Texto con el correo electronico -->
+                                <span class="email-contactanos">Email: MontañaEncantada&#64;gmail.com</span>
+                            </li>
+                        </div>
+                        
+                        <!-- Grupo secundario: Dirección y Horario -->
+                        <div class="contacto-grupo-secundario">
+                            <!-- Elementos de la lista, margen de fondo de 2 -->
+                            <li class="nav-item mb-2">
+                                <!-- Icono de ubicacion -->
+                                <i class="fas fa-map-marker-alt" style="margin-top: 20px;"></i>
+                                <!-- Texto con la direccion -->
+                                <span class="direccion-contactanos">Dirección: Km 3 vía Cúcuta</span>
+                            </li>
+                            <!-- Elementos de la lista, margen de fondo de 2 -->
+                            <li class="nav-item mb-2">
+                                <!-- Icono de reloj -->
+                                <i class="fas fa-clock"></i>
+                                <!-- Texto con el horario -->
+                                <span class="horario-contactanos">Horario: Lunes a Domingo 8am - 6pm</span>
+                            </li>
+                        </div>
                         <!-- Cierre de la lista -->
                     </ul>
                     <!-- Cierre de la columna central -->
@@ -82,9 +89,9 @@
 
                 <!-- Columna derecha: Mapa -->
                 <!-- Le damos el tamaño a la columna -->
-                <div class="col-md-4">
+                <div class="col-md-4 mapa-columna">
                     <!-- Titulo para esta seccion -->
-                    <h5>Nuestra Ubicación</h5>
+                    <h5 class="title">Nuestra Ubicación</h5>
                     <!-- Contenedor del mapa -->
                     <div class="map-container">
                         <!-- Mapa de Google Maps -->

@@ -1,11 +1,11 @@
-/* FOOTER */
-/* Estilos generales para la sección de contacto */
-#Contacto {
-    background-color: black; /* Fondo negro para resaltar la sección */
+  /* FOOTER */
+  /* Estilos generales para la sección de contacto */
+  #Contacto {
+    background-color: #0d110d; /* Fondo negro para resaltar la sección */
     color: white; /* Texto en blanco para mejor visibilidad */
     border-top: 60px solid var(--color-primario); /* Espaciado superior para separar la sección de otras */
   }
-  
+
   /* Estilo para las columnas dentro de la sección de contacto */
   #Contacto .col-md-4 {
     padding-top: 20px; /* Espaciado interno superior para dar aire al contenido */
@@ -14,7 +14,7 @@
     align-items: center; /* Centra los elementos horizontalmente */
     text-align: center; /* Alinea el texto al centro */
   }
-  
+
   /* Títulos de los bloques de la sección de contacto */
   #Contacto h5 {
     margin-top: 0; /* Elimina cualquier margen superior */
@@ -24,7 +24,13 @@
     padding-bottom: 10px; /* Espaciado inferior interno */
     text-align: center; /* Centra el texto del título */
   }
-  
+
+  /* Título de Contáctanos más grande */
+  #Contacto h5.title {
+    font-size: 22px; /* Tamaño más grande para el título de Contáctanos */
+    font-weight: 650; /* Texto en negrita */
+  }
+
   /* Línea decorativa bajo los títulos */
   #Contacto h5::after {
     content: ''; /* Crea un elemento visual vacío */
@@ -36,29 +42,30 @@
     height: 2px; /* Altura de la línea decorativa */
     background-color: var(--color-secundario); /* Usa la variable para el color secundario */
   }
-  
-  /* Contenedor para el logo y nombre */
+
+  /* Contenedor para el logo y nombre - MÁS PEQUEÑO */
   .logoYNombre {
     display: flex; /* Flexbox para organizar los elementos */
     flex-direction: row; /* Organiza los elementos en una fila */
     align-items: center; /* Alinea verticalmente los elementos */
     margin-bottom: 20px; /* Espaciado inferior */
+    transform: scale(0.9); /* Reduce el tamaño al 70% del original */
   }
-  
-  /* Imagen del primer logo dentro del contenedor */
+
+  /* Imagen del primer logo dentro del contenedor - MÁS  */
   .logoYNombre img:first-child {
-    max-height: 80px; /* Altura máxima para mantener proporciones */
+    max-height: 80px; /* Altura reducida de 80px a 50px */
     margin-right: 0; /* Sin margen derecho */
     margin-bottom: 10px; /* Espaciado inferior */
   }
-  
-  /* Imagen del último logo dentro del contenedor */
+
+  /* Imagen del último logo dentro del contenedor - MÁS PEQUEÑO */
   .logoYNombre img:last-child {
-    max-height: 80px; /* Altura máxima igual que el primer logo */
+    max-height: 80px; /* Altura reducida de 80px a 50px */
     margin-right: 0; /* Sin margen derecho */
     margin-bottom: 10px; /* Espaciado inferior */
   }
-  
+
   /* Contenedor para las redes sociales */
   .redes-sociales {
     display: flex; /* Flexbox para organizar elementos */
@@ -66,35 +73,42 @@
     align-items: center; /* Centra los elementos horizontalmente */
     width: 100%; /* Ancho completo del contenedor */
   }
-  
+
   /* Contenedor de los íconos sociales */
   .social-icons {
     display: flex; /* Flexbox para organizar íconos en fila */
     justify-content: center; /* Centra los íconos horizontalmente */
     gap: 15px; /* Espaciado entre los íconos */
   }
-  
+
   /* Estilo general para cada ícono social */
   .social-icon {
     color: var(--color-secundario); /* Color inicial de los íconos */
-    font-size: 30px; /* Tamaño grande para visibilidad */
+    font-size: 35px; /* Tamaño grande para visibilidad */
   }
-  
+
+  /* Estilos para información de contacto - MÁS GRANDES */
   .horario-contactanos, .telefono-contactanos, .email-contactanos, .direccion-contactanos{
-    margin-left:10px; /*Se le pone un margen a la izquierda de 10 px a los iconos de la parte de "contactanos"*/
+    margin-left: 10px; /* Se le pone un margen a la izquierda de 10 px a los iconos de la parte de "contactanos" */
+    font-size: 18px; /* Tamaño de fuente más grande */
+    font-weight: 400; /* Peso de fuente medio */
   }
-  
+
+  .direccion-contactanos{
+    margin-top: 20px;
+  }
+
   /* Cambio de color al pasar el mouse sobre los íconos */
   .social-icon:hover {
     color: white; /* Cambia a blanco al hacer hover */
   }
-  
+
   /* Contenedor para la información de contacto */
   .contact-info {
     padding-left: 0; /* Elimina el padding izquierdo por defecto */
     list-style-type: none; /* Elimina los puntos o marcadores de la lista */
   }
-  
+
   /* Elementos individuales de la información de contacto */
   .contact-info li {
     display: flex; /* Flexbox para organizar íconos y texto */
@@ -103,22 +117,41 @@
     margin-bottom: 10px; /* Espaciado inferior entre elementos */
     text-align: center; /* Centra el texto dentro de cada elemento */
   }
-  
-  
+
+  /* Grupo principal de contacto (teléfono y email) */
+  .contacto-grupo-principal {
+    margin-bottom: 25px; /* Espaciado mayor después del grupo principal */
+  }
+
+  /* Grupo secundario de contacto (dirección y horario) */
+  .contacto-grupo-secundario {
+    padding-top: 10px; /* Espaciado adicional arriba del grupo secundario */
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Línea sutil de separación */
+  }
+
+  /* Columna del mapa - centrado vertical */
+  .mapa-columna {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important; /* Centra verticalmente todo el contenido */
+    align-items: center !important;
+  }
+
   /* Contenedor para el mapa */
   .map-container {
     width: 100%; /* Ocupa todo el ancho del contenedor */
     display: flex; /* Flexbox para organizar elementos */
     justify-content: center; /* Centra el mapa horizontalmente */
+    align-items: center; /* Centra el mapa verticalmente */
   }
-  
+
   /* Estilo para la sección de copyright centrada */
   .d-flex.flex-column.flex-sm-row {
     justify-content: center !important; /* Asegura que el contenido esté centrado */
     text-align: center; /* Alinea el texto al centro */
-    padding-bottom: 0;
+    padding-bottom: 0;  
   }
-  
+
   /* Estilos para el separador */
   hr{
     background-color: var(--color-primario) !important; /* Color del separador */ 
