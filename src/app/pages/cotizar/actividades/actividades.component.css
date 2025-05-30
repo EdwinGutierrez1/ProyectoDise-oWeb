@@ -456,28 +456,9 @@
         gap: 20px;
     }
 
+    /* Ocultar el contenedor de imagen en móvil */
     .modal-image-container {
-        max-width: 100%;
-    }
-
-    .modal-image {
-        object-fit: cover;
-        border-radius: 10px;
-    }
-
-    /* CORREGIDO: Alturas responsive para modal en móvil */
-    /* Primeros dos modales en móvil: altura proporcional */
-    .modal-image[alt="Spa en pareja"],
-    .modal-image[alt="Picnic gourmet en la naturaleza"] {
-        height: 200px;
-    }
-
-    /* Últimos cuatro modales en móvil: altura proporcional mayor */
-    .modal-image[alt="Kayak en río"],
-    .modal-image[alt="Ruta en bici de montaña"],
-    .modal-image[alt="Senderismo a cascada natural"],
-    .modal-image[alt="Escalada en roca"] {
-        height: 280px;
+        display: none;
     }
 
     .modal-header {
@@ -485,10 +466,10 @@
     }
 
     .modal-title {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         gap: 8px;
     }
-
+    
     .activity-icon {
         font-size: 1.6rem;
     }
