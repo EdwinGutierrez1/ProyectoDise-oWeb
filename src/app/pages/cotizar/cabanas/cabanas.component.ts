@@ -1,4 +1,4 @@
-// cabanas.component.ts - ACTUALIZADO CON MODAL
+// cabanas.component.ts - COMPLETO CON TODAS LAS FUNCIONALIDADES
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -37,24 +37,23 @@ export class CabanasComponent implements OnInit, OnDestroy {
     3: { min: 6, max: 10 } // Cabaña #3: 6-10 personas
   };
 
-  // Imágenes por cabaña (puedes agregar más imágenes aquí)
+  // Imágenes por cabaña
   private imagenesCabanas = {
     1: [
       '/cabañapequeña1.jpg',
       '/cabañapequeña2.jpg',
       '/cabañapequeña3.jpg',
-      '/cabañapequeña4.jpg',
       '/cabañapequeña5.jpg'
     ],
     2: [
-      '/cabañamediana.jpg',
+      '/cabañamediana1.jpg',
       '/cabañamediana2.jpg',
       '/cabañamediana3.jpg',
       '/cabañamediana4.jpg',
       '/cabañamediana5.jpg'
     ],
     3: [
-      '/cabañagrande.jpeg',
+      '/cabañagrande1.jpg',
       '/cabañagrande2.jpg',
       '/cabañagrande3.jpg',
       '/cabañagrande4.jpg',
@@ -72,12 +71,28 @@ export class CabanasComponent implements OnInit, OnDestroy {
     2: {
       nombre: 'Cabaña Familiar',
       capacidad: '3-6 personas',
-      descripcion: 'Espaciosa cabaña ideal para familias. Incluye 2 habitaciones, sala de estar, cocina equipada, terraza con parrilla y área de juegos para niños.'
+      descripcion: 'Espaciosa cabaña ideal para familias. Incluye 3 habitaciones, sala de estar, cocina equipada, terraza con parrilla y área de juegos para niños.'
     },
     3: {
       nombre: 'Cabaña Grupal',
       capacidad: '6-10 personas',
-      descripcion: 'La cabaña más grande, perfecta para grupos y reuniones. Cuenta con 3 habitaciones, 2 baños, amplia sala, cocina completa, terraza grande y área de fogata.'
+      descripcion: 'La cabaña más grande, perfecta para grupos y reuniones. Cuenta con 5 habitaciones, 3 baños, amplia sala, cocina completa, terraza grande y área de fogata.'
+    }
+  };
+
+  // Características de cada cabaña (habitaciones y baños) - LÓGICA COHERENTE
+  private caracteristicasCabanas = {
+    1: {
+      habitaciones: 1,
+      banos: 1
+    },
+    2: {
+      habitaciones: 3,
+      banos: 2
+    },
+    3: {
+      habitaciones: 5,
+      banos: 3
     }
   };
 
@@ -197,6 +212,28 @@ export class CabanasComponent implements OnInit, OnDestroy {
   getDescripcionCabana(): string {
     if (!this.cabanaModalActual) return '';
     return this.informacionCabanas[this.cabanaModalActual as keyof typeof this.informacionCabanas]?.descripcion || '';
+  }
+
+  /**
+   * Obtiene el número de habitaciones de la cabaña actual del modal
+   * @returns Número de habitaciones
+   */
+  getHabitacionesCabana(): number {
+    if (!this.cabanaModalActual || !this.caracteristicasCabanas[this.cabanaModalActual as keyof typeof this.caracteristicasCabanas]) {
+      return 0;
+    }
+    return this.caracteristicasCabanas[this.cabanaModalActual as keyof typeof this.caracteristicasCabanas].habitaciones;
+  }
+
+  /**
+   * Obtiene el número de baños de la cabaña actual del modal
+   * @returns Número de baños
+   */
+  getBanosCabana(): number {
+    if (!this.cabanaModalActual || !this.caracteristicasCabanas[this.cabanaModalActual as keyof typeof this.caracteristicasCabanas]) {
+      return 0;
+    }
+    return this.caracteristicasCabanas[this.cabanaModalActual as keyof typeof this.caracteristicasCabanas].banos;
   }
 
   /**

@@ -122,11 +122,18 @@
                 </div>
             </div>
 
-            <!-- Información de la Cabaña -->
+            <!-- Información de la Cabaña - SIMPLIFICADA -->
             <div class="modal-info">
-                <h3>{{ getNombreCabana() }}</h3>
-                <p class="capacidad-modal">👥 {{ getCapacidadCabana() }}</p>
-                <p class="descripcion-modal">{{ getDescripcionCabana() }}</p>
+                <div class="caracteristicas-cabana">
+                    <div class="caracteristica">
+                        <span class="icono">🛏️</span>
+                        <span class="texto">{{ getHabitacionesCabana() }} habitaciones</span>
+                    </div>
+                    <div class="caracteristica">
+                        <span class="icono">🚿</span>
+                        <span class="texto">{{ getBanosCabana() }} baños</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Botón de Selección -->
@@ -134,7 +141,7 @@
                 <button 
                     class="btn-elegir"
                     (click)="elegirCabana()">
-                    Elegir esta Cabaña
+                    Elegir
                 </button>
             </div>
         </div>
