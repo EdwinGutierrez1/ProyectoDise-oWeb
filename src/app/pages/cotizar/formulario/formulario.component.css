@@ -28,6 +28,7 @@
     z-index: 1; /* Coloca el contenedor por encima de otros elementos */
     position: relative;
     margin: 0 auto; /* Centra el contenedor horizontalmente */
+    border: 3px solid #0000; /* Borde azul */;
   }
   
   /* Estilo del título principal del formulario */
