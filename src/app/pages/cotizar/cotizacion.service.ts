@@ -59,17 +59,33 @@
      * @param cantidadPersonas - Cantidad de personas
      */
     actualizarCabana(cabana: CabanaSeleccionada, cantidadPersonas: number): void {
+        // Verificar si ha cambiado la cabaña
+        const cabanaAnterior = this.datosCotizacion.cabana;
+        const haCambiadoCabana = !cabanaAnterior || cabanaAnterior.id !== cabana.id;
+        
+        // Si cambió la cabaña, limpiar actividades
+        if (haCambiadoCabana) {
+        console.log('Cabaña cambió, limpiando actividades anteriores');
+        this.datosCotizacion.actividades = [];
+        this.datosCotizacion.subtotalActividades = 0;
+        }
+        
+        // Actualizar información de la cabaña
         this.datosCotizacion.cabana = cabana;
         this.datosCotizacion.cantidadPersonas = cantidadPersonas;
         this.datosCotizacion.subtotalCabana = cabana.precio;
         
-        // Recalcular precios de actividades con nueva cantidad de personas
+        // Si no cambió la cabaña pero cambió la cantidad de personas, recalcular actividades
+        if (!haCambiadoCabana && this.datosCotizacion.actividades.length > 0) {
+        console.log('Recalculando actividades por cambio en cantidad de personas');
         this.recalcularActividadesConPersonas();
+        }
         
         this.calcularTotal();
         this.emitirCambios();
         
         console.log('Cabaña actualizada:', cabana, 'Personas:', cantidadPersonas);
+        console.log('Actividades después del cambio:', this.datosCotizacion.actividades);
     }
 
     /**
@@ -122,6 +138,18 @@
         this.emitirCambios();
         
         console.log('Actividad removida, ID:', actividadId);
+    }
+
+    /**
+     * Limpia todas las actividades seleccionadas
+     */
+    limpiarActividades(): void {
+        this.datosCotizacion.actividades = [];
+        this.datosCotizacion.subtotalActividades = 0;
+        this.calcularTotal();
+        this.emitirCambios();
+        
+        console.log('Todas las actividades han sido limpiadas');
     }
 
     /**
@@ -225,4 +253,4 @@
     obtenerActividadesSeleccionadas(): ActividadSeleccionada[] {
         return [...this.datosCotizacion.actividades];
     }
-    }
+}

@@ -65,15 +65,24 @@
     border-color: #C8C8C8;
 }
 
-.actividad-card.pareja-only {
-    opacity: 0.7;
-    border-color: #ffc107;
-    background-color: #fff8e1;
+.mensaje-pareja-disabled {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff3cd;
+    border: 1.5px solid #ffeaa7;
 }
 
-.actividad-card.pareja-only:hover {
-    border-color: #ffb300;
-    transform: scale(1.01);
+.mensaje-pareja-disabled .mensaje-texto {
+    color: #856404;
+}
+
+.icono-advertencia {
+    font-size: 1.2rem;
 }
 
 /* Mensaje de validación */
@@ -82,7 +91,7 @@
     margin-bottom: 30px;
     padding: 15px 20px;
     background-color: #e3f2fd;
-    border: 1px solid #bbdefb;
+    border: 1.5px solid #bbdefb;
     border-radius: 8px;
     max-width: 600px;
     margin-left: auto;
@@ -99,7 +108,7 @@
     gap: 8px;
 }
 
-.icono-info, .icono-pareja {
+.icono-info{
     font-size: 1.2rem;
 }
 
@@ -481,9 +490,17 @@
         padding: 12px 15px;
     }
     
+    .icono-advertencia{
+        font-size: 1.5rem;
+    }
+
+    .icono-info  {
+        font-size: 1.7rem;
+    }
+
     .mensaje-texto {
-        font-size: 1rem;
-        flex-direction: column;
+        font-size: 0.9rem;
+        flex-direction: row;
         gap: 5px;
         text-align: center;
     }
