@@ -1,13 +1,29 @@
 <!-- actividades.component.html -->
 <div class="actividades-container">
     <h1 class="titulo">¡Selecciona las actividades!</h1>
+
+    <div class="mensaje-validacion" *ngIf="!tieneCabanaSeleccionada()">
+        <p class="mensaje-texto">
+            <span class="icono-info">🛈</span>
+            Primero selecciona una cabaña para poder elegir actividades
+        </p>
+    </div>
+    
+    <div class="mensaje-validacion" *ngIf="tieneCabanaSeleccionada() && esCabanaPareja()">
+        <p class="mensaje-texto">
+            <span class="icono-pareja">💕</span>
+            Como seleccionaste la cabaña para parejas, las primeras dos actividades ya están incluidas
+        </p>
+    </div>
     
     <div class="actividades-grid">
         <!-- Spa en pareja -->
         <div 
             class="actividad-card" 
             [class.selected]="isActividadSelected(1)"
-            (click)="openModal(1)">
+            [class.disabled]="!canSelectActivity(1)"
+            [class.pareja-only]="isActividadParejaSolo(1)"
+            (click)="canSelectActivity(1) ? openModal(1) : null">
             <div class="image-container">
                 <img src="/fotospa.jpg" alt="Spa en pareja" class="actividad-image">
             </div>
@@ -23,7 +39,9 @@
         <div 
             class="actividad-card" 
             [class.selected]="isActividadSelected(2)"
-            (click)="openModal(2)">
+            [class.disabled]="!canSelectActivity(2)"
+            [class.pareja-only]="isActividadParejaSolo(2)"
+            (click)="canSelectActivity(2) ? openModal(2) : null">
             <div class="image-container">
                 <img src="/fotopicnic.png" alt="Picnic gourmet" class="actividad-image">
             </div>
@@ -39,7 +57,9 @@
         <div 
             class="actividad-card" 
             [class.selected]="isActividadSelected(3)"
-            (click)="openModal(3)">
+            [class.disabled]="!canSelectActivity(3)"
+            [class.pareja-only]="isActividadParejaSolo(3)"
+            (click)="canSelectActivity(3) ? openModal(3) : null">
             <div class="image-container">
                 <img src="fotokayak.jpg" alt="Kayak" class="actividad-image">
             </div>
@@ -56,7 +76,9 @@
         <div 
             class="actividad-card" 
             [class.selected]="isActividadSelected(4)"
-            (click)="openModal(4)">
+            [class.disabled]="!canSelectActivity(4)"
+            [class.pareja-only]="isActividadParejaSolo(4)"
+            (click)="canSelectActivity(4) ? openModal(4) : null">
             <div class="image-container">
                 <img src="fotobici.jpg" alt="Bici de montaña" class="actividad-image">
             </div>
@@ -73,7 +95,9 @@
         <div 
             class="actividad-card" 
             [class.selected]="isActividadSelected(5)"
-            (click)="openModal(5)">
+            [class.disabled]="!canSelectActivity(5)"
+            [class.pareja-only]="isActividadParejaSolo(5)"
+            (click)="canSelectActivity(5) ? openModal(5) : null">
             <div class="image-container">
                 <img src="/fotocascada.jpg" alt="Senderismo" class="actividad-image">
             </div>
@@ -90,7 +114,9 @@
         <div 
             class="actividad-card" 
             [class.selected]="isActividadSelected(6)"
-            (click)="openModal(6)">
+            [class.disabled]="!canSelectActivity(6)"
+            [class.pareja-only]="isActividadParejaSolo(6)"
+            (click)="canSelectActivity(6) ? openModal(6) : null">
             <div class="image-container">
                 <img src="fotoescalada.jpg" alt="Escalada en roca" class="actividad-image">
             </div>

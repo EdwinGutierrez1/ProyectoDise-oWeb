@@ -410,6 +410,51 @@ export class ActividadesComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Verifica si hay una cabaña seleccionada
+   * @returns true si hay cabaña seleccionada
+   */
+  tieneCabanaSeleccionada(): boolean {
+    return this.datosCotizacion?.cabana !== null;
+  }
+
+    /**
+   * Verifica si la cabaña seleccionada es para parejas (ID 1)
+   * @returns true si es cabaña para parejas
+   */
+  esCabanaPareja(): boolean {
+    return this.datosCotizacion?.cabana?.id === 1;
+  }
+
+  /**
+   * Verifica si una actividad es solo para parejas
+   * @param actividadId - ID de la actividad
+   * @returns true si es actividad solo para parejas
+   */
+  isActividadParejaSolo(actividadId: number): boolean {
+    // Las actividades 1 y 2 son solo para parejas
+    return [1, 2].includes(actividadId) && this.esCabanaPareja();
+  }
+
+    /**
+   * Verifica si se puede seleccionar una actividad
+   * @param actividadId - ID de la actividad
+   * @returns true si se puede seleccionar
+   */
+  canSelectActivity(actividadId: number): boolean {
+    // No se puede seleccionar si no hay cabaña
+    if (!this.tieneCabanaSeleccionada()) {
+      return false;
+    }
+    
+    // Si es cabaña para parejas y es actividad de pareja, no se puede seleccionar
+    if (this.esCabanaPareja() && [1, 2].includes(actividadId)) {
+      return false;
+    }
+    
+    return true;
+  }
+
+  /**
    * Obtiene información de actividades por persona vs fijas
    * @returns Objeto con conteos de actividades
    */
