@@ -44,46 +44,46 @@ export class ActividadesComponent {
       id: 1,
       nombre: 'Spa en pareja',
       precio: '$150.000',
-      imagen: '/spa-pareja.jpg',
+      imagen: '/fotospa2.jpg',
       descripcion: 'Disfruta de una experiencia relajante y romántica en nuestro spa especializado para parejas. Un momento perfecto para conectar y relajarse juntos.',
       incluye: [
-        'Masaje relajante para ambos',
-        'Acceso a sauna y jacuzzi privado',
-        'Aromaterapia personalizada',
-        'Bebidas detox y aperitivos saludables',
-        'Toallas y batas de spa'
+        '✔️ Masaje relajante para ambos',
+        '✔️ Acceso a sauna y jacuzzi privado',
+        '✔️ Aromaterapia personalizada',
+        '✔️ Dos copas de champaña',
+        '✔️ Toallas y batas de spa'
       ],
       duracion: '2 horas'
-    },
+    },  
     {
       id: 2,
       nombre: 'Picnic gourmet en la naturaleza',
       precio: '$100.000',
-      imagen: '/picnic-gourmet.jpg',
+      imagen: '/fotopicnic2.jpeg',
       descripcion: 'Una experiencia culinaria única en medio de la naturaleza, con productos locales y orgánicos preparados por nuestro chef especializado.',
       incluye: [
-        'Cesta de picnic con mantel y utensilios',
-        'Selección de quesos artesanales locales',
-        'Frutas frescas de temporada',
-        'Sándwiches gourmet variados',
-        'Bebidas naturales y vino',
-        'Postre especial de la casa'
+        '✔️ Cesta de picnic con mantel y utensilios',
+        '✔️ Selección de quesos artesanales locales',
+        '✔️ Frutas frescas de temporada',
+        '✔️ Sándwiches gourmet variados',
+        '✔️ Bebidas naturales y vino',
+        '✔️ Postre especial de la casa'
       ],
       duracion: '3 horas'
     },
     {
       id: 3,
-      nombre: 'Kayak en lago o río',
+      nombre: 'Kayak en río',
       precio: '$50.000',
-      imagen: '/kayak.jpg',
+      imagen: '/fotokayak2.jpg',
       descripcion: 'Aventura acuática perfecta para explorar los hermosos paisajes naturales desde una perspectiva única. Ideal para principiantes y expertos.',
       incluye: [
-        'Kayak individual o doble',
-        'Chaleco salvavidas y casco',
-        'Remo y kit de seguridad',
-        'Guía experto certificado',
-        'Instrucción básica de kayak',
-        'Botella de agua'
+        '✔️ Kayak individual o doble',
+        '✔️ Chaleco salvavidas y casco',
+        '✔️ Remo y kit de seguridad',
+        '✔️ Guía experto certificado',
+        '✔️ Instrucción básica de kayak',
+        '✔️ Botella de agua'
       ],
       duracion: '2 horas'
     },
@@ -91,31 +91,31 @@ export class ActividadesComponent {
       id: 4,
       nombre: 'Ruta en bici de montaña',
       precio: '$45.000',
-      imagen: '/bici-montana.jpg',
+      imagen: '/fotobici2.jpg',
       descripcion: 'Recorre senderos naturales y disfruta de paisajes espectaculares en esta emocionante aventura sobre dos ruedas por terrenos montañosos.',
       incluye: [
-        'Bicicleta de montaña de alta calidad',
-        'Casco de seguridad',
-        'Kit de reparación básico',
-        'Guía especializado',
-        'Mapa de rutas',
-        'Hidratación durante el recorrido'
+        '✔️ Bicicleta de montaña de alta calidad',
+        '✔️ Casco de seguridad',
+        '✔️ Kit de reparación básico',
+        '✔️ Guía especializado',
+        '✔️ Mapa de rutas',
+        '✔️ Hidratación durante el recorrido'
       ],
       duracion: '3 horas'
     },
     {
       id: 5,
-      nombre: 'Senderismo a cascada natural escondida',
+      nombre: 'Senderismo a cascada natural',
       precio: '$60.000',
-      imagen: '/senderismo.jpg',
+      imagen: '/fotocascada2.jpg',
       descripcion: 'Descubre una cascada secreta a través de senderos naturales. Una caminata moderada que te llevará a uno de los lugares más hermosos de la región.',
       incluye: [
-        'Guía naturalista experto',
-        'Bastones de senderismo',
-        'Kit de primeros auxilios',
-        'Snack energético',
-        'Botella de agua reutilizable',
-        'Información sobre flora y fauna local'
+        '✔️ Guía naturalista experto',
+        '✔️ Bastones de senderismo',
+        '✔️ Kit de primeros auxilios',
+        '✔️ Snack energético',
+        '✔️ Botella de agua reutilizable',
+        '✔️ Información sobre flora y fauna local'
       ],
       duracion: '4 horas'
     },
@@ -123,15 +123,15 @@ export class ActividadesComponent {
       id: 6,
       nombre: 'Escalada en roca',
       precio: '$70.000',
-      imagen: '/escalada.jpg',
+      imagen: '/fotoescalada2.jpg',
       descripcion: 'Desafía tus límites con esta emocionante actividad de escalada en formaciones rocosas naturales, con total seguridad y supervisión profesional.',
       incluye: [
-        'Equipo completo de escalada',
-        'Arnés y casco de seguridad',
-        'Cuerdas y sistema de aseguramiento',
-        'Instructor certificado',
-        'Clase básica de técnicas',
-        'Seguro de actividad'
+        '✔️ Equipo completo de escalada',
+        '✔️ Arnés y casco de seguridad',
+        '✔️ Cuerdas y sistema de aseguramiento',
+        '✔️ Instructor certificado',
+        '✔️ Clase básica de técnicas',
+        '✔️ Seguro de actividad'
       ],
       duracion: '3 horas'
     }
