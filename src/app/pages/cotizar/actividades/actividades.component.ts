@@ -200,6 +200,11 @@ export class ActividadesComponent {
     return this.selectedActividades.includes(actividadId);
   }
 
+  hasLongTitleForMobile(actividadId: number): boolean {
+    const actividadesConTituloLargo = [2, 5]; // Picnic gourmet y Senderismo
+    return actividadesConTituloLargo.includes(actividadId);
+  }
+
   /**
    * Obtiene la lista de actividades seleccionadas con su información completa
    * @returns Array de actividades seleccionadas

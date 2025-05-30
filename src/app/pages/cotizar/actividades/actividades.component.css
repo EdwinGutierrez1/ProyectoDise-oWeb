@@ -469,6 +469,15 @@
         font-size: 1.3rem;
         gap: 8px;
     }
+
+    .modal-title.long-title-mobile {
+        font-size: 1.1rem !important;
+        line-height: 1.2;
+    }
+    
+    .modal-title.long-title-mobile .activity-icon {
+        font-size: 1.4rem !important;
+    }
     
     .activity-icon {
         font-size: 1.6rem;

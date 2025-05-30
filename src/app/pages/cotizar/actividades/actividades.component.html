@@ -109,10 +109,10 @@
 <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
         <div class="modal-header">
-            <h2 class="modal-title">
+            <h2 class="modal-title" [ngClass]="{'long-title-mobile': hasLongTitleForMobile(selectedActivityId!)}">
                 <span class="activity-icon">{{ getActivityIcon(selectedActivityId!) }}</span>
                 {{ selectedActivityData?.nombre }}
-            </h2>
+            </h2>            
             <button class="close-btn" (click)="closeModal()">&times;</button>
         </div>
         
