@@ -1,4 +1,4 @@
-// cabanas.component.ts - ACTUALIZADO
+// cabanas.component.ts - ACTUALIZADO CON MODAL
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -15,6 +15,11 @@ export class CabanasComponent implements OnInit, OnDestroy {
   selectedCabana: number | null = null;
   cantidadPersonas: number = 0;
   
+  // Variables para el modal
+  modalAbierto: boolean = false;
+  cabanaModalActual: number | null = null;
+  imagenActualIndex: number = 0;
+  
   // Suscripción para cleanup
   private subscription: Subscription = new Subscription();
 
@@ -30,6 +35,50 @@ export class CabanasComponent implements OnInit, OnDestroy {
     1: { min: 2, max: 2 }, // Cabaña #1: exactamente 2 personas (1 pareja)
     2: { min: 3, max: 6 }, // Cabaña #2: 3-6 personas
     3: { min: 6, max: 10 } // Cabaña #3: 6-10 personas
+  };
+
+  // Imágenes por cabaña (puedes agregar más imágenes aquí)
+  private imagenesCabanas = {
+    1: [
+      '/cabañapequeña1.jpg',
+      '/cabañapequeña2.jpg',
+      '/cabañapequeña3.jpg',
+      '/cabañapequeña4.jpg',
+      '/cabañapequeña5.jpg'
+    ],
+    2: [
+      '/cabañamediana.jpg',
+      '/cabañamediana2.jpg',
+      '/cabañamediana3.jpg',
+      '/cabañamediana4.jpg',
+      '/cabañamediana5.jpg'
+    ],
+    3: [
+      '/cabañagrande.jpeg',
+      '/cabañagrande2.jpg',
+      '/cabañagrande3.jpg',
+      '/cabañagrande4.jpg',
+      '/cabañagrande5.jpg'
+    ]
+  };
+
+  // Información detallada de cada cabaña
+  private informacionCabanas = {
+    1: {
+      nombre: 'Cabaña Romántica',
+      capacidad: 'Pareja (2 personas)',
+      descripcion: 'Perfecta para escapadas románticas. Cuenta con cama king size, jacuzzi privado, chimenea y vista panorámica. Ideal para celebrar aniversarios o lunas de miel.'
+    },
+    2: {
+      nombre: 'Cabaña Familiar',
+      capacidad: '3-6 personas',
+      descripcion: 'Espaciosa cabaña ideal para familias. Incluye 2 habitaciones, sala de estar, cocina equipada, terraza con parrilla y área de juegos para niños.'
+    },
+    3: {
+      nombre: 'Cabaña Grupal',
+      capacidad: '6-10 personas',
+      descripcion: 'La cabaña más grande, perfecta para grupos y reuniones. Cuenta con 3 habitaciones, 2 baños, amplia sala, cocina completa, terraza grande y área de fogata.'
+    }
   };
 
   constructor(private cotizacionService: CotizacionService) {}
@@ -49,6 +98,118 @@ export class CabanasComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  // MÉTODOS DEL MODAL
+
+  /**
+   * Abre el modal de galería para una cabaña específica
+   * @param cabanaId - ID de la cabaña (1, 2 o 3)
+   */
+  abrirModal(cabanaId: number): void {
+    this.cabanaModalActual = cabanaId;
+    this.imagenActualIndex = 0;
+    this.modalAbierto = true;
+    // Prevenir scroll del body cuando el modal está abierto
+    document.body.style.overflow = 'hidden';
+  }
+
+  /**
+   * Cierra el modal de galería
+   */
+  cerrarModal(): void {
+    this.modalAbierto = false;
+    this.cabanaModalActual = null;
+    this.imagenActualIndex = 0;
+    // Restaurar scroll del body
+    document.body.style.overflow = 'auto';
+  }
+
+  /**
+   * Navega a la imagen anterior en la galería
+   */
+  imagenAnterior(): void {
+    if (this.imagenActualIndex > 0) {
+      this.imagenActualIndex--;
+    }
+  }
+
+  /**
+   * Navega a la imagen siguiente en la galería
+   */
+  imagenSiguiente(): void {
+    const imagenes = this.getImagenesCabana();
+    if (this.imagenActualIndex < imagenes.length - 1) {
+      this.imagenActualIndex++;
+    }
+  }
+
+  /**
+   * Navega directamente a una imagen específica
+   * @param index - Índice de la imagen
+   */
+  irAImagen(index: number): void {
+    const imagenes = this.getImagenesCabana();
+    if (index >= 0 && index < imagenes.length) {
+      this.imagenActualIndex = index;
+    }
+  }
+
+  /**
+   * Obtiene la URL de la imagen actual
+   * @returns URL de la imagen actual
+   */
+  getImagenActual(): string {
+    const imagenes = this.getImagenesCabana();
+    return imagenes[this.imagenActualIndex] || '';
+  }
+
+  /**
+   * Obtiene el array de imágenes de la cabaña actual del modal
+   * @returns Array de URLs de imágenes
+   */
+  getImagenesCabana(): string[] {
+    if (!this.cabanaModalActual) return [];
+    return this.imagenesCabanas[this.cabanaModalActual as keyof typeof this.imagenesCabanas] || [];
+  }
+
+  /**
+   * Obtiene el nombre de la cabaña actual del modal
+   * @returns Nombre de la cabaña
+   */
+  getNombreCabana(): string {
+    if (!this.cabanaModalActual) return '';
+    return this.informacionCabanas[this.cabanaModalActual as keyof typeof this.informacionCabanas]?.nombre || '';
+  }
+
+  /**
+   * Obtiene la capacidad de la cabaña actual del modal
+   * @returns Capacidad de la cabaña
+   */
+  getCapacidadCabana(): string {
+    if (!this.cabanaModalActual) return '';
+    return this.informacionCabanas[this.cabanaModalActual as keyof typeof this.informacionCabanas]?.capacidad || '';
+  }
+
+  /**
+   * Obtiene la descripción de la cabaña actual del modal
+   * @returns Descripción de la cabaña
+   */
+  getDescripcionCabana(): string {
+    if (!this.cabanaModalActual) return '';
+    return this.informacionCabanas[this.cabanaModalActual as keyof typeof this.informacionCabanas]?.descripcion || '';
+  }
+
+  /**
+   * Elige la cabaña actual del modal y cierra el modal
+   */
+  elegirCabana(): void {
+    if (this.cabanaModalActual) {
+      this.selectCabana(this.cabanaModalActual);
+      this.cerrarModal();
+    }
+  }
+
+  // MÉTODOS ORIGINALES DEL COMPONENTE
 
   /**
    * Selecciona una cabaña y ajusta la cantidad de personas según el rango

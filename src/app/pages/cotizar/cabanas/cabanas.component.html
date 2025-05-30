@@ -7,7 +7,7 @@
         <div 
             class="cabana-card" 
             [class.selected]="selectedCabana === 1"
-            (click)="selectCabana(1)">
+            (click)="abrirModal(1)">
             <div class="image-container">
                 <img src="/cabañapequeña.jpg" alt="Cabaña pequeña" class="cabana-image">
             </div>
@@ -21,7 +21,7 @@
         <div 
             class="cabana-card" 
             [class.selected]="selectedCabana === 2"
-            (click)="selectCabana(2)">
+            (click)="abrirModal(2)">
             <div class="image-container">
                 <img src="/cabañamediana.jpg" alt="Cabaña mediana" class="cabana-image">
             </div>
@@ -35,7 +35,7 @@
         <div 
             class="cabana-card" 
             [class.selected]="selectedCabana === 3"
-            (click)="selectCabana(3)">
+            (click)="abrirModal(3)">
             <div class="image-container">
                 <img src="/cabañagrande.jpeg" alt="Cabaña grande" class="cabana-image">
             </div>
@@ -62,12 +62,81 @@
                 (click)="incrementarPersonas()"
                 [disabled]="!canIncrement() || isContadorFijo()">+</button>
             </div>
-            </div>
+        </div>
         
-            <!-- Cuadro 2: Valor por noche -->
-            <div class="cuadro-info">
+        <!-- Cuadro 2: Valor por noche -->
+        <div class="cuadro-info">
             <div class="cuadro-label cuadro-label-precio">Valor por noche: </div>
             <div class="precio-box">${{ getPrecio() | number:'1.0-0' }}</div>
+        </div>
+    </div>
+
+    <!-- Modal de Galería -->
+    <div class="modal-overlay" *ngIf="modalAbierto" (click)="cerrarModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <!-- Header del Modal -->
+            <div class="modal-header">
+                <h2>Cabaña #{{ cabanaModalActual }}</h2>
+                <button class="modal-close" (click)="cerrarModal()">&times;</button>
+            </div>
+
+            <!-- Galería de Imágenes -->
+            <div class="galeria-container">
+                <!-- Imagen Principal -->
+                <div class="imagen-principal">
+                    <img 
+                        [src]="getImagenActual()" 
+                        [alt]="'Cabaña #' + cabanaModalActual + ' - Imagen ' + (imagenActualIndex + 1)"
+                        class="imagen-galeria">
+                    
+                    <!-- Flecha Izquierda -->
+                    <button 
+                        class="flecha-navegacion flecha-izquierda"
+                        (click)="imagenAnterior()"
+                        [disabled]="imagenActualIndex === 0">
+                        &#8249;
+                    </button>
+                    
+                    <!-- Flecha Derecha -->
+                    <button 
+                        class="flecha-navegacion flecha-derecha"
+                        (click)="imagenSiguiente()"
+                        [disabled]="imagenActualIndex === getImagenesCabana().length - 1">
+                        &#8250;
+                    </button>
+                </div>
+
+                <!-- Indicadores de Imagen -->
+                <div class="indicadores">
+                    <span 
+                        *ngFor="let imagen of getImagenesCabana(); let i = index"
+                        class="indicador"
+                        [class.activo]="i === imagenActualIndex"
+                        (click)="irAImagen(i)">
+                    </span>
+                </div>
+
+                <!-- Información de la Imagen -->
+                <div class="info-imagen">
+                    <span>{{ imagenActualIndex + 1 }} de {{ getImagenesCabana().length }}</span>
+                </div>
+            </div>
+
+            <!-- Información de la Cabaña -->
+            <div class="modal-info">
+                <h3>{{ getNombreCabana() }}</h3>
+                <p class="capacidad-modal">👥 {{ getCapacidadCabana() }}</p>
+                <p class="descripcion-modal">{{ getDescripcionCabana() }}</p>
+            </div>
+
+            <!-- Botón de Selección -->
+            <div class="modal-footer">
+                <button 
+                    class="btn-elegir"
+                    (click)="elegirCabana()">
+                    Elegir esta Cabaña
+                </button>
             </div>
         </div>
+    </div>
 </div>
