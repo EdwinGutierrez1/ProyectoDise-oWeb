@@ -392,6 +392,24 @@
     transform: scale(1.05);
 }
 
+.total-actividades {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.total-texto {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.total-valor {
+    color: #28a745;
+    font-size: 1.7rem;
+}
+
 /* Responsive design */
 @media (max-width: 1200px) {
     .actividades-grid {
@@ -511,5 +529,17 @@
     
     .modal-seguro {
         margin-top: 25px;
+    }
+
+    .total-actividades {
+        margin-top: 30px;
+    }
+    
+    .total-texto {
+        font-size: 1.3rem;
+    }
+    
+    .total-valor {
+        font-size: 1.5rem;
     }
 }

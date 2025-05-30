@@ -1,6 +1,8 @@
-// cabanas.component.ts
-import { Component } from '@angular/core';
+// cabanas.component.ts - ACTUALIZADO
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { CotizacionService, CabanaSeleccionada } from '../cotizacion.service';
 
 @Component({
   selector: 'app-cabanas',
@@ -9,9 +11,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './cabanas.component.html',
   styleUrls: ['./cabanas.component.css']
 })
-export class CabanasComponent {
+export class CabanasComponent implements OnInit, OnDestroy {
   selectedCabana: number | null = null;
   cantidadPersonas: number = 0;
+  
+  // Suscripción para cleanup
+  private subscription: Subscription = new Subscription();
 
   // Precios base por tipo de cabaña
   private preciosBase = {
@@ -27,6 +32,24 @@ export class CabanasComponent {
     3: { min: 6, max: 10 } // Cabaña #3: 6-10 personas
   };
 
+  constructor(private cotizacionService: CotizacionService) {}
+
+  ngOnInit(): void {
+    // Suscribirse a cambios en la cotización para mantener sincronización
+    this.subscription.add(
+      this.cotizacionService.cotizacion$.subscribe(cotizacion => {
+        if (cotizacion.cabana) {
+          this.selectedCabana = cotizacion.cabana.id;
+          this.cantidadPersonas = cotizacion.cantidadPersonas;
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   /**
    * Selecciona una cabaña y ajusta la cantidad de personas según el rango
    * @param cabanaId - ID de la cabaña (1, 2 o 3)
@@ -38,6 +61,9 @@ export class CabanasComponent {
     const rango = this.rangosPersonas[cabanaId as keyof typeof this.rangosPersonas];
     this.cantidadPersonas = rango.min;
     
+    // Actualizar el servicio de cotización
+    this.actualizarCotizacion();
+    
     console.log(`Cabaña seleccionada: ${cabanaId}, Personas: ${this.cantidadPersonas}`);
   }
 
@@ -47,6 +73,7 @@ export class CabanasComponent {
   incrementarPersonas(): void {
     if (this.selectedCabana && this.canIncrement()) {
       this.cantidadPersonas++;
+      this.actualizarCotizacion();
     }
   }
 
@@ -56,7 +83,30 @@ export class CabanasComponent {
   decrementarPersonas(): void {
     if (this.selectedCabana && this.canDecrement()) {
       this.cantidadPersonas--;
+      this.actualizarCotizacion();
     }
+  }
+
+  /**
+   * Actualiza la cotización en el servicio
+   */
+  private actualizarCotizacion(): void {
+    if (!this.selectedCabana) return;
+
+    const capacidades = {
+      1: '1 Pareja',
+      2: '3-6 personas',
+      3: '6-10 personas'
+    };
+
+    const cabanaData: CabanaSeleccionada = {
+      id: this.selectedCabana,
+      precio: this.getPrecio(),
+      capacidad: capacidades[this.selectedCabana as keyof typeof capacidades],
+      personas: this.cantidadPersonas
+    };
+
+    this.cotizacionService.actualizarCabana(cabanaData, this.cantidadPersonas);
   }
 
   /**

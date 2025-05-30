@@ -103,6 +103,10 @@
             </div>
         </div>
     </div>
+    <!-- Total de actividades -->
+    <div class="total-actividades" *ngIf="datosCotizacion && datosCotizacion.actividades.length > 0">
+        <p class="total-texto">Valor total de las actividades: <span class="total-valor">${{ datosCotizacion.subtotalActividades.toLocaleString() }}</span></p>
+    </div>
 </div>
 
 <!-- Modal -->

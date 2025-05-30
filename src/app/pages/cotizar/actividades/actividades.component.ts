@@ -1,11 +1,14 @@
-// actividades.component.ts
-import { Component } from '@angular/core';
+// actividades.component.ts - ACTUALIZADO
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { CotizacionService, DatosCotizacion } from '../cotizacion.service';
 
 interface Actividad {
   id: number;
   nombre: string;
   precio: string;
+  precioNumerico: number; // Nuevo campo para cálculos
   imagen: string;
   descripcion: string;
   incluye: string[];
@@ -19,11 +22,18 @@ interface Actividad {
   templateUrl: './actividades.component.html',
   styleUrls: ['./actividades.component.css']
 })
-export class ActividadesComponent {
+export class ActividadesComponent implements OnInit, OnDestroy {
   selectedActividades: number[] = [];
   showModal: boolean = false;
   selectedActivityId: number | null = null;
   selectedActivityData: Actividad | null = null;
+  
+  // Datos de la cotización actual
+  cantidadPersonas: number = 0;
+  datosCotizacion: DatosCotizacion | null = null;
+  
+  // Suscripción para cleanup
+  private subscription: Subscription = new Subscription();
 
   // IDs de actividades que son "por persona"
   private actividadesPorPersona: number[] = [3, 4, 5, 6]; // Kayak, Bici, Senderismo, Escalada
@@ -38,12 +48,13 @@ export class ActividadesComponent {
     6: '⛰️ '    // Escalada en roca
   };
 
-  // Datos de las actividades
+  // Datos de las actividades (actualizados con precios numéricos)
   private actividades: Actividad[] = [
     {
       id: 1,
       nombre: 'Spa en pareja',
       precio: '$150.000',
+      precioNumerico: 150000,
       imagen: '/fotospa2.jpg',
       descripcion: 'Disfruta de una experiencia relajante y romántica en nuestro spa especializado para parejas. Un momento perfecto para conectar y relajarse juntos.',
       incluye: [
@@ -59,6 +70,7 @@ export class ActividadesComponent {
       id: 2,
       nombre: 'Picnic gourmet en la naturaleza',
       precio: '$100.000',
+      precioNumerico: 100000,
       imagen: '/fotopicnic2.jpeg',
       descripcion: 'Una experiencia culinaria única en medio de la naturaleza, con productos locales y orgánicos preparados por nuestro chef especializado.',
       incluye: [
@@ -75,6 +87,7 @@ export class ActividadesComponent {
       id: 3,
       nombre: 'Kayak en río',
       precio: '$50.000',
+      precioNumerico: 50000,
       imagen: '/fotokayak2.jpg',
       descripcion: 'Aventura acuática perfecta para explorar los hermosos paisajes naturales desde una perspectiva única. Ideal para principiantes y expertos.',
       incluye: [
@@ -91,6 +104,7 @@ export class ActividadesComponent {
       id: 4,
       nombre: 'Ruta en bici de montaña',
       precio: '$45.000',
+      precioNumerico: 45000,
       imagen: '/fotobici2.jpg',
       descripcion: 'Recorre senderos naturales y disfruta de paisajes espectaculares en esta emocionante aventura sobre dos ruedas por terrenos montañosos.',
       incluye: [
@@ -107,6 +121,7 @@ export class ActividadesComponent {
       id: 5,
       nombre: 'Senderismo a cascada natural',
       precio: '$60.000',
+      precioNumerico: 60000,
       imagen: '/fotocascada2.jpg',
       descripcion: 'Descubre una cascada secreta a través de senderos naturales. Una caminata moderada que te llevará a uno de los lugares más hermosos de la región.',
       incluye: [
@@ -123,6 +138,7 @@ export class ActividadesComponent {
       id: 6,
       nombre: 'Escalada en roca',
       precio: '$70.000',
+      precioNumerico: 70000,
       imagen: '/fotoescalada2.jpg',
       descripcion: 'Desafía tus límites con esta emocionante actividad de escalada en formaciones rocosas naturales, con total seguridad y supervisión profesional.',
       incluye: [
@@ -137,6 +153,35 @@ export class ActividadesComponent {
     }
   ];
 
+  constructor(private cotizacionService: CotizacionService) {}
+
+  ngOnInit(): void {
+    // Suscribirse a cambios en la cotización
+    this.subscription.add(
+      this.cotizacionService.cotizacion$.subscribe(cotizacion => {
+        this.datosCotizacion = cotizacion;
+        this.cantidadPersonas = cotizacion.cantidadPersonas;
+        
+        // Actualizar selectedActividades basado en las actividades del servicio
+        this.selectedActividades = cotizacion.actividades.map(a => a.id);
+        
+        console.log('Datos de cotización actualizados:', cotizacion);
+        console.log('Cantidad de personas:', this.cantidadPersonas);
+      })
+    );
+
+    // Listener para cerrar modal con Escape
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && this.showModal) {
+        this.closeModal();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   /**
    * Verifica si una actividad es "por persona"
    * @param actividadId - ID de la actividad
@@ -144,6 +189,39 @@ export class ActividadesComponent {
    */
   isPorPersona(actividadId: number): boolean {
     return this.actividadesPorPersona.includes(actividadId);
+  }
+
+  /**
+   * Calcula el precio total de una actividad según si es por persona o no
+   * @param actividadId - ID de la actividad
+   * @returns Precio total calculado
+   */
+  calcularPrecioTotal(actividadId: number): number {
+    const actividad = this.actividades.find(a => a.id === actividadId);
+    if (!actividad) return 0;
+
+    if (this.isPorPersona(actividadId)) {
+      return actividad.precioNumerico * this.cantidadPersonas;
+    }
+    
+    return actividad.precioNumerico;
+  }
+
+  /**
+   * Obtiene el precio formateado para mostrar
+   * @param actividadId - ID de la actividad
+   * @returns String con el precio formateado
+   */
+  getPrecioMostrar(actividadId: number): string {
+    const actividad = this.actividades.find(a => a.id === actividadId);
+    if (!actividad) return '$0';
+
+    if (this.isPorPersona(actividadId) && this.cantidadPersonas > 0) {
+      const precioTotal = this.calcularPrecioTotal(actividadId);
+      return `$${precioTotal.toLocaleString()} (${actividad.precio} x${this.cantidadPersonas})`;
+    }
+    
+    return actividad.precio;
   }
 
   /**
@@ -176,17 +254,22 @@ export class ActividadesComponent {
    */
   elegirActividad(): void {
     if (this.selectedActivityId) {
+      const actividad = this.actividades.find(a => a.id === this.selectedActivityId);
+      if (!actividad) return;
+
       if (this.isActividadSelected(this.selectedActivityId)) {
-        // Quitar actividad
-        this.selectedActividades = this.selectedActividades.filter(
-          id => id !== this.selectedActivityId
-        );
+        // Quitar actividad del servicio
+        this.cotizacionService.quitarActividad(this.selectedActivityId);
       } else {
-        // Agregar actividad
-        this.selectedActividades.push(this.selectedActivityId);
+        // Agregar actividad al servicio
+        this.cotizacionService.agregarActividad({
+          id: actividad.id,
+          nombre: actividad.nombre,
+          precioUnitario: actividad.precioNumerico,
+          porPersona: this.isPorPersona(actividad.id)
+        });
       }
       
-      console.log('Actividades seleccionadas:', this.selectedActividades);
       this.closeModal();
     }
   }
@@ -197,9 +280,14 @@ export class ActividadesComponent {
    * @returns true si la actividad está seleccionada
    */
   isActividadSelected(actividadId: number): boolean {
-    return this.selectedActividades.includes(actividadId);
+    return this.cotizacionService.isActividadSeleccionada(actividadId);
   }
 
+  /**
+   * Verifica si el título es largo para mobile
+   * @param actividadId - ID de la actividad
+   * @returns true si tiene título largo
+   */
   hasLongTitleForMobile(actividadId: number): boolean {
     const actividadesConTituloLargo = [2, 5]; // Picnic gourmet y Senderismo
     return actividadesConTituloLargo.includes(actividadId);
@@ -210,8 +298,9 @@ export class ActividadesComponent {
    * @returns Array de actividades seleccionadas
    */
   getActividadesSeleccionadas(): Actividad[] {
+    const actividadesDelServicio = this.cotizacionService.obtenerActividadesSeleccionadas();
     return this.actividades.filter(actividad => 
-      this.selectedActividades.includes(actividad.id)
+      actividadesDelServicio.some(a => a.id === actividad.id)
     );
   }
 
@@ -236,7 +325,11 @@ export class ActividadesComponent {
    * Limpia todas las selecciones
    */
   limpiarSelecciones(): void {
-    this.selectedActividades = [];
+    // Remover todas las actividades del servicio
+    this.selectedActividades.forEach(actividadId => {
+      this.cotizacionService.quitarActividad(actividadId);
+    });
+    
     console.log('Selecciones limpiadas');
   }
 
@@ -248,13 +341,16 @@ export class ActividadesComponent {
     cantidad: number;
     actividades: string[];
     isValid: boolean;
+    subtotal: number;
   } {
     const actividadesSeleccionadas = this.getActividadesSeleccionadas();
+    const subtotal = this.datosCotizacion?.subtotalActividades || 0;
     
     return {
       cantidad: actividadesSeleccionadas.length,
       actividades: actividadesSeleccionadas.map(a => a.nombre),
-      isValid: actividadesSeleccionadas.length > 0
+      isValid: actividadesSeleccionadas.length > 0,
+      subtotal: subtotal
     };
   }
 
@@ -285,12 +381,51 @@ export class ActividadesComponent {
     }
   }
 
-  constructor() {
-    // Listener para cerrar modal con Escape
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && this.showModal) {
-        this.closeModal();
-      }
-    });
+  /**
+   * Verifica si se puede mostrar información de actividades (hay personas seleccionadas)
+   * @returns true si hay personas seleccionadas en cabañas
+   */
+  canShowActividades(): boolean {
+    return this.cantidadPersonas > 0;
+  }
+
+  /**
+   * Obtiene mensaje de advertencia si no hay personas seleccionadas
+   * @returns Mensaje para mostrar al usuario
+   */
+  getMensajeAdvertencia(): string {
+    if (this.cantidadPersonas === 0) {
+      return 'Primero selecciona una cabaña y la cantidad de personas para ver los precios de las actividades.';
+    }
+    return '';
+  }
+
+  /**
+   * Obtiene el subtotal de actividades formateado
+   * @returns String con el subtotal formateado
+   */
+  getSubtotalFormateado(): string {
+    const subtotal = this.datosCotizacion?.subtotalActividades || 0;
+    return `${subtotal.toLocaleString()}`;
+  }
+
+  /**
+   * Obtiene información de actividades por persona vs fijas
+   * @returns Objeto con conteos de actividades
+   */
+  getEstadisticasActividades(): {
+    porPersona: number;
+    fijas: number;
+    total: number;
+  } {
+    const seleccionadas = this.getActividadesSeleccionadas();
+    const porPersona = seleccionadas.filter(a => this.isPorPersona(a.id)).length;
+    const fijas = seleccionadas.length - porPersona;
+
+    return {
+      porPersona,
+      fijas,
+      total: seleccionadas.length
+    };
   }
 }
