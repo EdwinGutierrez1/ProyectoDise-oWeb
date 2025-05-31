@@ -272,14 +272,14 @@
 }
 
 .modal-body {
-    padding: 30px;
+    padding: 15px 30px;
 }
 
 .opciones-container {
     display: flex;
     flex-direction: column;
-    gap: 30px; /* Aumentamos el gap para mejor separación */
-    margin-bottom: 30px;
+    gap: 15px; /* Aumentamos el gap para mejor separación */
+    margin-bottom: 15px;
 }
 
 .opcion-item {
@@ -312,9 +312,9 @@
 
 .modal-precio-container {
     text-align: center;
-    margin-top: 25px;
+    margin-top: 10px;
     margin-bottom: 0;
-    padding: 20px 0;
+    padding: 10px 0;
     border-top: 2px solid #f0f0f0;
 }
 
@@ -335,9 +335,8 @@
 }
 
 .modal-footer {
-    padding: 30px 30px 40px 30px;
-    border-top: 2px solid #f0f0f0;
-    display: flex;
+    padding: 10px 30px 30px 30px;
+    display: flex;  
     justify-content: center;
 }
 
@@ -471,7 +470,7 @@
     }
 
     .modal-body {
-        padding: 20px;
+        padding: 15px 20px;
     }
 
     .modal-header {
@@ -488,7 +487,7 @@
     }
 
     .opciones-container {
-        gap: 25px; /* Mantenemos buen espaciado en móvil */
+        gap: 15px; /* Mantenemos buen espaciado en móvil */
     }
 
     .opcion-item-centered {
@@ -516,7 +515,7 @@
     }
 
     .modal-footer {
-        padding: 20px 20px 30px 20px;
+        padding: 15px 20px 25px 20px;
     }
 
     .seleccionar-btn {
