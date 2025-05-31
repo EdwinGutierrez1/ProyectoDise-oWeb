@@ -1,225 +1,362 @@
 /* Estilos para la sección de formulario */
 /* Aseguramos que la sección del formulario esté bien centrada */
 .formulario-section {
-    position: relative;
-    min-height: 100vh;
-    padding: 40px 20px;
-    
-    /* Estas propiedades centran el contenido horizontalmente */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  min-height: 100vh;
+  padding: 40px 20px;
+
+  /* Estas propiedades centran el contenido horizontalmente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* La clase para ocultar/mostrar */
+.formulario-section.hidden {
+  display: none;
+}
+
+/* Contenedor del formulario con fondo semi-transparente, bordes redondeados y una sombra sutil */
+.formulario-container {
+  background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco con opacidad */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2); /* Sombra suave */
+  backdrop-filter: blur(8px); /* Aplica un efecto de desenfoque en el fondo */
+  padding: 30px 40px; /* Espaciado interno */
+  max-width: 800px; /* Anchura máxima del formulario */
+  width: 100%; /* Toma el ancho completo en pantallas pequeñas */
+  z-index: 1; /* Coloca el contenedor por encima de otros elementos */
+  position: relative;
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  border: 3px solid #0000; /* Borde azul */
+}
+
+/* Estilo del título principal del formulario */
+.formulario-titulo {
+  font-size: 2.5rem; /* Tamaño grande del texto */
+  font-weight: bold; /* Texto en negrita */
+  color: #333; /* Color oscuro */
+  margin-bottom: 10px; /* Separación inferior */
+  text-align: center; /* Centra el texto */
+}
+
+/* Estilo del subtítulo del formulario */
+.formulario-subtitulo {
+  font-size: 1.1rem; /* Tamaño de texto más pequeño */
+  color: #666; /* Color gris */
+  margin-bottom: 30px; /* Separación inferior */
+  text-align: center; /* Centra el texto */
+}
+
+/* Estilos generales para cada grupo de formulario */
+.form-group {
+  margin-bottom: 20px; /* Espacio entre los grupos */
+  position: relative;
+}
+
+/* Etiquetas para los campos del formulario */
+.form-group label {
+  display: block; /* Cada etiqueta ocupa su propia línea */
+  margin-bottom: 8px; /* Separación inferior */
+  font-weight: 600; /* Texto en seminegrita */
+  color: #333; /* Color oscuro */
+}
+
+/* Iconos dentro de los campos del formulario (por ejemplo, usuario o contraseña) */
+.form-group i {
+  position: absolute; /* Posiciona el icono dentro del campo */
+  left: 15px; /* Distancia desde el borde izquierdo */
+  top: 40px; /* Distancia desde el borde superior */
+  color: #777; /* Color gris */
+}
+
+/* Estilo para los inputs, áreas de texto y listas desplegables */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%; /* Toma el ancho completo */
+  padding: 12px 15px 12px 40px; /* Espaciado interno considerando el icono */
+  border: 1px solid #ddd; /* Borde gris claro */
+  border-radius: 8px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño del texto */
+  transition: all 0.3s ease; /* Transición suave para efectos de hover/activo */
+}
+
+/* Estilo cuando los inputs, áreas de texto y listas tienen foco */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #4a90e2; /* Cambia el borde a azul */
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25); /* Efecto de sombra alrededor del campo */
+  outline: none; /* Elimina el contorno predeterminado */
+}
+
+/* Para mostrar varios elementos del formulario en una sola fila */
+.form-row {
+  display: flex;
+  gap: 20px; /* Espaciado entre los elementos */
+}
+
+/* Hace que cada grupo en una fila sea de igual tamaño */
+.form-row .form-group {
+  flex: 1; /* Todos los elementos ocupan el mismo espacio */
+}
+
+/* Contenedor para la sección de resumen */
+.resumen-container {
+  background-color: #f8f9fa; /* Fondo gris claro */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Título de la sección de resumen */
+.resumen-container h4 {
+  color: #333; /* Color oscuro */
+  margin-bottom: 15px; /* Separación inferior */
+}
+
+/* Estilo para el total del resumen */
+.total-resumen {
+  font-weight: bold; /* Texto en negrita */
+  color: #2c3e50; /* Color azul oscuro */
+  margin-top: 15px; /* Separación superior */
+  font-size: 1.2rem; /* Tamaño del texto */
+}
+
+/* Estilos para el contenedor de botones */
+.botones-container {
+  display: flex;
+  justify-content: space-between; /* Coloca los botones en extremos opuestos */
+  margin-top: 20px;
+}
+
+/* Estilo del botón "Volver" */
+.btn-volver {
+  background-color: #6c757d; /* Fondo gris oscuro */
+  color: white; /* Texto blanco */
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px; /* Bordes redondeados */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Transición suave al hacer hover */
+  display: flex;
+  align-items: center; /* Centra verticalmente el texto y el icono */
+}
+
+/* Espaciado para el icono en el botón "Volver" */
+.btn-volver i {
+  margin-right: 8px;
+}
+
+/* Botón "Cotizar" con fondo degradado */
+.btn-cotizar {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Fondo degradado */
+  color: white; /* Texto blanco */
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold; /* Texto en negrita */
+  border-radius: 8px; /* Bordes redondeados */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center; /* Centra verticalmente el texto y el icono */
+}
+
+/* Espaciado para el icono en el botón "Cotizar" */
+.btn-cotizar i {
+  margin-right: 8px;
+}
+
+/* Efectos hover para los botones */
+.btn-volver:hover,
+.btn-cotizar:hover {
+  transform: translateY(-3px); /* Mueve los botones ligeramente hacia arriba */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Efecto de sombra al hacer hover */
+}
+
+/* Sección de características mostradas horizontalmente */
+.caracteristicas {
+  display: flex;
+  justify-content: space-around; /* Espacia las características de manera uniforme */
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee; /* Línea divisoria en la parte superior */
+}
+
+/* Estilo para cada característica individual */
+.caracteristica {
+  display: flex;
+  align-items: center;
+  font-size: 14px; /* Tamaño del texto */
+  color: #555; /* Color gris */
+}
+
+/* Estilo para los iconos en las características */
+.caracteristica i {
+  margin-right: 8px;
+  color: #4caf50; /* Color verde para los iconos */
+}
+
+/* Estilo para la lista de resumen de reservas */
+#resumen-reserva {
+  list-style-type: none; /* Elimina los puntos de lista */
+  padding-left: 0;
+}
+
+/* Estilo para cada elemento de la lista */
+#resumen-reserva li {
+  padding: 10px; /* Espaciado interno */
+  border-bottom: 1px solid #eee; /* Separador entre elementos */
+  display: flex;
+  justify-content: space-between; /* Coloca el contenido de manera separada */
+}
+
+/* Elimina el borde para el último elemento de la lista */
+#resumen-reserva li:last-child {
+  border-bottom: none;
+}
+
+/* Oculta la sección del formulario cuando tiene la clase .hidden */
+.formulario-section.hidden {
+  display: none; /* Hace que la sección sea invisible */
+}
+
+#resumen-reserva {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resumen-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.resumen-item:last-child {
+  border-bottom: none;
+}
+
+.resumen-item.actividad {
+  padding-left: 20px;
+  font-size: 0.95em;
+}
+
+.resumen-categoria {
+  padding: 15px 0 8px 0;
+  font-size: 1.05em;
+  color: #2c3e50;
+  border-bottom: 1px solid #ddd;
+}
+
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-detalles {
+  font-size: 0.9em;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.actividad-nombre {
+  font-weight: 500;
+  color: #495057;
+}
+
+.item-precio {
+  font-weight: bold;
+  color: #28a745;
+  font-size: 1.05em;
+  white-space: nowrap;
+  margin-left: 15px;
+}
+
+.resumen-vacio {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.mensaje-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #6c757d;
+}
+
+.mensaje-vacio i {
+  font-size: 2em;
+  color: #adb5bd;
+}
+
+.mensaje-vacio p {
+  margin: 0;
+  font-style: italic;
+}
+
+.total-resumen {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 1.3em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cotizar:disabled {
+  background: #6c757d !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-cotizar:disabled:hover {
+  background: #6c757d !important;
+  transform: none;
+}
+
+/* Animaciones para cambios dinámicos */
+.resumen-item {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  /* La clase para ocultar/mostrar */
-  .formulario-section.hidden {
-    display: none;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Contenedor del formulario con fondo semi-transparente, bordes redondeados y una sombra sutil */
-  .formulario-container {
-    background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco con opacidad */
-    border-radius: 15px; /* Bordes redondeados */
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2); /* Sombra suave */
-    backdrop-filter: blur(8px); /* Aplica un efecto de desenfoque en el fondo */
-    padding: 30px 40px; /* Espaciado interno */
-    max-width: 800px; /* Anchura máxima del formulario */
-    width: 100%; /* Toma el ancho completo en pantallas pequeñas */
-    z-index: 1; /* Coloca el contenedor por encima de otros elementos */
-    position: relative;
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-    border: 3px solid #0000; /* Borde azul */;
+}
+
+/* Responsive para el resumen */
+@media (max-width: 768px) {
+  .resumen-item {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
   }
-  
-  /* Estilo del título principal del formulario */
-  .formulario-titulo {
-    font-size: 2.5rem; /* Tamaño grande del texto */
-    font-weight: bold; /* Texto en negrita */
-    color: #333; /* Color oscuro */
-    margin-bottom: 10px; /* Separación inferior */
-    text-align: center; /* Centra el texto */
+
+  .item-precio {
+    margin-left: 0;
+    font-size: 1.1em;
   }
-  
-  /* Estilo del subtítulo del formulario */
-  .formulario-subtitulo {
-    font-size: 1.1rem; /* Tamaño de texto más pequeño */
-    color: #666; /* Color gris */
-    margin-bottom: 30px; /* Separación inferior */
-    text-align: center; /* Centra el texto */
-  }
-  
-  /* Estilos generales para cada grupo de formulario */
-  .form-group {
-    margin-bottom: 20px; /* Espacio entre los grupos */
-    position: relative;
-  }
-  
-  /* Etiquetas para los campos del formulario */
-  .form-group label {
-    display: block; /* Cada etiqueta ocupa su propia línea */
-    margin-bottom: 8px; /* Separación inferior */
-    font-weight: 600; /* Texto en seminegrita */
-    color: #333; /* Color oscuro */
-  }
-  
-  /* Iconos dentro de los campos del formulario (por ejemplo, usuario o contraseña) */
-  .form-group i {
-    position: absolute; /* Posiciona el icono dentro del campo */
-    left: 15px; /* Distancia desde el borde izquierdo */
-    top: 40px; /* Distancia desde el borde superior */
-    color: #777; /* Color gris */
-  }
-  
-  /* Estilo para los inputs, áreas de texto y listas desplegables */
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%; /* Toma el ancho completo */
-    padding: 12px 15px 12px 40px; /* Espaciado interno considerando el icono */
-    border: 1px solid #ddd; /* Borde gris claro */
-    border-radius: 8px; /* Bordes redondeados */
-    font-size: 16px; /* Tamaño del texto */
-    transition: all 0.3s ease; /* Transición suave para efectos de hover/activo */
-  }
-  
-  /* Estilo cuando los inputs, áreas de texto y listas tienen foco */
-  .form-group input:focus,
-  .form-group textarea:focus,
-  .form-group select:focus {
-    border-color: #4a90e2; /* Cambia el borde a azul */
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25); /* Efecto de sombra alrededor del campo */
-    outline: none; /* Elimina el contorno predeterminado */
-  }
-  
-  /* Para mostrar varios elementos del formulario en una sola fila */
-  .form-row {
-    display: flex;
-    gap: 20px; /* Espaciado entre los elementos */
-  }
-  
-  /* Hace que cada grupo en una fila sea de igual tamaño */
-  .form-row .form-group {
-    flex: 1; /* Todos los elementos ocupan el mismo espacio */
-  }
-  
-  /* Contenedor para la sección de resumen */
-  .resumen-container {
-    background-color: #f8f9fa; /* Fondo gris claro */
-    border-radius: 10px; /* Bordes redondeados */
-    padding: 20px; /* Espaciado interno */
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  
-  /* Título de la sección de resumen */
-  .resumen-container h4 {
-    color: #333; /* Color oscuro */
-    margin-bottom: 15px; /* Separación inferior */
-  }
-  
-  /* Estilo para el total del resumen */
+
   .total-resumen {
-    font-weight: bold; /* Texto en negrita */
-    color: #2c3e50; /* Color azul oscuro */
-    margin-top: 15px; /* Separación superior */
-    font-size: 1.2rem; /* Tamaño del texto */
+    font-size: 1.2em;
+    padding: 12px 15px;
   }
-  
-  /* Estilos para el contenedor de botones */
-  .botones-container {
-    display: flex;
-    justify-content: space-between; /* Coloca los botones en extremos opuestos */
-    margin-top: 20px;
-  }
-  
-  /* Estilo del botón "Volver" */
-  .btn-volver {
-    background-color: #6c757d; /* Fondo gris oscuro */
-    color: white; /* Texto blanco */
-    border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 8px; /* Bordes redondeados */
-    cursor: pointer;
-    transition: all 0.3s ease; /* Transición suave al hacer hover */
-    display: flex;
-    align-items: center; /* Centra verticalmente el texto y el icono */
-  }
-  
-  /* Espaciado para el icono en el botón "Volver" */
-  .btn-volver i {
-    margin-right: 8px;
-  }
-  
-  /* Botón "Cotizar" con fondo degradado */
-  .btn-cotizar {
-    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Fondo degradado */
-    color: white; /* Texto blanco */
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: bold; /* Texto en negrita */
-    border-radius: 8px; /* Bordes redondeados */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center; /* Centra verticalmente el texto y el icono */
-  }
-  
-  /* Espaciado para el icono en el botón "Cotizar" */
-  .btn-cotizar i {
-    margin-right: 8px;
-  }
-  
-  /* Efectos hover para los botones */
-  .btn-volver:hover, .btn-cotizar:hover {
-    transform: translateY(-3px); /* Mueve los botones ligeramente hacia arriba */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Efecto de sombra al hacer hover */
-  }
-  
-  /* Sección de características mostradas horizontalmente */
-  .caracteristicas {
-    display: flex;
-    justify-content: space-around; /* Espacia las características de manera uniforme */
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #eee; /* Línea divisoria en la parte superior */
-  }
-  
-  /* Estilo para cada característica individual */
-  .caracteristica {
-    display: flex;
-    align-items: center;
-    font-size: 14px; /* Tamaño del texto */
-    color: #555; /* Color gris */
-  }
-  
-  /* Estilo para los iconos en las características */
-  .caracteristica i {
-    margin-right: 8px;
-    color: #4CAF50; /* Color verde para los iconos */
-  }
-  
-  /* Estilo para la lista de resumen de reservas */
-  #resumen-reserva {
-    list-style-type: none; /* Elimina los puntos de lista */
-    padding-left: 0;
-  }
-  
-  /* Estilo para cada elemento de la lista */
-  #resumen-reserva li {
-    padding: 10px; /* Espaciado interno */
-    border-bottom: 1px solid #eee; /* Separador entre elementos */
-    display: flex;
-    justify-content: space-between; /* Coloca el contenido de manera separada */
-  }
-  
-  /* Elimina el borde para el último elemento de la lista */
-  #resumen-reserva li:last-child {
-    border-bottom: none;
-  }
-  
-  /* Oculta la sección del formulario cuando tiene la clase .hidden */
-  .formulario-section.hidden {
-    display: none; /* Hace que la sección sea invisible */
-  }
+}
