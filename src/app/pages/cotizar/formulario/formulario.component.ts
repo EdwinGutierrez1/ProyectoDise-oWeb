@@ -8,28 +8,29 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './formulario.component.html',
-  styleUrls: ['./formulario.component.css']
+  styleUrls: ['./formulario.component.css'],
 })
 export class FormularioComponent implements OnInit, OnDestroy {
-  
   // Datos de la cotización actual
   datosCotizacion: DatosCotizacion = {
     cabana: null,
     actividades: [],
+    comidas: [],
     cantidadPersonas: 0,
     subtotalCabana: 0,
     subtotalActividades: 0,
-    total: 0
+    subtotalComidas: 0,
+    total: 0,
   };
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private cotizacionService: CotizacionService) { }
+  constructor(private cotizacionService: CotizacionService) {}
 
   ngOnInit(): void {
     // Suscribirse a los cambios de cotización
     this.subscription.add(
-      this.cotizacionService.cotizacion$.subscribe(cotizacion => {
+      this.cotizacionService.cotizacion$.subscribe((cotizacion) => {
         this.datosCotizacion = cotizacion;
         this.actualizarResumenDOM();
       })
@@ -56,7 +57,9 @@ export class FormularioComponent implements OnInit, OnDestroy {
     }
 
     if (totalElement) {
-      totalElement.textContent = this.formatearPrecio(this.datosCotizacion.total);
+      totalElement.textContent = this.formatearPrecio(
+        this.datosCotizacion.total
+      );
     }
   }
 
@@ -75,10 +78,16 @@ export class FormularioComponent implements OnInit, OnDestroy {
             <span class="item-detalles">
               ${this.datosCotizacion.cabana.capacidad} - 
               ${this.datosCotizacion.cantidadPersonas} 
-              ${this.datosCotizacion.cantidadPersonas === 1 ? 'persona' : 'personas'}
+              ${
+                this.datosCotizacion.cantidadPersonas === 1
+                  ? 'persona'
+                  : 'personas'
+              }
             </span>
           </div>
-          <span class="item-precio">$${this.formatearPrecio(this.datosCotizacion.cabana.precio)}</span>
+          <span class="item-precio">$${this.formatearPrecio(
+            this.datosCotizacion.cabana.precio
+          )}</span>
         </li>
       `;
     }
@@ -91,9 +100,11 @@ export class FormularioComponent implements OnInit, OnDestroy {
         </li>
       `;
 
-      this.datosCotizacion.actividades.forEach(actividad => {
-        const precioInfo = actividad.porPersona 
-          ? `$${this.formatearPrecio(actividad.precio)} x ${this.datosCotizacion.cantidadPersonas} personas`
+      this.datosCotizacion.actividades.forEach((actividad) => {
+        const precioInfo = actividad.porPersona
+          ? `$${this.formatearPrecio(actividad.precio)} x ${
+              this.datosCotizacion.cantidadPersonas
+            } personas`
           : `Precio fijo`;
 
         html += `
@@ -102,14 +113,19 @@ export class FormularioComponent implements OnInit, OnDestroy {
               <span class="actividad-nombre">${actividad.nombre}</span>
               <span class="item-detalles">${precioInfo}</span>
             </div>
-            <span class="item-precio">$${this.formatearPrecio(actividad.precioTotal)}</span>
+            <span class="item-precio">$${this.formatearPrecio(
+              actividad.precioTotal
+            )}</span>
           </li>
         `;
       });
     }
 
     // Si no hay nada seleccionado
-    if (!this.datosCotizacion.cabana && this.datosCotizacion.actividades.length === 0) {
+    if (
+      !this.datosCotizacion.cabana &&
+      this.datosCotizacion.actividades.length === 0
+    ) {
       html = `
         <li class="resumen-vacio">
           <div class="mensaje-vacio">
@@ -135,10 +151,10 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   onSubmit(event: Event): void {
     event.preventDefault();
-    
+
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
-    
+
     // Crear objeto con todos los datos
     const solicitudCompleta = {
       datosPersonales: {
@@ -146,14 +162,14 @@ export class FormularioComponent implements OnInit, OnDestroy {
         email: formData.get('email'),
         telefono: formData.get('telefono'),
         fecha: formData.get('fecha'),
-        comentarios: formData.get('comentarios')
+        comentarios: formData.get('comentarios'),
       },
       cotizacion: this.datosCotizacion,
-      fechaSolicitud: new Date().toISOString()
+      fechaSolicitud: new Date().toISOString(),
     };
 
     console.log('Solicitud completa:', solicitudCompleta);
-    
+
     // Aquí enviarías los datos al servidor
     this.enviarSolicitud(solicitudCompleta);
   }
@@ -164,7 +180,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
   private enviarSolicitud(datos: any): void {
     // Aquí harías la llamada HTTP real
     console.log('Enviando solicitud...', datos);
-    
+
     // Simulación
     setTimeout(() => {
       alert('¡Solicitud enviada exitosamente! Te contactaremos pronto.');
@@ -180,7 +196,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
     if (form) {
       form.reset();
     }
-    
+
     this.cotizacionService.reiniciarCotizacion();
   }
 
@@ -190,7 +206,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
   onVolver(): void {
     // Aquí podrías navegar a la sección anterior o cambiar pestañas
     console.log('Volviendo a los servicios...');
-    
+
     // Si usas tabs o navegación, aquí harías el cambio
     // Por ejemplo: this.activeTab = 'actividades';
   }
@@ -212,15 +228,17 @@ export class FormularioComponent implements OnInit, OnDestroy {
 
   get resumenTexto(): string {
     const items = [];
-    
+
     if (this.datosCotizacion.cabana) {
-      items.push(`Cabaña para ${this.datosCotizacion.cantidadPersonas} personas`);
+      items.push(
+        `Cabaña para ${this.datosCotizacion.cantidadPersonas} personas`
+      );
     }
-    
+
     if (this.datosCotizacion.actividades.length > 0) {
       items.push(`${this.datosCotizacion.actividades.length} actividades`);
     }
-    
+
     return items.join(' + ') || 'Sin selecciones';
   }
 }
