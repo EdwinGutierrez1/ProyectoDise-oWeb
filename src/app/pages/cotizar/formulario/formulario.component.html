@@ -4,7 +4,7 @@
     <h2 class="formulario-titulo">Cotiza tu experiencia</h2>
     <p class="formulario-subtitulo">Complete sus datos para finalizar la reserva</p>
 
-    <form method="POST" id="cotizar-form">
+    <form method="POST" id="cotizar-form" (ngSubmit)="onSubmit($event)">
       <div class="form-group">
         <label for="nombre">Nombre</label>
         <i class="fas fa-user"></i>
@@ -34,22 +34,29 @@
       <div class="form-group">
         <label for="comentarios">Comentarios</label>
         <i class="fas fa-comment"></i>
-        <textarea class="form-control" id="comentarios" name="comentarios" rows="3"></textarea>
+        <textarea class="form-control" id="comentarios" name="comentarios" rows="3" 
+                  placeholder="Solicitudes especiales, preguntas adicionales..."></textarea>
       </div>
 
       <div class="resumen-container">
         <h4>Resumen de tu reserva:</h4>
         <ul id="resumen-reserva">
-          <li></li>
+          <!-- El contenido se actualiza dinámicamente desde el componente -->
+          <li class="resumen-vacio" *ngIf="!tieneCabana && !tieneActividades">
+            <div class="mensaje-vacio">
+              <i class="fas fa-info-circle"></i>
+              <p>Selecciona una cabaña y actividades para ver tu resumen</p>
+            </div>
+          </li>
         </ul>
-        <h4 class="total-resumen">Total: $<span id="total-final">50</span></h4>
+        <h4 class="total-resumen">Total: $<span id="total-final">0</span></h4>
       </div>
 
       <div class="botones-container">
-        <button class="btn-volver" id="volver-btn">
+        <button type="button" class="btn-volver" id="volver-btn" (click)="onVolver()">
           <i class="fas fa-arrow-left"></i> Volver a los servicios
         </button>
-        <button type="submit" class="btn-cotizar">
+        <button type="submit" class="btn-cotizar" [disabled]="!tieneCabana">
           <i class="fas fa-paper-plane"></i> Cotizar
         </button>
       </div>
