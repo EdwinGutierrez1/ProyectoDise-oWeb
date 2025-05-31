@@ -1,0 +1,123 @@
+<!-- comidas.component.html -->
+<div class="comidas-container">
+    <h1 class="titulo">Explora nuestro menú</h1>
+
+    <div class="mensaje-validacion" *ngIf="!tieneCabanaSeleccionada()">
+        <p class="mensaje-texto">
+            <span class="icono-info">🛈</span>
+            Selecciona una cabaña para poder elegir opciones de menú
+        </p>
+    </div>
+    
+    <div class="comidas-grid">
+        <!-- Desayuno -->
+        <div 
+            class="comida-card" 
+            [class.selected]="isComidaSelected(1)"
+            [class.disabled]="!canSelectComida(1)"
+            (click)="canSelectComida(1) ? openModal(1) : null">
+            <div class="image-container">
+                <img src="/desayuno.jpg" alt="Desayuno" class="comida-image">
+            </div>
+            <div class="comida-info">
+                <h3>Desayuno</h3>
+                <div class="precio-container">
+                    <p class="precio">$30.000</p>
+                    <p class="por-persona">por persona</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Almuerzo -->
+        <div 
+            class="comida-card" 
+            [class.selected]="isComidaSelected(2)"
+            [class.disabled]="!canSelectComida(2)"
+            (click)="canSelectComida(2) ? openModal(2) : null">
+            <div class="image-container">
+                <img src="/almuerzo.jpg" alt="Almuerzo" class="comida-image">
+            </div>
+            <div class="comida-info">
+                <h3>Almuerzo</h3>
+                <div class="precio-container">
+                    <p class="precio">$45.000</p>
+                    <p class="por-persona">por persona</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cena -->
+        <div 
+            class="comida-card" 
+            [class.selected]="isComidaSelected(3)"
+            [class.disabled]="!canSelectComida(3)"
+            (click)="canSelectComida(3) ? openModal(3) : null">
+            <div class="image-container">
+                <img src="/cena.jpg" alt="Cena" class="comida-image">
+            </div>
+            <div class="comida-info">
+                <h3>Cena</h3>
+                <div class="precio-container">
+                    <p class="precio">$40.000</p>
+                    <p class="por-persona">por persona</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total de comidas -->
+    <div class="total-comidas" *ngIf="datosCotizacion && datosCotizacion.comidas.length > 0">
+        <p class="total-texto">Valor total del menú: <span class="total-valor">${{ datosCotizacion.subtotalComidas.toLocaleString() }}</span></p>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2 class="modal-title">
+            <span class="food-icon">{{ getComidaIcon(selectedComidaId!) }}</span>
+            {{ selectedComidaData?.nombre }}
+            </h2>
+            <button class="close-btn" (click)="closeModal()">&times;</button>
+        </div>
+    
+        <div class="modal-body">
+            <div class="opciones-container">
+            <div
+                class="opcion-item-wrapper"
+                *ngFor="let opcion of selectedComidaData?.opciones"
+            >
+                <div class="opcion-item-centered">
+                <div class="opcion-image-container">
+                    <img
+                    [src]="opcion.imagen"
+                    [alt]="opcion.nombre"
+                    class="opcion-image"
+                    />
+                </div>
+                <div class="opcion-info">
+                    <h4>{{ opcion.nombre }}</h4>
+                    <p>{{ opcion.descripcion }}</p>
+                </div>
+                </div>
+            </div>
+            </div>
+    
+            <div class="modal-precio-container">
+            <p class="modal-precio">{{ selectedComidaData?.precio }}</p>
+            <p class="modal-por-persona">por persona</p>
+            </div>
+        </div>
+    
+        <div class="modal-footer">
+            <button
+            class="seleccionar-btn"
+            [class.quitar-btn]="isComidaSelected(selectedComidaId!)"
+            (click)="seleccionarComida()"
+            >
+            {{ isComidaSelected(selectedComidaId!) ? 'Quitar' : 'Seleccionar' }}
+            </button>
+        </div>
+        </div>
+    </div>

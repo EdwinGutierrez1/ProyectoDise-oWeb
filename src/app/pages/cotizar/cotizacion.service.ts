@@ -20,12 +20,22 @@
     precioTotal: number;
     }
 
+    export interface ComidaSeleccionada {
+    id: number;
+    nombre: string;
+    precioUnitario: number;
+    porPersona: boolean;
+    precioTotal: number;
+    }
+
     export interface DatosCotizacion {
     cabana: CabanaSeleccionada | null;
     actividades: ActividadSeleccionada[];
+    comidas: ComidaSeleccionada[];
     cantidadPersonas: number;
     subtotalCabana: number;
     subtotalActividades: number;
+    subtotalComidas: number;
     total: number;
     }
 
@@ -38,9 +48,11 @@
     private datosCotizacionIniciales: DatosCotizacion = {
         cabana: null,
         actividades: [],
+        comidas: [],
         cantidadPersonas: 0,
         subtotalCabana: 0,
         subtotalActividades: 0,
+        subtotalComidas: 0,
         total: 0
     };
 
@@ -63,11 +75,13 @@
         const cabanaAnterior = this.datosCotizacion.cabana;
         const haCambiadoCabana = !cabanaAnterior || cabanaAnterior.id !== cabana.id;
         
-        // Si cambió la cabaña, limpiar actividades
+        // Si cambió la cabaña, limpiar actividades y comidas
         if (haCambiadoCabana) {
-        console.log('Cabaña cambió, limpiando actividades anteriores');
+        console.log('Cabaña cambió, limpiando actividades y comidas anteriores');
         this.datosCotizacion.actividades = [];
+        this.datosCotizacion.comidas = [];
         this.datosCotizacion.subtotalActividades = 0;
+        this.datosCotizacion.subtotalComidas = 0;
         }
         
         // Actualizar información de la cabaña
@@ -75,17 +89,17 @@
         this.datosCotizacion.cantidadPersonas = cantidadPersonas;
         this.datosCotizacion.subtotalCabana = cabana.precio;
         
-        // Si no cambió la cabaña pero cambió la cantidad de personas, recalcular actividades
-        if (!haCambiadoCabana && this.datosCotizacion.actividades.length > 0) {
-        console.log('Recalculando actividades por cambio en cantidad de personas');
+        // Si no cambió la cabaña pero cambió la cantidad de personas, recalcular actividades y comidas
+        if (!haCambiadoCabana && (this.datosCotizacion.actividades.length > 0 || this.datosCotizacion.comidas.length > 0)) {
+        console.log('Recalculando actividades y comidas por cambio en cantidad de personas');
         this.recalcularActividadesConPersonas();
+        this.recalcularComidasConPersonas();
         }
         
         this.calcularTotal();
         this.emitirCambios();
         
         console.log('Cabaña actualizada:', cabana, 'Personas:', cantidadPersonas);
-        console.log('Actividades después del cambio:', this.datosCotizacion.actividades);
     }
 
     /**
@@ -141,6 +155,58 @@
     }
 
     /**
+     * Agrega una comida a la cotización
+     * @param comida - Datos de la comida
+     */
+    agregarComida(comida: {
+        id: number;
+        nombre: string;
+        precioUnitario: number;
+        porPersona: boolean;
+    }): void {
+        // Verificar si ya existe la comida
+        const existe = this.datosCotizacion.comidas.find(c => c.id === comida.id);
+        if (existe) {
+        console.log('Comida ya seleccionada:', comida.nombre);
+        return;
+        }
+
+        // Calcular precio total según si es por persona o no
+        const precioTotal = comida.porPersona 
+        ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas
+        : comida.precioUnitario;
+
+        const nuevaComida: ComidaSeleccionada = {
+        id: comida.id,
+        nombre: comida.nombre,
+        precioUnitario: comida.precioUnitario,
+        porPersona: comida.porPersona,
+        precioTotal: precioTotal
+        };
+
+        this.datosCotizacion.comidas.push(nuevaComida);
+        this.calcularTotal();
+        this.emitirCambios();
+        
+        console.log('Comida agregada:', nuevaComida);
+    }
+
+    /**
+     * Quita una comida de la cotización
+     * @param comidaId - ID de la comida a quitar
+     */
+    quitarComida(comidaId: number): void {
+        this.datosCotizacion.comidas = this.datosCotizacion.comidas.filter(
+        c => c.id !== comidaId
+        );
+        
+        this.calcularTotal();
+        this.emitirCambios();
+        
+        console.log('Comida removida, ID:', comidaId);
+    }
+
+    /**
      * Limpia todas las actividades seleccionadas
      */
     limpiarActividades(): void {
@@ -150,6 +216,18 @@
         this.emitirCambios();
         
         console.log('Todas las actividades han sido limpiadas');
+    }
+
+    /**
+     * Limpia todas las comidas seleccionadas
+     */
+    limpiarComidas(): void {
+        this.datosCotizacion.comidas = [];
+        this.datosCotizacion.subtotalComidas = 0;
+        this.calcularTotal();
+        this.emitirCambios();
+        
+        console.log('Todas las comidas han sido limpiadas');
     }
 
     /**
@@ -165,6 +243,18 @@
     }
 
     /**
+     * Recalcula los precios de las comidas cuando cambia la cantidad de personas
+     */
+    private recalcularComidasConPersonas(): void {
+        this.datosCotizacion.comidas = this.datosCotizacion.comidas.map(comida => ({
+        ...comida,
+        precioTotal: comida.porPersona 
+            ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas
+            : comida.precioUnitario
+        }));
+    }
+
+    /**
      * Calcula los totales de la cotización
      */
     private calcularTotal(): void {
@@ -173,8 +263,15 @@
         (total, actividad) => total + actividad.precioTotal, 0
         );
 
+        // Subtotal de comidas
+        this.datosCotizacion.subtotalComidas = this.datosCotizacion.comidas.reduce(
+        (total, comida) => total + comida.precioTotal, 0
+        );
+
         // Total general
-        this.datosCotizacion.total = this.datosCotizacion.subtotalCabana + this.datosCotizacion.subtotalActividades;
+        this.datosCotizacion.total = this.datosCotizacion.subtotalCabana + 
+                                    this.datosCotizacion.subtotalActividades + 
+                                    this.datosCotizacion.subtotalComidas;
     }
 
     /**
@@ -210,6 +307,15 @@
     }
 
     /**
+     * Verifica si una comida está seleccionada
+     * @param comidaId - ID de la comida
+     * @returns true si está seleccionada
+     */
+    isComidaSeleccionada(comidaId: number): boolean {
+        return this.datosCotizacion.comidas.some(c => c.id === comidaId);
+    }
+
+    /**
      * Obtiene el total de la cotización
      * @returns Precio total
      */
@@ -224,14 +330,18 @@
     obtenerResumen(): {
         tieneCabana: boolean;
         tieneActividades: boolean;
+        tieneComidas: boolean;
         totalActividades: number;
+        totalComidas: number;
         personas: number;
         total: number;
     } {
         return {
         tieneCabana: this.datosCotizacion.cabana !== null,
         tieneActividades: this.datosCotizacion.actividades.length > 0,
+        tieneComidas: this.datosCotizacion.comidas.length > 0,
         totalActividades: this.datosCotizacion.actividades.length,
+        totalComidas: this.datosCotizacion.comidas.length,
         personas: this.datosCotizacion.cantidadPersonas,
         total: this.datosCotizacion.total
         };
@@ -252,5 +362,13 @@
      */
     obtenerActividadesSeleccionadas(): ActividadSeleccionada[] {
         return [...this.datosCotizacion.actividades];
+    }
+
+    /**
+     * Obtiene las comidas seleccionadas
+     * @returns Array de comidas seleccionadas
+     */
+    obtenerComidasSeleccionadas(): ComidaSeleccionada[] {
+        return [...this.datosCotizacion.comidas];
     }
 }

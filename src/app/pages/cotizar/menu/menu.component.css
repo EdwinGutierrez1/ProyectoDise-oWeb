@@ -1,0 +1,546 @@
+/* comidas.component.css */
+.comidas-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 50px 20px;
+    font-family: Arial, sans-serif;
+    border-bottom: 2px solid #c4c3c3;
+}
+
+.titulo {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.comidas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 30px;
+    justify-items: center;
+}
+
+.comida-card {
+    width: 380px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 25px 35px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: white;
+    min-height: 395px;
+}
+
+.comida-card:hover {
+    border-color: #9e9e9e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+}
+
+.comida-card.selected {
+    border-color: #28a745;
+    border-width: 2.8px;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    background-color: #CCECCC;
+}
+
+/* Estilos para cards deshabilitadas */
+.comida-card.disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: #E0E0E0;
+    border-color: #C8C8C8;
+}
+
+.card-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.card-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.card-content img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.card-content .text {
+    max-width: 300px;
+}
+
+.opcion-item-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+}
+
+.opcion-item-centered {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 600px; /* Aumentamos el max-width para acomodar la imagen más grande */
+    width: 100%;
+}
+
+.opcion-image-container {
+    flex-shrink: 0;
+    width: 160px; /* Tamaño específico solicitado */
+    height: 120px; /* Tamaño específico solicitado */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.opcion-image-container img.opcion-image {
+    width: 160px; /* Tamaño específico solicitado */
+    height: 120px; /* Tamaño específico solicitado */
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.opcion-info {
+    flex: 1;
+    min-width: 200px;
+    max-width: 380px; /* Ajustamos para que el texto tenga buen espacio */
+    margin-left: 30px;
+}
+
+/* Mensaje de validación */
+.mensaje-validacion {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background-color: #e3f2fd;
+    border: 1.5px solid #bbdefb;
+    border-radius: 8px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mensaje-texto {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #1565c0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.icono-info {
+    font-size: 1.2rem;
+}
+
+.image-container {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.comida-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #1e5799;
+}
+
+.comida-info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.comida-info h3 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #1f1f1f;
+    margin: 0 0 10px 0;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.3;
+}
+
+.precio-container {
+    text-align: center;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.precio {
+    font-size: 1.6rem;
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.por-persona {
+    font-size: 1rem;
+    color: #28a745;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 750px; /* Aumentamos el ancho máximo para acomodar mejor las imágenes */
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    text-align: left;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.food-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #666;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.close-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.opciones-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Aumentamos el gap para mejor separación */
+    margin-bottom: 30px;
+}
+
+.opcion-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    flex-wrap: wrap;
+}
+
+.opcion-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.opcion-info h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 8px 0;
+}
+
+.opcion-info p {
+    color: #666;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.modal-precio-container {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 0;
+    padding: 20px 0;
+    border-top: 2px solid #f0f0f0;
+}
+
+.modal-precio {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.modal-por-persona {
+    font-size: 1.1rem;
+    color: #28a745;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-weight: normal;
+}
+
+.modal-footer {
+    padding: 30px 30px 40px 30px;
+    border-top: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: center;
+}
+
+.seleccionar-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+}
+
+.seleccionar-btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.seleccionar-btn:active {
+    transform: scale(0.95);
+}
+
+.quitar-btn {
+    background-color: #dc3545 !important;
+}
+
+.quitar-btn:hover {
+    background-color: #c82333 !important;
+    transform: scale(1.05);
+}
+
+.total-comidas {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.total-texto {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.total-valor {
+    color: #28a745;
+    font-size: 1.7rem;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .comidas-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    
+    .comida-card {
+        width: 320px;
+    }
+}
+
+@media (max-width: 900px) {
+    .comidas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .comidas-container {
+        padding: 30px 15px;
+    }
+
+    .titulo {
+        font-size: 1.8rem;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .mensaje-validacion {
+        margin-bottom: 20px;
+        padding: 12px 15px;
+    }
+
+    .icono-info {
+        font-size: 1.7rem;
+    }
+
+    .mensaje-texto {
+        font-size: 0.9rem;
+        flex-direction: row;
+        gap: 5px;
+        text-align: center;
+    }
+
+    .comidas-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .comida-card {
+        width: 100%;
+        max-width: 350px;
+        padding: 20px 25px;
+    }
+
+    .image-container {
+        height: 200px;
+    }
+
+    .comida-info h3 {
+        font-size: 1.2rem;
+        min-height: 40px;
+    }
+
+    .precio {
+        font-size: 1.25rem;
+    }
+
+    .por-persona {
+        font-size: 0.8rem;
+    }
+
+    /* Modal responsive */
+    .modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-header {
+        padding: 15px 20px;
+    }
+
+    .modal-title {
+        font-size: 1.4rem;
+        gap: 8px;
+    }
+
+    .food-icon {
+        font-size: 1.6rem;
+    }
+
+    .opciones-container {
+        gap: 25px; /* Mantenemos buen espaciado en móvil */
+    }
+
+    .opcion-item-centered {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .opcion-image-container {
+        width: 160px; /* Mantenemos el tamaño deseado incluso en móvil */
+        height: 120px;
+        margin: 0 auto;
+    }
+
+    .opcion-image-container img.opcion-image {
+        width: 160px;
+        height: 120px;
+    }
+
+    .opcion-info {
+        max-width: 100%;
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .modal-footer {
+        padding: 20px 20px 30px 20px;
+    }
+
+    .seleccionar-btn {
+        padding: 10px 30px;
+        font-size: 1rem;
+    }
+
+    .modal-precio {
+        font-size: 1.8rem !important;
+    }
+
+    .modal-por-persona {
+        font-size: 0.9rem !important;
+    }
+
+    .total-comidas {
+        margin-top: 30px;
+    }
+
+    .total-texto {
+        font-size: 1.3rem;
+    }
+
+    .total-valor {
+        font-size: 1.5rem;
+    }
+}
