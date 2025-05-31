@@ -1,4 +1,4 @@
-// comidas.component.ts - CORREGIDO
+// comidas.component.ts - ACTUALIZADO
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -17,6 +17,7 @@ interface Comida {
   precioNumerico: number;
   imagen: string;
   opciones: OpcionComida[];
+  incluido?: boolean; // Nueva propiedad para marcar si está incluido
 }
 
 @Component({
@@ -51,9 +52,10 @@ export class MenuComponent implements OnInit, OnDestroy {
     {
       id: 1,
       nombre: 'Desayuno',
-      precio: '$30.000',
-      precioNumerico: 30000,
+      precio: 'Incluido',
+      precioNumerico: 0, // El desayuno no tiene costo adicional
       imagen: '/desayuno.jpg',
+      incluido: true, // Marcamos que está incluido
       opciones: [
         {
           nombre: 'Desayuno Campestre',
@@ -78,6 +80,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       precio: '$45.000',
       precioNumerico: 45000,
       imagen: '/almuerzo.jpg',
+      incluido: false,
       opciones: [
         {
           nombre: 'Trucha a la Plancha',
@@ -102,6 +105,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       precio: '$40.000',
       precioNumerico: 40000,
       imagen: '/cena.jpg',
+      incluido: false,
       opciones: [
         {
           nombre: 'Lomo de Cerdo en Salsa de Tamarindo',
@@ -134,6 +138,11 @@ export class MenuComponent implements OnInit, OnDestroy {
         // Actualizar selectedComidas basado en las comidas del servicio
         this.selectedComidas = cotizacion.comidas.map(c => c.id);
         
+        // Asegurar que el desayuno esté siempre incluido si hay una cabaña seleccionada
+        if (cotizacion.cabana && !this.selectedComidas.includes(1)) {
+          this.selectedComidas.push(1);
+        }
+        
         console.log('Datos de cotización actualizados:', cotizacion);
         console.log('Cantidad de personas:', this.cantidadPersonas);
       })
@@ -165,10 +174,12 @@ export class MenuComponent implements OnInit, OnDestroy {
    */
   calcularPrecioTotal(comidaId: number): number {
     const comida = this.comidas.find(c => c.id === comidaId);
-    if (!comida) return 0;
+    if (!comida || comida.incluido) return 0; // Si está incluido, no suma al total
 
     return comida.precioNumerico * this.cantidadPersonas;
   }
+
+  
 
   /**
    * Obtiene el precio formateado para mostrar
@@ -178,6 +189,11 @@ export class MenuComponent implements OnInit, OnDestroy {
   getPrecioMostrar(comidaId: number): string {
     const comida = this.comidas.find(c => c.id === comidaId);
     if (!comida) return '$0';
+
+    // Si está incluido, mostrar "Incluido"
+    if (comida.incluido) {
+      return 'Incluido';
+    }
 
     if (this.cantidadPersonas > 0) {
       const precioTotal = this.calcularPrecioTotal(comidaId);
@@ -214,11 +230,18 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   /**
    * Alterna la selección de una comida (agregar o quitar)
+   * No permite quitar el desayuno ya que está incluido
    */
   seleccionarComida(): void {
     if (this.selectedComidaId) {
       const comida = this.comidas.find(c => c.id === this.selectedComidaId);
       if (!comida) return;
+
+      // Si es el desayuno (incluido), no hacer nada ya que siempre está seleccionado
+      if (comida.incluido) {
+        this.closeModal();
+        return;
+      }
 
       if (this.isComidaSelected(this.selectedComidaId)) {
         // Quitar comida del servicio
@@ -239,10 +262,17 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   /**
    * Verifica si una comida está seleccionada
+   * El desayuno siempre está seleccionado si hay cabaña
    * @param comidaId - ID de la comida
    * @returns true si la comida está seleccionada
    */
   isComidaSelected(comidaId: number): boolean {
+    // Si es el desayuno y hay cabaña seleccionada, siempre está seleccionado
+    if (comidaId === 1 && this.tieneCabanaSeleccionada()) {
+      return true;
+    }
+    
+    // Para otras comidas, verificar en el servicio
     return this.cotizacionService.isComidaSeleccionada(comidaId);
   }
 
@@ -252,9 +282,19 @@ export class MenuComponent implements OnInit, OnDestroy {
    */
   getComidasSeleccionadas(): Comida[] {
     const comidasDelServicio = this.cotizacionService.obtenerComidasSeleccionadas();
-    return this.comidas.filter(comida => 
+    const comidasSeleccionadas = this.comidas.filter(comida => 
       comidasDelServicio.some(c => c.id === comida.id)
     );
+
+    // Siempre incluir el desayuno si hay cabaña seleccionada
+    if (this.tieneCabanaSeleccionada() && !comidasSeleccionadas.some(c => c.id === 1)) {
+      const desayuno = this.comidas.find(c => c.id === 1);
+      if (desayuno) {
+        comidasSeleccionadas.unshift(desayuno); // Agregar al inicio
+      }
+    }
+
+    return comidasSeleccionadas;
   }
 
   /**
@@ -267,20 +307,30 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Obtiene el total de comidas seleccionadas
-   * @returns Número de comidas seleccionadas
+   * Obtiene el total de comidas seleccionadas (sin contar incluidas)
+   * @returns Número de comidas seleccionadas que tienen costo
    */
   getTotalComidasSeleccionadas(): number {
-    return this.selectedComidas.length;
+    return this.selectedComidas.filter(id => {
+      const comida = this.comidas.find(c => c.id === id);
+      return comida && !comida.incluido;
+    }).length;
   }
 
   /**
-   * Limpia todas las selecciones
+   * Limpia todas las selecciones (excepto las incluidas)
    */
   limpiarSelecciones(): void {
     // Usar el método del servicio para limpiar todas las comidas
     this.cotizacionService.limpiarComidas();
-    console.log('Selecciones de comidas limpiadas');
+    
+    // Mantener solo las comidas incluidas
+    this.selectedComidas = this.selectedComidas.filter(id => {
+      const comida = this.comidas.find(c => c.id === id);
+      return comida && comida.incluido;
+    });
+    
+    console.log('Selecciones de comidas limpiadas (manteniendo incluidas)');
   }
 
   /**
@@ -431,5 +481,70 @@ export class MenuComponent implements OnInit, OnDestroy {
    */
   getTodasLasComidas(): Comida[] {
     return this.comidas;
+  }
+
+  /**
+   * Obtiene el texto del botón del modal según el estado de la comida
+   * @returns Texto para mostrar en el botón
+   */
+/**
+ * Obtiene el texto del botón del modal según el estado de la comida
+ * @returns Texto para mostrar en el botón
+ */
+  getBotonTexto(): string {
+    if (!this.selectedComidaId) return 'Seleccionar';
+
+    const comida = this.comidas.find(c => c.id === this.selectedComidaId);
+    
+    // Si es una comida incluida (desayuno), no debería mostrar botón
+    if (comida && comida.incluido) {
+      return '';
+    }
+
+    // Si la comida está seleccionada, mostrar "Quitar"
+    if (this.isComidaSelected(this.selectedComidaId)) {
+      return 'Quitar del menú';
+    }
+
+    // Si no está seleccionada, mostrar "Seleccionar"
+    return 'Agregar al menú';
+  }
+
+  /**
+   * Verifica si una comida está incluida
+   * @param comidaId - ID de la comida
+   * @returns true si la comida está incluida
+   */
+  isComidaIncluida(comidaId: number): boolean {
+    const comida = this.comidas.find(c => c.id === comidaId);
+    return comida?.incluido || false;
+  }
+
+  /**
+   * Obtiene el texto del precio para mostrar en el modal
+   * @returns Texto del precio formateado
+   */
+  getModalPrecioTexto(): string {
+    if (!this.selectedComidaData) return '';
+
+    if (this.selectedComidaData.incluido) {
+      return 'Incluido';
+    }
+
+    return this.selectedComidaData.precio;
+  }
+
+  /**
+   * Obtiene el texto descriptivo para mostrar debajo del precio en el modal
+   * @returns Texto descriptivo
+   */
+  getModalPrecioDescripcion(): string {
+    if (!this.selectedComidaData) return '';
+
+    if (this.selectedComidaData.incluido) {
+      return 'en tu estadía';
+    }
+
+    return 'por persona';
   }
 }

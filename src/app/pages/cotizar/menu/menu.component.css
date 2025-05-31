@@ -48,6 +48,19 @@
     background-color: #CCECCC;
 }
 
+/* Estilos específicos para el desayuno incluido */
+.comida-card.incluido {
+    border-color: #007bff;
+    border-width: 2.8px;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    background-color: #cce7ff;
+}
+
+.comida-card.incluido:hover {
+    border-color: #0056b3;
+    box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+}
+
 /* Estilos para cards deshabilitadas */
 .comida-card.disabled {
     opacity: 0.7;
@@ -191,6 +204,13 @@
     padding-bottom: 0;
 }
 
+/* Estilos específicos para "Incluido" */
+.precio.incluido-texto {
+    color: #007bff;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
 .por-persona {
     font-size: 1rem;
     color: #28a745;
@@ -198,6 +218,11 @@
     padding-top: 0;
     margin-bottom: 5px;
     font-weight: 600;
+}
+
+/* Estilos para "en tu estadía" del desayuno */
+.comida-card.incluido .por-persona {
+    color: #007bff;
 }
 
 /* Modal Styles */
@@ -229,12 +254,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px;
+    padding: 15px 30px;
     border-bottom: 2px solid #f0f0f0;
 }
 
 .modal-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: bold;
     color: #333;
     margin: 0;
@@ -242,11 +267,11 @@
     flex: 1;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .food-icon {
-    font-size: 2rem;
+    font-size: 1.6rem;
     flex-shrink: 0;
 }
 
@@ -256,8 +281,8 @@
     font-size: 2rem;
     cursor: pointer;
     color: #666;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -273,6 +298,23 @@
 
 .modal-body {
     padding: 15px 30px;
+}
+
+/* Estilos para el texto informativo del modal */
+.modal-info-texto {
+    margin-bottom: 25px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.info-texto {
+    margin: 0;
+    font-size: 1rem;
+    color: #495057;
+    line-height: 1.5;
+    font-weight: 500;
 }
 
 .opciones-container {
@@ -326,12 +368,23 @@
     padding-bottom: 0;
 }
 
+/* Estilos para "Incluido" en el modal */
+.modal-precio.incluido-modal {
+    color: #007bff;
+    font-size: 2.2rem;
+}
+
 .modal-por-persona {
     font-size: 1.1rem;
     color: #28a745;
     margin-bottom: 0;
     padding-bottom: 0;
     font-weight: normal;
+}
+
+/* Estilo específico para "en tu estadía" en el modal del desayuno */
+.modal-por-persona.incluido-modal-texto {
+    color: #007bff;
 }
 
 .modal-footer {
@@ -369,6 +422,17 @@
 .quitar-btn:hover {
     background-color: #c82333 !important;
     transform: scale(1.05);
+}
+
+/* Estilos específicos para el botón de desayuno incluido */
+.incluido-btn {
+    background-color: #007bff !important;
+    cursor: default !important;
+}
+
+.incluido-btn:hover {
+    background-color: #007bff !important;
+    transform: none !important;
 }
 
 .total-comidas {
@@ -459,6 +523,10 @@
         font-size: 1.25rem;
     }
 
+    .precio.incluido-texto {
+        font-size: 1.25rem;
+    }
+
     .por-persona {
         font-size: 0.8rem;
     }
@@ -474,16 +542,31 @@
     }
 
     .modal-header {
-        padding: 15px 20px;
+        padding: 12px 20px;
+    }
+
+    .close-btn {
+        font-size: 1.3rem;
+        width: 28px;
+        height: 28px;
     }
 
     .modal-title {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         gap: 8px;
     }
 
     .food-icon {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
+    }
+
+    .modal-info-texto {
+        margin-bottom: 20px;
+        padding: 12px 15px;
+    }
+
+    .info-texto {
+        font-size: 0.9rem;
     }
 
     .opciones-container {
@@ -524,6 +607,10 @@
     }
 
     .modal-precio {
+        font-size: 1.8rem !important;
+    }
+
+    .modal-precio.incluido-modal {
         font-size: 1.8rem !important;
     }
 

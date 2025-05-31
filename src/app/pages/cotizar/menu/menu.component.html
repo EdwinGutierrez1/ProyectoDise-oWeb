@@ -1,6 +1,6 @@
 <!-- comidas.component.html -->
 <div class="comidas-container">
-    <h1 class="titulo">Explora nuestro menú</h1>
+    <h1 class="titulo">¡Explora nuestro menú!</h1>
 
     <div class="mensaje-validacion" *ngIf="!tieneCabanaSeleccionada()">
         <p class="mensaje-texto">
@@ -15,6 +15,7 @@
             class="comida-card" 
             [class.selected]="isComidaSelected(1)"
             [class.disabled]="!canSelectComida(1)"
+            [class.incluido]="true"
             (click)="canSelectComida(1) ? openModal(1) : null">
             <div class="image-container">
                 <img src="/desayuno.jpg" alt="Desayuno" class="comida-image">
@@ -22,8 +23,8 @@
             <div class="comida-info">
                 <h3>Desayuno</h3>
                 <div class="precio-container">
-                    <p class="precio">$30.000</p>
-                    <p class="por-persona">por persona</p>
+                    <p class="precio incluido-texto">Incluido</p>
+                    <p class="por-persona">en tu estadía</p>
                 </div>
             </div>
         </div>
@@ -67,7 +68,7 @@
 
     <!-- Total de comidas -->
     <div class="total-comidas" *ngIf="datosCotizacion && datosCotizacion.comidas.length > 0">
-        <p class="total-texto">Valor total del menú: <span class="total-valor">${{ datosCotizacion.subtotalComidas.toLocaleString() }}</span></p>
+        <p class="total-texto">Costo total diario del menú: <span class="total-valor">${{ datosCotizacion.subtotalComidas.toLocaleString() }}</span></p>
     </div>
 </div>
 
@@ -83,6 +84,19 @@
         </div>
     
         <div class="modal-body">
+            <!-- Texto informativo específico para cada comida -->
+            <div class="modal-info-texto">
+                <p *ngIf="selectedComidaId === 1" class="info-texto">
+                    El desayuno está incluido durante tu visita. Podrás elegir una de las siguientes tres opciones:
+                </p>
+                <p *ngIf="selectedComidaId === 2" class="info-texto">
+                    Durante tu estadía, podrás elegir cualquiera de los siguientes tres opciones de almuerzo:
+                </p>
+                <p *ngIf="selectedComidaId === 3" class="info-texto">
+                    Durante tu estadía, podrás elegir cualquiera de las siguientes tres opciones de cena:
+                </p>
+            </div>
+
             <div class="opciones-container">
             <div
                 class="opcion-item-wrapper"
@@ -105,18 +119,24 @@
             </div>
     
             <div class="modal-precio-container">
-            <p class="modal-precio">{{ selectedComidaData?.precio }}</p>
-            <p class="modal-por-persona">por persona</p>
+                <p class="modal-precio" [class.incluido-modal]="selectedComidaId === 1">
+                    {{ selectedComidaId === 1 ? 'Incluido' : selectedComidaData?.precio }}
+                </p>
+                <p class="modal-por-persona" [class.incluido-modal-texto]="selectedComidaId === 1">
+                    {{ selectedComidaId === 1 ? 'en tu estadía' : 'por persona' }}
+                </p>
             </div>
         </div>
     
         <div class="modal-footer">
             <button
             class="seleccionar-btn"
-            [class.quitar-btn]="isComidaSelected(selectedComidaId!)"
+            [class.quitar-btn]="isComidaSelected(selectedComidaId!) && selectedComidaId !== 1"
+            [class.incluido-btn]="selectedComidaId === 1"
             (click)="seleccionarComida()"
+            *ngIf="selectedComidaId !== 1"
             >
-            {{ isComidaSelected(selectedComidaId!) ? 'Quitar' : 'Seleccionar' }}
+            {{ getBotonTexto() }}
             </button>
         </div>
         </div>
