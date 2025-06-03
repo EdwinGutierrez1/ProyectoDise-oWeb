@@ -108,7 +108,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       incluido: false,
       opciones: [
         {
-          nombre: 'Lomo de Cerdo en Salsa de Tamarindo',
+          nombre: 'Lomo de Cerdo',
           descripcion: 'Lomo de cerdo jugoso bañado en salsa agridulce de tamarindo, puré de yuca y vegetales grillados.',
           imagen: '/cena1.jpg'
         },

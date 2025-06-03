@@ -141,8 +141,8 @@
     text-align: center;
     margin-bottom: 30px;
     padding: 15px 20px;
-    background-color: #e3f2fd;
-    border: 1.5px solid #bbdefb;
+    background-color: #d8e8f7;
+    border: 2px solid #bbdefb;
     border-radius: 8px;
     max-width: 600px;
     margin-left: auto;
@@ -286,19 +286,18 @@
     font-size: 2rem;
     cursor: pointer;
     color: #666;
-    width: 32px;
-    height: 32px;
+    padding: 0;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
     transition: all 0.3s ease;
     flex-shrink: 0;
+    /* Eliminamos width, height y border-radius para quitar el círculo */
 }
 
 .close-btn:hover {
-    background-color: #f0f0f0;
-    color: #333;
+    color: #000; /* Solo cambiamos el color al hacer hover, sin fondo */
 }
 
 .modal-body {
@@ -559,18 +558,31 @@
     }
 
     .close-btn {
-        font-size: 1.3rem;
-        width: 28px;
-        height: 28px;
+        font-size: 2rem; /* Aumentado de 1.3rem para hacerlo más grande */
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #666;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
     }
 
+    .close-btn:hover {
+        color: #000; /* Color más oscuro al pasar el cursor */
+    }
+    
     .modal-title {
-        font-size: 1.3rem;
+        font-size: 1.5rem; /* Reducido de 1.3rem para hacerlo más pequeño */
         gap: 8px;
     }
 
     .food-icon {
-        font-size: 1.4rem;
+        font-size: 1.2rem; /* Reducido de 1.4rem para mantener proporción */
     }
 
     .modal-info-texto {
@@ -579,7 +591,7 @@
     }
 
     .info-texto {
-        font-size: 0.9rem;
+        font-size: 1rem; /* Aumentado de 0.9rem para hacerlo más grande */
     }
 
     .opciones-container {
@@ -594,8 +606,8 @@
     }
 
     .opcion-image-container {
-        width: 160px; /* Mantenemos el tamaño deseado incluso en móvil */
-        height: 120px;
+        width: 180px; /* Aumentado de 160px para hacer las imágenes más grandes */
+        height: 135px; /* Aumentado de 120px para mantener proporción */
         margin: 0 auto;
         border-radius: 10px;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
@@ -603,8 +615,8 @@
     }
 
     .opcion-image-container img.opcion-image {
-        width: 160px;
-        height: 120px;
+        width: 180px; /* Aumentado de 160px para hacer las imágenes más grandes */
+        height: 135px; /* Aumentado de 120px para mantener proporción */
         border: none;
     }
 
@@ -614,8 +626,23 @@
         margin-left: 0;
     }
 
+    .opcion-info h4 {
+        font-size: 1.1rem; /* Reducido de 1.2rem para hacerlo más pequeño */
+        margin-bottom: 6px; /* Ajustado para mejor espaciado */
+    }
+
+    .opcion-info p {
+        font-size: 0.85rem; /* Reducido para hacer la descripción más pequeña */
+        line-height: 1.4; /* Ajustado para mejor legibilidad */
+        margin-bottom: 18px;
+    }
     .modal-footer {
         padding: 15px 20px 25px 20px;
+    }
+
+    /* Nuevo estilo para reducir el padding inferior en móvil cuando es el modal de desayuno incluido */
+    .modal-footer:empty {
+        padding: 5px;
     }
 
     .seleccionar-btn {
@@ -646,5 +673,27 @@
 
     .total-valor {
         font-size: 1.5rem;
+    }
+
+    /*Desactivamos los hovers en moviles*/
+    .comida-card:hover {
+        border-color: #ccc; /* Mantener el color original del borde */
+        box-shadow: none; /* Eliminar la sombra */
+        transform: none; /* Eliminar el efecto de escala */
+    }
+
+    .comida-card.incluido:hover {
+        border-color: #007bff; /* Mantener el color original del borde azul */
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); /* Mantener la sombra original */
+    }
+
+    .seleccionar-btn:hover {
+        background-color: #28a745; /* Mantener el color original */
+        transform: none; /* Eliminar el efecto de escala */
+    }
+
+    .quitar-btn:hover {
+        background-color: #dc3545 !important; /* Mantener el color original */
+        transform: none !important; /* Eliminar el efecto de escala */
     }
 }
