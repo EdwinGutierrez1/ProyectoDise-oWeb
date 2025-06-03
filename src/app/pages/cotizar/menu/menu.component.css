@@ -7,6 +7,8 @@
     border-bottom: 2px solid #c4c3c3;
 }
 
+/*PUNTO DE CONTROL NOJODA*/
+
 .titulo {
     text-align: center;
     font-size: 2.2rem;
@@ -110,18 +112,21 @@
 
 .opcion-image-container {
     flex-shrink: 0;
-    width: 160px; /* Tamaño específico solicitado */
-    height: 120px; /* Tamaño específico solicitado */
+    width: 160px;
+    height: 120px;
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    border: 1px solid #b6b5b5;
 }
 
+
 .opcion-image-container img.opcion-image {
-    width: 160px; /* Tamaño específico solicitado */
-    height: 120px; /* Tamaño específico solicitado */
+    width: 160px;
+    height: 120px;
     object-fit: cover;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    border: none;
 }
 
 .opcion-info {
@@ -584,11 +589,15 @@
         width: 160px; /* Mantenemos el tamaño deseado incluso en móvil */
         height: 120px;
         margin: 0 auto;
+        border-radius: 10px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        border: 1px solid #b6b5b5;
     }
 
     .opcion-image-container img.opcion-image {
         width: 160px;
         height: 120px;
+        border: none;
     }
 
     .opcion-info {

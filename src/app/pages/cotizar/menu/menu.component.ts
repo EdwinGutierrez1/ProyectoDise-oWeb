@@ -54,32 +54,32 @@ export class MenuComponent implements OnInit, OnDestroy {
       nombre: 'Desayuno',
       precio: 'Incluido',
       precioNumerico: 0, // El desayuno no tiene costo adicional
-      imagen: '/desayuno.jpg',
+      imagen: '/desayuno1.jpg', // Ruta de la imagen de desayuno
       incluido: true, // Marcamos que está incluido
       opciones: [
         {
           nombre: 'Desayuno Campestre',
           descripcion: 'Huevos pericos con cebollín, arepa de maíz, queso fresco, aguacate, mermelada casera y café de finca.',
-          imagen: '/desayuno-campestre.jpg'
+          imagen: '/desayuno1.jpg'
         },
         {
           nombre: 'Desayuno Energético',
           descripcion: 'Bowl de granola casera con yogurt natural, frutas frescas de temporada, miel de abejas y frutos secos.',
-          imagen: '/desayuno-energetico.jpg'
+          imagen: '/desayuno2.jpg'
         },
         {
-          nombre: 'Desayuno Internacional',
-          descripcion: 'Pancakes de avena con miel, frutas frescas, huevos revueltos, tocineta y jugo natural de naranja.',
-          imagen: '/desayuno-internacional.jpg'
+          nombre: 'Mini pancakes',
+          descripcion: 'Mini pancakes con fresas y banano, acompañados de huevos revueltos, y un vaso de milo. Ideal para niños.',
+          imagen: '/desayuno3.jpg'
         }
       ]
     },
     {
       id: 2,
       nombre: 'Almuerzo',
-      precio: '$45.000',
-      precioNumerico: 45000,
-      imagen: '/almuerzo.jpg',
+      precio: '$35.000',
+      precioNumerico: 35000,
+      imagen: '/pechuga.jpg',
       incluido: false,
       opciones: [
         {
@@ -93,34 +93,34 @@ export class MenuComponent implements OnInit, OnDestroy {
           imagen: '/pollo.jpg'
         },
         {
-          nombre: 'Sancocho de Gallina',
-          descripcion: 'Tradicional sancocho con gallina criolla, yuca, plátano, mazorca y cilantro. Servido con arroz blanco y aguacate.',
-          imagen: '/sancocho.jpg'
+          nombre: 'Pechuga Apanada',
+          descripcion: 'Pechuga de pollo apanada, arroz blanco y ensalada fresca. Incluye postre y jugo natural. Ideal para niños',
+          imagen: '/pechuga.jpg'
         }
       ]
     },
     {
       id: 3,
       nombre: 'Cena',
-      precio: '$40.000',
-      precioNumerico: 40000,
-      imagen: '/cena.jpg',
+      precio: '$30.000',
+      precioNumerico: 30000,
+      imagen: '/cena2.jpg',
       incluido: false,
       opciones: [
         {
           nombre: 'Lomo de Cerdo en Salsa de Tamarindo',
           descripcion: 'Lomo de cerdo jugoso bañado en salsa agridulce de tamarindo, puré de yuca y vegetales grillados.',
-          imagen: '/lomo-tamarindo.jpg'
+          imagen: '/cena1.jpg'
         },
         {
-          nombre: 'Pescado en Hoja de Plátano',
-          descripcion: 'Filete de pescado envuelto en hoja de plátano con especias locales, arroz con coco y ensalada tropical.',
-          imagen: '/pescado-platano.jpg'
+          nombre: 'Ensalada especial',
+          descripcion: 'Ensalada fresca con aguacate, queso campesino, tomates cherry y crujientes de tortilla, acompañada de carne de res',
+          imagen: '/cena2.jpg'
         },
-        {
-          nombre: 'Parrillada Mixta',
-          descripcion: 'Selección de carnes a la parrilla: pollo, res y chorizo, acompañada de arepa, yuca cocida y chimichurri casero.',
-          imagen: '/parrillada-mixta.jpg'
+        { 
+          nombre: 'Mini hot-dogs',
+          descripcion: 'Deliciosos mini hot dogs, acompañados de  papas a la francesa y una refrescanate limonada. Ideal para los más pequeños',
+          imagen: '/cena3.jpg'
         }
       ]
     }
