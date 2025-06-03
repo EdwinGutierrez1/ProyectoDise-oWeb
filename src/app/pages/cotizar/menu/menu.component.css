@@ -241,7 +241,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1060;
 }
 
 .modal-content {
@@ -485,7 +485,7 @@
     .titulo {
         font-size: 1.8rem;
         margin-top: 20px;
-        margin-bottom: 30px;
+        margin-bottom: 45px;
     }
 
     .mensaje-validacion {
@@ -510,30 +510,38 @@
     }
 
     .comida-card {
-        width: 100%;
-        max-width: 350px;
-        padding: 20px 25px;
+        width: 90%; /* Reducido de 100% para hacerlas más angostas */
+        max-width: 300px; /* Reducido de 350px para hacerlas más angostas */
+        padding: 15px 20px; /* Reducido el padding para mantener la proporción */
     }
 
     .image-container {
-        height: 200px;
+        height: 200px; /* Aumentado de 180px a 200px para hacer la imagen más alta */
     }
 
     .comida-info h3 {
-        font-size: 1.2rem;
-        min-height: 40px;
+        margin-top: 20px;
+        font-size: 1.6rem; /* Aumentado de 1.2rem para hacerlo más grande */
+        min-height: 30px; /* Reducido de 35px para compensar el aumento de la imagen */
+        margin-bottom: 20px; /* Reducido de 10px para compensar el aumento de la imagen */
+    }
+
+    .comida-info {
+        margin-top: 15px; /* Reducido de 20px para compensar el aumento de la imagen */
     }
 
     .precio {
-        font-size: 1.25rem;
+        font-size: 1.5rem; /* Aumentado de 1.25rem para hacerlo más grande */
+        margin-bottom: 5px; /* Añadido para separar del texto "por persona" */
     }
 
     .precio.incluido-texto {
-        font-size: 1.25rem;
+        font-size: 1.4rem; /* Aumentado de 1.25rem para hacerlo más grande */
     }
 
     .por-persona {
-        font-size: 0.8rem;
+        font-size: 1rem; /* Aumentado de 0.8rem para hacerlo más grande */
+        font-weight: 600; /* Mantenido el peso de la fuente para que sea visible */
     }
 
     /* Modal responsive */
@@ -632,6 +640,7 @@
     }
 
     .total-texto {
+        margin-top: 40px;
         font-size: 1.3rem;
     }
 
