@@ -477,6 +477,8 @@
 @media (max-width: 768px) {
     .actividades-container {
         padding: 30px 15px;
+        width: 100%; /*cambio*/
+        box-sizing: border-box; /*cambio*/
     }
 
     .titulo {
@@ -511,13 +513,13 @@
     }
 
     .actividad-card {
-        width: 100%;
-        max-width: 350px;
-        padding: 20px 25px;
+        width: 90%;
+        max-width: 300px;
+        padding: 15px 20px;
     }
 
     .image-container {
-        height: 240px;
+        height: 200px;
     }
 
     .actividad-info h3 {
@@ -531,11 +533,11 @@
     }
 
     .precio {
-        font-size: 1.25rem;
+        font-size: 1.4rem;
     }
 
     .por-persona {
-        font-size: 0.8rem;
+        font-size: 1rem;
     }
 
     /* Modal responsive */
@@ -557,6 +559,15 @@
 
     .modal-header {
         padding: 15px 20px;
+    }
+
+    .modal-incluye ul {
+        text-align: center;
+        padding-left: 0;
+    }
+    
+    .modal-incluye li {
+        text-align: center;
     }
 
     .modal-title {
@@ -617,5 +628,17 @@
     
     .total-valor {
         font-size: 1.5rem;
+    }
+
+    /*Desactivamos los hovers en moviles*/
+    .actividad-card:hover {
+        border-color: #ccc;
+        box-shadow: none;
+        transform: none;
+    }
+    
+    .actividad-card.selected:hover {
+        border-color: #28a745;
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
     }
 }

@@ -133,6 +133,11 @@
                         <span class="icono">🚿</span>
                         <span class="texto">{{ getBanosCabana() }} baños</span>
                     </div>
+                    <!-- NUEVA AMENIDAD CONDICIONAL -->
+                    <div class="caracteristica" *ngIf="getAmenidadCabana()">
+                        <span class="icono">{{ getAmenidadCabana()?.emoji }}</span>
+                        <span class="texto">{{ getAmenidadCabana()?.texto }}</span>
+                    </div>
                 </div>
             </div>
 

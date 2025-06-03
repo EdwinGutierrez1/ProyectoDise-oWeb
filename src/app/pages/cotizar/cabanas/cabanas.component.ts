@@ -96,6 +96,21 @@ export class CabanasComponent implements OnInit, OnDestroy {
     }
   };
 
+  private amenidadesCabanas = {
+    1: {
+      emoji: '🛁',
+      texto: 'Jacuzzi'
+    },
+    2: {
+      emoji: '🏊‍♀️',
+      texto: 'Piscina'
+    },
+    3: {
+      emoji: '🛁',
+      texto: 'Jacuzzi'
+    }
+  };
+
   constructor(private cotizacionService: CotizacionService) {}
 
   ngOnInit(): void {
@@ -176,6 +191,17 @@ export class CabanasComponent implements OnInit, OnDestroy {
   getImagenActual(): string {
     const imagenes = this.getImagenesCabana();
     return imagenes[this.imagenActualIndex] || '';
+  }
+
+    /**
+   * Obtiene la amenidad especial de la cabaña actual del modal
+   * @returns Objeto con emoji y texto de la amenidad, o null si no tiene
+   */
+  getAmenidadCabana(): { emoji: string; texto: string } | null {
+    if (!this.cabanaModalActual || !this.amenidadesCabanas[this.cabanaModalActual as keyof typeof this.amenidadesCabanas]) {
+      return null;
+    }
+    return this.amenidadesCabanas[this.cabanaModalActual as keyof typeof this.amenidadesCabanas];
   }
 
   /**
