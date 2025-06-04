@@ -428,21 +428,108 @@
     box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4); /* Azul */
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { 
-        opacity: 0;
-        transform: translateY(-20px) scale(0.95);
+/* Estilos simplificados para la información de costos */
+.cost-info {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .cost-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+  }
+  
+  .cost-label {
+    font-size: 14px;
+    color: #495057;
+    flex: 1;
+  }
+  
+  .cost-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: #28a745;
+    text-align: right;
+  }
+  
+  .cost-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0 8px 0;
+    border-top: 2px solid #28a745;
+    font-weight: 600;
+  }
+  
+  .total-label {
+    font-size: 16px;
+    color: #212529;
+  }
+  
+  .total-value {
+    font-size: 18px;
+    color: #28a745;
+    font-weight: 700;
+  }
+  
+  /* Estilos para el mensaje de advertencia cuando no hay cabaña */
+  .no-cabin-warning {
+    margin-top: 20px;
+    padding: 16px;
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border: 2px solid #ffc107;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.1);
+  }
+  
+  .warning-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .warning-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  
+  .warning-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .warning-text strong {
+    color: #856404;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .warning-text small {
+    color: #856404;
+    font-size: 12px;
+    opacity: 0.8;
+  }
+  
+  /* Animaciones para las nuevas secciones */
+  .cost-info, .no-cabin-warning {
+    animation: slideInUp 0.3s ease-out;
+  }
+  
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
-    to { 
-        opacity: 1;
-        transform: translateY(0) scale(1);
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
-}
+  }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -492,6 +579,41 @@
     flex-direction: column;
     gap: 10px;
     }
+
+.cost-info {
+    margin-top: 16px;
+    gap: 10px;
+  }
+  
+  .cost-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 6px 0;
+  }
+  
+  .cost-value {
+    align-self: flex-end;
+    font-size: 13px;
+  }
+  
+  .cost-total {
+    padding: 10px 0 6px 0;
+  }
+  
+  .total-label {
+    font-size: 14px;
+  }
+  
+  .total-value {
+    font-size: 16px;
+  }
+  
+  .warning-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
 }
 
 @media (max-width: 480px) {
