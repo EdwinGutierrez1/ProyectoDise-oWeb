@@ -79,11 +79,6 @@
                 <span class="cost-value">{{costoPorNoche | currency:'COP':'symbol-narrow':'1.0-0'}}/noche</span>
             </div>
             
-            <div class="cost-item">
-                <span class="cost-label">{{cantidadNoches}} {{cantidadNoches === 1 ? 'noche' : 'noches'}}</span>
-                <span class="cost-value">{{costoTotalEstadia | currency:'COP':'symbol-narrow':'1.0-0'}}</span>
-            </div>
-            
             <div class="cost-total">
                 <span class="total-label">Total hospedaje:</span>
                 <span class="total-value">{{costoTotalEstadia | currency:'COP':'symbol-narrow':'1.0-0'}}</span>
@@ -110,7 +105,7 @@
         
         <div class="selection-status" *ngIf="selectedRange.startDate && !selectedRange.endDate">
         <h3>Selecciona fecha de salida</h3>
-        <p>Ya tienes tu check-in, ahora elige cuándo te vas</p>
+        <p>Ya tienes tu fecha de llegada, ahora elige cuando te irás</p>
         </div>
     </div>
     </div>

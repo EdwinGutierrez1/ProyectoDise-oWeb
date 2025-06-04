@@ -4,7 +4,6 @@
     padding: 30px;
     background: white;
     border-radius: 16px;
-    /* Eliminados: box-shadow y border */
     font-family: 'Segoe UI', -apple-system, sans-serif;
 }
 
@@ -62,7 +61,7 @@
 .main-layout {
     display: grid;
     grid-template-columns: 1fr 350px;
-    gap: 40px;
+    gap: 55px;
     margin-bottom: 30px;
 }
 
@@ -380,13 +379,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s ease;
     margin: 0;
     padding: 0;
 }
 
 .close-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
 }
 
 .modal-body {
@@ -411,7 +410,7 @@
 }
 
 .error-btn {
-    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%); /* Verde */
     color: white;
     border: none;
     padding: 10px 15px;
@@ -424,112 +423,116 @@
 }
 
 .error-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4); /* Azul */
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4); /* Verde */
 }
 
 /* Estilos simplificados para la información de costos */
 .cost-info {
-    margin-top: 20px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-  }
-  
-  .cost-item {
+    gap: 10px;
+}
+
+.cost-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
-  }
-  
-  .cost-label {
-    font-size: 14px;
+    margin-bottom: 5px; 
+    margin-top: 10px; /* Aumentado de 8px a 12px para más espaciado */
+}
+
+.cost-label {
+    font-size: 16px;  /* Aumentado de 14px a 16px */
     color: #495057;
     flex: 1;
-  }
-  
-  .cost-value {
-    font-size: 14px;
+    text-align: left;  /* Explícitamente alineado a la izquierda */
+    font-weight: 600;  /* Añadido para dar más peso visual al nombre de la cabaña */
+}
+
+.cost-value {
+    font-size: 16px;  /* Aumentado de 14px a 16px */
     font-weight: 500;
     color: #28a745;
     text-align: right;
-  }
-  
-  .cost-total {
+}
+
+.cost-total {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 0 8px 0;
-    border-top: 2px solid #28a745;
+    border-top: 1.5px solid #444444;
     font-weight: 600;
-  }
-  
-  .total-label {
+}
+
+.total-label {
     font-size: 16px;
     color: #212529;
-  }
-  
-  .total-value {
+}
+
+.total-value {
     font-size: 18px;
     color: #28a745;
     font-weight: 700;
-  }
-  
+}
+
   /* Estilos para el mensaje de advertencia cuando no hay cabaña */
-  .no-cabin-warning {
+.no-cabin-warning {
     margin-top: 20px;
     padding: 16px;
     background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
     border: 2px solid #ffc107;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(255, 193, 7, 0.1);
-  }
-  
-  .warning-content {
+}
+
+.warning-content {
     display: flex;
     align-items: center;
     gap: 12px;
-  }
-  
-  .warning-icon {
+}
+
+.warning-icon {
     font-size: 24px;
     flex-shrink: 0;
-  }
-  
-  .warning-text {
+}
+
+.warning-text {
     display: flex;
     flex-direction: column;
     gap: 4px;
-  }
-  
-  .warning-text strong {
+}
+
+.warning-text strong {
     color: #856404;
     font-size: 14px;
     font-weight: 600;
-  }
-  
-  .warning-text small {
+}
+
+.warning-text small {
     color: #856404;
     font-size: 12px;
     opacity: 0.8;
-  }
-  
+}
+
   /* Animaciones para las nuevas secciones */
-  .cost-info, .no-cabin-warning {
+.cost-info, .no-cabin-warning {
     animation: slideInUp 0.3s ease-out;
-  }
-  
-  @keyframes slideInUp {
+}
+
+@keyframes slideInUp {
     from {
-      opacity: 0;
-      transform: translateY(20px);
+        opacity: 0;
+        transform: translateY(20px);
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
-  }
+}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -583,37 +586,37 @@
 .cost-info {
     margin-top: 16px;
     gap: 10px;
-  }
-  
-  .cost-item {
+}
+
+.cost-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
     padding: 6px 0;
-  }
-  
-  .cost-value {
+}
+
+.cost-value {
     align-self: flex-end;
     font-size: 13px;
-  }
-  
-  .cost-total {
+}
+
+.cost-total {
     padding: 10px 0 6px 0;
-  }
-  
-  .total-label {
+}
+
+.total-label {
     font-size: 14px;
-  }
-  
-  .total-value {
+}
+
+.total-value {
     font-size: 16px;
-  }
-  
-  .warning-content {
+}
+
+.warning-content {
     flex-direction: column;
     text-align: center;
     gap: 8px;
-  }
+}
 }
 
 @media (max-width: 480px) {

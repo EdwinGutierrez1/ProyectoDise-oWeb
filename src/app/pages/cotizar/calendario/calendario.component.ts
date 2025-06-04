@@ -286,12 +286,27 @@ export class CalendarioComponent implements OnInit, OnDestroy {
     return this.cotizacionData?.cabana !== null && this.cotizacionData?.cabana !== undefined;
   }
 
-  /**
-   * Getter para obtener el nombre de la cabaña seleccionada
-   */
-  get nombreCabana(): string {
-    return this.cotizacionData?.cabana ? `Cabaña para ${this.cotizacionData.cabana.capacidad}` : '';
+/**
+ * Getter para obtener el nombre de la cabaña seleccionada
+ */
+get nombreCabana(): string {
+  if (!this.cotizacionData?.cabana) return '';
+  
+  // Mapear según la capacidad a números de cabaña
+  switch (this.cotizacionData.cabana.capacidad) {
+    case 'Parejas':
+    case '2':
+      return 'Cabaña #1';
+    case '3-6 personas':
+    case '3-6':
+      return 'Cabaña #2';
+    case '6-10 personas':
+    case '6-10':
+      return 'Cabaña #3';
+    default:
+      return `Cabaña #${this.cotizacionData.cabana.id}`;
   }
+}
 
   /**
    * Getter para obtener la cantidad de personas

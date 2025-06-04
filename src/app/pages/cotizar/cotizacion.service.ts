@@ -70,6 +70,7 @@
      * @param cabana - Información de la cabaña seleccionada
      * @param cantidadPersonas - Cantidad de personas
      */
+    
     actualizarCabana(cabana: CabanaSeleccionada, cantidadPersonas: number): void {
         // Verificar si ha cambiado la cabaña
         const cabanaAnterior = this.datosCotizacion.cabana;
