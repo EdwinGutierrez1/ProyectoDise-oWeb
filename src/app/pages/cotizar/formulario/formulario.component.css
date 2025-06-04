@@ -1,15 +1,29 @@
 /* Estilos para la sección de formulario */
 /* Aseguramos que la sección del formulario esté bien centrada */
+
 .formulario-section {
   position: relative;
   min-height: 100vh;
   padding: 40px 20px;
-
-  /* Estas propiedades centran el contenido horizontalmente */
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 2px solid #c4c3c3;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 50px;
+}
+
+.formulario-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 66vw;
+  height: 2px;
+  background-color: #c4c3c3;
+  z-index: 0;
 }
 
 /* La clase para ocultar/mostrar */
@@ -30,6 +44,7 @@
   position: relative;
   margin: 0 auto; /* Centra el contenedor horizontalmente */
   border: 3px solid #0000; /* Borde azul */
+  margin-top: 18px;
 }
 
 /* Estilo del título principal del formulario */
@@ -509,6 +524,75 @@
 
 /* ===== MEJORAS DE RESPONSIVIDAD ===== */
 
+/* Media query para pantallas de PC más pequeñas */
+@media (max-width: 1366px) {
+  .formulario-section {
+    padding: 35px 18px;
+  }
+
+  .formulario-section::before {
+    width: 76vw; /* Aumentado desde 66vw */
+  }
+
+  .formulario-container {
+    max-width: 700px; /* Reducido desde 800px */
+    padding: 25px 35px; /* Reducido desde 30px 40px */
+  }
+
+  .formulario-titulo {
+    font-size: 2.2rem; /* Reducido desde 2.5rem */
+  }
+
+  .formulario-subtitulo {
+    font-size: 1rem; /* Reducido desde 1.1rem */
+    margin-bottom: 25px; /* Reducido desde 30px */
+  }
+
+  .form-group {
+    margin-bottom: 18px; /* Reducido desde 20px */
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 11px 14px 11px 38px; /* Ligeramente reducido */
+    font-size: 15px; /* Reducido desde 16px */
+  }
+
+  .form-group i {
+    left: 14px; /* Reducido desde 15px */
+    top: 38px; /* Reducido desde 40px */
+  }
+
+  .resumen-container {
+    padding: 22px; /* Reducido desde 25px */
+    margin-top: 22px; /* Reducido desde 25px */
+    margin-bottom: 22px; /* Reducido desde 25px */
+  }
+
+  .resumen-container h4 {
+    font-size: 1.2rem; /* Reducido desde 1.3rem */
+    margin-bottom: 18px; /* Reducido desde 20px */
+  }
+
+  .total-resumen {
+    padding: 16px 22px; /* Reducido desde 18px 25px */
+    font-size: 1.3em; /* Reducido desde 1.4em */
+    margin-top: 18px; /* Reducido desde 20px */
+  }
+
+  .btn-volver,
+  .btn-cotizar {
+    padding: 11px 20px; /* Reducido desde 12px 20px/24px */
+    font-size: 15px; /* Reducido desde 16px */
+  }
+
+  .botones-container {
+    margin-top: 18px; /* Reducido desde 20px */
+  }
+}
+
+
 /* Media query para tablets */
 @media (max-width: 992px) {
   .formulario-container {
@@ -532,6 +616,11 @@
     padding: 30px 15px;
   }
 
+  .formulario-section::before {
+    width: 88vw;
+  }
+
+  
   .formulario-container {
     padding: 20px;
   }

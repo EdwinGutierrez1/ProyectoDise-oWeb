@@ -503,8 +503,157 @@
     margin: 0;
 }
 
-/* Responsive design */
-/* Responsive design */
+/* Media query para pantallas de computador más pequeñas */
+/* Media query para pantallas de computador más pequeñas */
+@media (max-width: 1366px) and (min-width: 1024px) {
+    .cabanas-grid {
+        gap: 25px; /* Reducido de 40px a 25px */
+    }
+    
+    .cabana-card {
+        width: 320px; /* Reducido de 380px a 320px */
+        padding: 20px 28px; /* Reducido de 25px 35px a 20px 28px */
+    }
+    
+    .image-container {
+        height: 350px; /* Reducido de 400px a 350px */
+        margin-bottom: 8px; /* Reducido de 10px a 8px */
+    }
+    
+    .cabana-info h3 {
+        font-size: 1.5rem; /* Reducido de 1.6rem a 1.5rem */
+        margin: 0 0 6px 0; /* Reducido de 8px a 6px */
+    }
+    
+    .capacity {
+        font-size: 1.1rem; /* Reducido de 1.2rem a 1.1rem */
+    }
+    
+    .titulo {
+        font-size: 2.2rem; /* Reducido de 2.5rem a 2.2rem */
+        margin-bottom: 40px; /* Reducido de 50px a 40px */
+    }
+    
+    .cuadro-info {
+        width: 350px; /* Reducido de 400px a 350px */
+        height: 75px; /* Reducido de 80px a 75px */
+        padding: 12px 18px; /* Reducido de 15px 20px a 12px 18px */
+        gap: 18px; /* Reducido de 20px a 18px */
+    }
+    
+    .cuadro-label {
+        font-size: 1.3rem; /* Reducido de 1.4rem a 1.3rem */
+        min-width: 140px; /* Reducido de 150px a 140px */
+    }
+    
+    .contador-box {
+        gap: 10px; /* Reducido de 12px a 10px */
+        max-width: 180px; /* Reducido de 200px a 180px */
+    }
+    
+    .precio-box {
+        font-size: 1.5rem; /* Reducido de 1.6rem a 1.5rem */
+    }
+    
+    .contador-btn {
+        width: 35px; /* Reducido de 40px a 35px */
+        height: 35px; /* Reducido de 40px a 35px */
+        font-size: 1.3rem; /* Reducido de 1.5rem a 1.3rem */
+    }
+    
+    .contador-display {
+        font-size: 1.6rem; /* Reducido de 1.8rem a 1.6rem */
+        min-width: 45px; /* Reducido de 50px a 45px */
+        padding: 6px 10px; /* Reducido de 8px 12px a 6px 10px */
+    }
+    
+    /* ESTILOS DEL MODAL PARA PANTALLAS PEQUEÑAS */
+    .modal-content {
+        max-width: 600px; /* Reducido de 700px a 600px */
+        max-height: 85vh; /* Reducido de 90vh a 85vh */
+    }
+    
+    .modal-header {
+        padding: 15px 20px; /* Reducido de 20px 25px a 15px 20px */
+    }
+    
+    .modal-header h2 {
+        font-size: 1.6rem; /* Reducido de 1.8rem a 1.6rem */
+    }
+    
+    .modal-close {
+        font-size: 1.8rem; /* Reducido de 2rem a 1.8rem */
+        width: 35px; /* Reducido de 40px a 35px */
+        height: 35px; /* Reducido de 40px a 35px */
+        right: 15px; /* Reducido de 20px a 15px */
+    }
+    
+    .galeria-container {
+        padding: 15px; /* Reducido de 20px a 15px */
+    }
+    
+    .imagen-principal {
+        height: 320px; /* Reducido de 450px a 320px */
+        margin-bottom: 12px; /* Reducido de 15px a 12px */
+    }
+    
+    .flecha-navegacion {
+        width: 40px; /* Reducido de 50px a 40px */
+        height: 40px; /* Reducido de 50px a 40px */
+        font-size: 1.3rem; /* Reducido de 1.5rem a 1.3rem */
+    }
+    
+    .flecha-izquierda {
+        left: 12px; /* Reducido de 15px a 12px */
+    }
+    
+    .flecha-derecha {
+        right: 12px; /* Reducido de 15px a 12px */
+    }
+    
+    .indicadores {
+        gap: 6px; /* Reducido de 8px a 6px */
+        margin-bottom: 8px; /* Reducido de 10px a 8px */
+    }
+    
+    .indicador {
+        width: 10px; /* Reducido de 12px a 10px */
+        height: 10px; /* Reducido de 12px a 10px */
+    }
+    
+    .info-imagen {
+        font-size: 0.8rem; /* Reducido de 0.9rem a 0.8rem */
+        margin-bottom: 12px; /* Reducido de 15px a 12px */
+    }
+    
+    .modal-info {
+        padding: 0 20px 15px; /* Reducido de 0 25px 20px a 0 20px 15px */
+    }
+    
+    .caracteristicas-cabana {
+        gap: 25px; /* Reducido de 30px a 25px */
+    }
+    
+    .caracteristica {
+        font-size: 1.1rem; /* Reducido de 1.2rem a 1.1rem */
+        gap: 6px; /* Reducido de 8px a 6px */
+    }
+    
+    .caracteristica .icono {
+        font-size: 1.2rem; /* Reducido de 1.4rem a 1.2rem */
+    }
+    
+    .modal-footer {
+        padding: 15px 20px; /* Reducido de 20px 25px a 15px 20px */
+    }
+    
+    .btn-elegir {
+        padding: 10px 35px; /* Reducido de 8px 40px a 10px 35px */
+        font-size: 1.1rem; /* Reducido de 1.2rem a 1.1rem */
+    }
+}
+
+/* Responsive para celulares*/
 @media (max-width: 768px) {
 
     .cabanas-container {

@@ -1,698 +1,996 @@
-.calendar-container {
-    max-width: 1200px; /* Aumentado de 1000px a 1200px */
-    margin: 0 auto;
-    margin-bottom: 35px;
-    padding: 30px;
-    background: white;
-    border-radius: 16px;
-    font-family: 'Segoe UI', -apple-system, sans-serif;
-    /* 2. AGREGAR BORDER BOTTOM A TODO EL COMPONENTE */
-}
-
-.main-title {
-    text-align: center;
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 50px;
-    margin-top: 25px;
-}
-
-/* Rangos predefinidos */
-.predefined-ranges {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #e8f5e8;
-    text-align: center;
-}
-
-.predefined-ranges h3 {
-    margin: 0 0 15px 0;
-    font-size: 18px;
-    color: #2d5016;
-    font-weight: 600;
-}
-
-.range-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center; 
-}
-
-.range-btn {
-    padding: 12px 20px;
-    border: 2px solid #418f43; /* verde sobrio */
-    background: white;
-    color: #2e7d32; /* texto más oscuro */
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.range-btn:hover {
-    background: #2e7d32;
-    color: white;
-    transform: translateY(-2px);
-    border: 2px solid #2e7d32; /* verde sobrio */
-}
-
-/* Layout principal */
-.main-layout {
-    display: grid;
-    grid-template-columns: 1fr 400px; /* Aumentado de 350px a 400px */
-    gap: 60px; /* Aumentado de 40px a 60px */
-    margin-bottom: 30px;
-}
-
-/* Calendario */
-.calendar {
-    background: white;
-}
-
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    padding: 0 15px;
-}
-
-.month-year {
-    font-size: 32px; /* Aumentado de 28px a 32px */
-    font-weight: 700;
-    color: #222222;
-    margin: 0;
-}
-
-.nav-btn {
-    background: none;
-    border: none;
-    font-size: 32px;
-    cursor: pointer;
-    color: #333333;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.nav-btn:hover {
-    background-color: #e8f5e8;
-    transform: scale(1.1);
-}
-
-/* Días de la semana */
-.weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    margin-bottom: 15px;
-}
-
-.weekday {
-    text-align: center;
-    font-weight: 600;
-    color: #222222;
-    font-size: 18px; /* Aumentado de 16px a 18px */
-    padding: 15px 0; /* Aumentado de 12px a 15px */
-    background: #f1f8e9;
-    border-radius: 8px;
-}
-
-/* Grid del calendario */
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-}
-
-.calendar-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 20px; /* Aumentado de 18px a 20px */
-    font-weight: 500;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    position: relative;
-    background: white;
-    border: 2px solid transparent;
-    min-height: 70px; /* Aumentado de 60px a 70px */
-}
-
-/* Hover solo para días no seleccionados */
-.calendar-day:hover:not(.disabled):not(.selected):not(.start-date):not(.end-date) {
-    background-color: #e8f5e8;
-    transform: scale(1.05);
-    border-color: #7cb342;
-}
-
-/* Hover para días seleccionados - solo agrandar */
-.calendar-day.selected:hover:not(.disabled),
-.calendar-day.start-date:hover:not(.disabled),
-.calendar-day.end-date:hover:not(.disabled) {
-    transform: scale(1.05);
-}
-
-.calendar-day.other-month {
-    color: #bdbdbd;
-    background: #f9f9f9;
-}
-
-.calendar-day.disabled {
-    color: #bdbdbd;
-    cursor: not-allowed;
-    text-decoration: line-through;
-    background: #f5f5f5;
-}
-
-.calendar-day.disabled:hover {
-    background-color: #f5f5f5;
-    transform: none;
-    border-color: transparent;
-}
-
-/* Estilos para fechas seleccionadas */
-.calendar-day.selected {
-    background-color: #7cb342;
-    color: white;
-    font-weight: 700;
-    border-color: #558b2f;
-}
-
-.calendar-day.start-date {
-    background-color: #2e7d32;
-    color: white;
-    font-weight: 700;
-    border-color: #1b5e20;
-}
-
-.calendar-day.end-date {
-    background-color: #2e7d32;
-    color: white;
-    font-weight: 700;
-    border-color: #1b5e20;
-}
-
-.calendar-day.in-range {
-    background-color: #c8e6c9;
-    color: #1b5e20;
-    border-color: #7cb342;
-}
-
-.calendar-day.start-date.end-date {
-    background-color: #2e7d32;
-}
-
-/* Panel de selección */
-.selection-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    color: #333333;
-}
-
-.selection-info, .selection-placeholder, .selection-status {
-    background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
-    padding: 25px;
-    border-radius: 16px;
-    border-left: 6px solid #2e7d32; /* Cambiado a verde intermedio */
-    box-shadow: 0 4px 16px rgba(124, 179, 66, 0.1);
-}
-
-.selection-info h3, .selection-placeholder h3, .selection-status h3 {
-    margin: 0 0 20px 0;
-    font-size: 20px;
-    color: #333333;
-    font-weight: 700;
-}
-
-.selected-dates {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.date-item {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.date-item label {
-    font-size: 14px;
-    color: #1b5e20;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.date-item .date-value {
-    font-size: 18px;
-    color: #333333;
-    font-weight: 700;
-    padding: 8px 12px;
-    background: white;
-    border-radius: 8px;
-    border: 2px solid #c8e6c9;
-}
-
-/* Nuevo estilo para días y noches sin bordes y con emojis */
-.nights-count {
-    color: #333333;
-    font-size: 18px; /* Aumentado de 16px a 18px */
-    text-align: center;
-    padding: 12px 0; /* Solo padding vertical */
-    background: transparent; /* Sin fondo */
-    /* Eliminados: border y border-radius */
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 20px;
-}
-
-.nights-count .days-info,
-.nights-count .nights-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    font-size: 18px; /* Tamaño específico para el texto */
-}
-
-.selection-placeholder p, .selection-status p {
-    color: #333333; /* Cambiado de #558b2f a #333333 */
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.selection-placeholder small {
-    color: #2f7c25;
-    font-size: 14px;
-    font-style: italic;
-}
-
-/* Acciones del calendario */
-.calendar-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 20px;
-    border-top: 1px solid #e8f5e8;
-}
-
-.clear-btn {
-    padding: 12px 20px; /* Mismo padding que range-btn */
-    border: 2px solid #418f43; /* Mismo estilo que range-btn */
-    background: white; /* Mismo fondo que range-btn */
-    color: #2e7d32; /* Mismo color de texto que range-btn */
-    border-radius: 8px; /* Mismo border-radius que range-btn */
-    cursor: pointer;
-    font-size: 16px; /* Ligeramente más grande que range-btn para diferenciarlo */
-    font-weight: 500; /* Mismo font-weight que range-btn */
-    transition: all 0.3s ease;
-}
-
-.clear-btn:hover {
-    background: #2e7d32; /* Mismo hover que range-btn */
-    color: white;
-    transform: translateY(-2px);
-    border: 2px solid #2e7d32; /* Mismo hover border que range-btn */
-}
-
-/* Modal de error */
-.error-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    animation: fadeIn 0.3s ease;
-}
-
-.modal-content {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 90%;
-    overflow: hidden;
-    animation: slideIn 0.3s ease;
-}
-
-.modal-header {
-    background: linear-gradient(135deg, #ff5722 0%, #e53935 100%);
-    color: white;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-header h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-}
-
-.close-btn:hover {
-    transform: scale(1.2);
-    transition: transform 0.3s ease;
-}
-
-.modal-body {
-    padding: 20px 25px 5px 25px;
-    text-align: center;
-}
-
-.modal-body p {
-    color: #333;
-    font-size: 18px; /* Aumentado de 16px a 18px */
-    margin: 0;
-    padding: 0;
-    line-height: 1.5;
-}
-
-.modal-footer {
-    padding: 20px 25px;
-    text-align: center;
-    border-top: 1px solid #f0f0f0;
-    display: flex; /* Añadido para centrar */
-    justify-content: center; /* Centrar el botón */
-}
-
-.error-btn {
-    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%); /* Verde */
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 120px;
-}
-
-.error-btn:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4); /* Verde */
-}
-
-/* Estilos simplificados para la información de costos */
-.cost-info {
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.cost-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px; 
-    margin-top: 10px; /* Aumentado de 8px a 12px para más espaciado */
-}
-
-.cost-label {
-    font-size: 16px;  /* Aumentado de 14px a 16px */
-    color: #495057;
-    flex: 1;
-    text-align: left;  /* Explícitamente alineado a la izquierda */
-    font-weight: 600;  /* Añadido para dar más peso visual al nombre de la cabaña */
-}
-
-.cost-value {
-    font-size: 16px;  /* Aumentado de 14px a 16px */
-    font-weight: 500;
-    color: #28a745;
-    text-align: right;
-}
-
-.cost-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0 8px 0;
-    border-top: 1.5px solid #444444;
-    font-weight: 600;
-}
-
-.total-label {
-    font-size: 16px;
-    color: #212529;
-}
-
-.total-value {
-    font-size: 18px;
-    color: #28a745;
-    font-weight: 700;
-}
-
-  /* Estilos para el mensaje de advertencia cuando no hay cabaña */
-.no-cabin-warning {
-    margin-top: 20px;
-    padding: 16px;
-    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-    border: 2px solid #ffc107;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.1);
-}
-
-.warning-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.warning-icon {
-    font-size: 24px;
-    flex-shrink: 0;
-}
-
-.warning-text {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.warning-text strong {
-    color: #856404;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.warning-text small {
-    color: #856404;
-    font-size: 12px;
-    opacity: 0.8;
-}
-
-  /* Animaciones para las nuevas secciones */
-.cost-info, .no-cabin-warning {
-    animation: slideInUp 0.3s ease-out;
-}
-
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 3. MEDIA QUERIES PARA PANTALLAS MEDIANAS Y PEQUEÑAS */
-
-/* Para pantallas de computadoras más pequeñas (1024px - 1366px) */
-@media (max-width: 1366px) and (min-width: 1024px) {
     .calendar-container {
-        max-width: 1000px; /* Reducido para pantallas medianas */
-        padding: 25px;
-        margin: 20px auto; /* Agregar margen vertical y horizontal */
-    }
-    
-    .main-layout {
-        grid-template-columns: 1fr 350px; /* Reducir el panel lateral */
-        gap: 40px; /* Reducir el gap */
-    }
-    
-    .calendar-day {
-        font-size: 18px; /* Reducir tamaño de fuente */
-        min-height: 60px; /* Reducir altura mínima */
-    }
-    
-    .month-year {
-        font-size: 28px; /* Reducir título del mes */
+        max-width: 1200px; /* Aumentado de 1000px a 1200px */
+        margin: 0 auto;
+        margin-bottom: 35px;
+        padding: 30px;
+        background: white;
+        border-radius: 16px;
+        font-family: 'Segoe UI', -apple-system, sans-serif;
+        /* 2. AGREGAR BORDER BOTTOM A TODO EL COMPONENTE */
     }
 
     .main-title {
-        font-size: 2rem;
-        margin-bottom: 35px;
-    }  
-
-    .weekday {
-        font-size: 16px; /* Reducir días de la semana */
-        padding: 12px 0;
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 50px;
+        margin-top: 25px;
     }
 
-      /* Botón de limpiar más pequeño */
-    .clear-btn {
-        padding: 10px 18px;
-        font-size: 14px;
+    /* Rangos predefinidos */
+    .predefined-ranges {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e8f5e8;
+        text-align: center;
     }
 
-    /* Cuadro de advertencia más compacto */
-    .no-cabin-warning .warning-content {
-        padding: 0;
-        font-size: 14px;
+    .predefined-ranges h3 {
+        margin: 0 0 15px 0;
+        font-size: 18px;
+        color: #2d5016;
+        font-weight: 600;
     }
 
-    .no-cabin-warning .warning-icon {
-        font-size: 22px;
-    }
-
-    .no-cabin-warning .warning-text strong {
-        font-size: 14px;
-    }
-
-    .no-cabin-warning .warning-text small {
-        font-size: 13px;
-    }
-
-    /* También puedes reducir el padding general del panel */
-    .selection-panel .selection-info {
-        padding: 20px;
-    }
-}
-
-
-/* Responsive para celulares */
-@media (max-width: 768px) {
-    .calendar-container {
-    padding: 20px;
-    margin: 10px;
-    }
-    
-    .main-layout {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    }
-    
-    .selection-panel {
-    order: -1;
-    }
-    
     .range-buttons {
-    justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center; 
     }
-    
+
     .range-btn {
-    font-size: 12px;
-    padding: 8px 16px;
+        padding: 12px 20px;
+        border: 2px solid #418f43; /* verde sobrio */
+        background: white;
+        color: #2e7d32; /* texto más oscuro */
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
     }
-    
-    .calendar-day {
-    min-height: 45px;
-    font-size: 16px;
+
+    .range-btn:hover {
+        background: #2e7d32;
+        color: white;
+        transform: translateY(-2px);
+        border: 2px solid #2e7d32; /* verde sobrio */
     }
-    
+
+    /* Layout principal */
+    .main-layout {
+        display: grid;
+        grid-template-columns: 1fr 400px; /* Aumentado de 350px a 400px */
+        gap: 60px; /* Aumentado de 40px a 60px */
+        margin-bottom: 30px;
+    }
+
+    /* Calendario */
+    .calendar {
+        background: white;
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        padding: 0 15px;
+    }
+
     .month-year {
-    font-size: 22px;
+        font-size: 32px; /* Aumentado de 28px a 32px */
+        font-weight: 700;
+        color: #222222;
+        margin: 0;
     }
-    
+
+    .nav-btn {
+        background: none;
+        border: none;
+        font-size: 32px;
+        cursor: pointer;
+        color: #333333;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover {
+        background-color: #e8f5e8;
+        transform: scale(1.1);
+    }
+
+    /* Días de la semana */
+    .weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        margin-bottom: 15px;
+    }
+
     .weekday {
-    font-size: 14px;
-    padding: 8px 0;
+        text-align: center;
+        font-weight: 600;
+        color: #222222;
+        font-size: 18px; /* Aumentado de 16px a 18px */
+        padding: 15px 0; /* Aumentado de 12px a 15px */
+        background: #f1f8e9;
+        border-radius: 8px;
+    }
+
+    /* Grid del calendario */
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+    }
+
+    .calendar-day {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 20px; /* Aumentado de 18px a 20px */
+        font-weight: 500;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        position: relative;
+        background: white;
+        border: 2px solid transparent;
+        min-height: 70px; /* Aumentado de 60px a 70px */
+    }
+
+    /* Hover solo para días no seleccionados */
+    .calendar-day:hover:not(.disabled):not(.selected):not(.start-date):not(.end-date) {
+        background-color: #e8f5e8;
+        transform: scale(1.05);
+        border-color: #7cb342;
+    }
+
+    /* Hover para días seleccionados - solo agrandar */
+    .calendar-day.selected:hover:not(.disabled),
+    .calendar-day.start-date:hover:not(.disabled),
+    .calendar-day.end-date:hover:not(.disabled) {
+        transform: scale(1.05);
+    }
+
+    .calendar-day.other-month {
+        color: #bdbdbd;
+        background: #f9f9f9;
+    }
+
+    .calendar-day.disabled {
+        color: #bdbdbd;
+        cursor: not-allowed;
+        text-decoration: line-through;
+        background: #f5f5f5;
+    }
+
+    .calendar-day.disabled:hover {
+        background-color: #f5f5f5;
+        transform: none;
+        border-color: transparent;
+    }
+
+    /* Estilos para fechas seleccionadas */
+    .calendar-day.selected {
+        background-color: #7cb342;
+        color: white;
+        font-weight: 700;
+        border-color: #558b2f;
+    }
+
+    .calendar-day.start-date {
+        background-color: #2e7d32;
+        color: white;
+        font-weight: 700;
+        border-color: #1b5e20;
+    }
+
+    .calendar-day.end-date {
+        background-color: #2e7d32;
+        color: white;
+        font-weight: 700;
+        border-color: #1b5e20;
+    }
+
+    .calendar-day.in-range {
+        background-color: #c8e6c9;
+        color: #1b5e20;
+        border-color: #7cb342;
+    }
+
+    .calendar-day.start-date.end-date {
+        background-color: #2e7d32;
+    }
+
+    /* Panel de selección */
+    .selection-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        color: #333333;
+    }
+
+    .selection-info, .selection-placeholder, .selection-status {
+        background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+        padding: 25px;
+        border-radius: 16px;
+        border-left: 6px solid #2e7d32; /* Cambiado a verde intermedio */
+        box-shadow: 0 4px 16px rgba(124, 179, 66, 0.1);
+    }
+
+    .selection-info h3, .selection-placeholder h3, .selection-status h3 {
+        margin: 0 0 20px 0;
+        font-size: 20px;
+        color: #333333;
+        font-weight: 700;
+    }
+
+    .selected-dates {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .date-item {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .date-item label {
+        font-size: 14px;
+        color: #1b5e20;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .date-item .date-value {
+        font-size: 18px;
+        color: #333333;
+        font-weight: 700;
+        padding: 8px 12px;
+        background: white;
+        border-radius: 8px;
+        border: 2px solid #c8e6c9;
+    }
+
+    /* Nuevo estilo para días y noches sin bordes y con emojis */
+    .nights-count {
+        color: #333333;
+        font-size: 18px; /* Aumentado de 16px a 18px */
+        text-align: center;
+        padding: 12px 0; /* Solo padding vertical */
+        background: transparent; /* Sin fondo */
+        /* Eliminados: border y border-radius */
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nights-count .days-info,
+    .nights-count .nights-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        font-size: 18px; /* Tamaño específico para el texto */
+    }
+
+    .selection-placeholder p, .selection-status p {
+        color: #333333; /* Cambiado de #558b2f a #333333 */
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .selection-placeholder small {
+        color: #2f7c25;
+        font-size: 14px;
+        font-style: italic;
+    }
+
+    /* Acciones del calendario */
+    .calendar-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+        border-top: 1px solid #e8f5e8;
+    }
+
+    .clear-btn {
+        padding: 12px 20px; /* Mismo padding que range-btn */
+        border: 2px solid #418f43; /* Mismo estilo que range-btn */
+        background: white; /* Mismo fondo que range-btn */
+        color: #2e7d32; /* Mismo color de texto que range-btn */
+        border-radius: 8px; /* Mismo border-radius que range-btn */
+        cursor: pointer;
+        font-size: 16px; /* Ligeramente más grande que range-btn para diferenciarlo */
+        font-weight: 500; /* Mismo font-weight que range-btn */
+        transition: all 0.3s ease;
+    }
+
+    .clear-btn:hover {
+        background: #2e7d32; /* Mismo hover que range-btn */
+        color: white;
+        transform: translateY(-2px);
+        border: 2px solid #2e7d32; /* Mismo hover border que range-btn */
+    }
+
+    /* Modal de error */
+    .error-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease;
     }
 
     .modal-content {
-    margin: 20px;
-    width: calc(100% - 40px);
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 90%;
+        overflow: hidden;
+        animation: slideIn 0.3s ease;
     }
 
-    .nights-count {
-    flex-direction: column;
-    gap: 10px;
+    .modal-header {
+        background: linear-gradient(135deg, #ff5722 0%, #e53935 100%);
+        color: white;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-.cost-info {
-    margin-top: 16px;
-    gap: 10px;
-}
+    .modal-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+    }
 
-.cost-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    padding: 6px 0;
-}
+    .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
 
-.cost-value {
-    align-self: flex-end;
-    font-size: 13px;
-}
+    .close-btn:hover {
+        transform: scale(1.2);
+        transition: transform 0.3s ease;
+    }
 
-.cost-total {
-    padding: 10px 0 6px 0;
-}
+    .modal-body {
+        padding: 20px 25px 5px 25px;
+        text-align: center;
+    }
 
-.total-label {
-    font-size: 14px;
-}
+    .modal-body p {
+        color: #333;
+        font-size: 18px; /* Aumentado de 16px a 18px */
+        margin: 0;
+        padding: 0;
+        line-height: 1.5;
+    }
 
-.total-value {
-    font-size: 16px;
-}
+    .modal-footer {
+        padding: 20px 25px;
+        text-align: center;
+        border-top: 1px solid #f0f0f0;
+        display: flex; /* Añadido para centrar */
+        justify-content: center; /* Centrar el botón */
+    }
 
-.warning-content {
-    flex-direction: column;
-    text-align: center;
-    gap: 8px;
-}
-}
+    .error-btn {
+        background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%); /* Verde */
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 120px;
+    }
 
-@media (max-width: 480px) {
-    .calendar-day {
-    min-height: 40px;
-    font-size: 14px;
+    .error-btn:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4); /* Verde */
+    }
+
+    /* Estilos simplificados para la información de costos */
+    .cost-info {
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cost-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px; 
+        margin-top: 10px; /* Aumentado de 8px a 12px para más espaciado */
+    }
+
+    .cost-label {
+        font-size: 16px;  /* Aumentado de 14px a 16px */
+        color: #495057;
+        flex: 1;
+        text-align: left;  /* Explícitamente alineado a la izquierda */
+        font-weight: 600;  /* Añadido para dar más peso visual al nombre de la cabaña */
+    }
+
+    .cost-value {
+        font-size: 16px;  /* Aumentado de 14px a 16px */
+        font-weight: 500;
+        color: #28a745;
+        text-align: right;
+    }
+
+    .cost-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0 8px 0;
+        border-top: 1.5px solid #444444;
+        font-weight: 600;
+    }
+
+    .total-label {
+        font-size: 16px;
+        color: #212529;
+    }
+
+    .total-value {
+        font-size: 18px;
+        color: #28a745;
+        font-weight: 700;
+    }
+
+    /* Estilos para el mensaje de advertencia cuando no hay cabaña */
+    .no-cabin-warning {
+        margin-top:20px;
+        margin-bottom: 20px;
+        padding: 16px;
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        border: 2px solid #ffc107;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(255, 193, 7, 0.1);
+    }
+
+
+    .warning-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .warning-icon {
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+
+    .warning-text {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .warning-text strong {
+        color: #856404;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .warning-text small {
+        color: #856404;
+        font-size: 12px;
+        opacity: 0.8;
+    }
+
+    /* Animaciones para las nuevas secciones */
+    .cost-info, .no-cabin-warning {
+        animation: slideInUp 0.3s ease-out;
+    }
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+
+    /* Para pantallas de computadoras más pequeñas (1024px - 1366px) */
+@media (max-width: 1366px) and (min-width: 1024px) {
+    .calendar-container {
+        max-width: 950px; /* Reducido de 1000px a 950px */
+        padding: 20px; /* Reducido de 25px a 20px */
+        margin: 15px auto; /* Reducido margen vertical */
+    }
+    
+    .main-title {
+        font-size: 1.8rem; /* Reducido de 2rem a 1.8rem */
+        margin-bottom: 30px; /* Reducido de 35px a 30px */
+    }
+    
+    .main-layout {
+        grid-template-columns: 1fr 320px; /* Reducido de 350px a 320px */
+        gap: 35px; /* Reducido de 40px a 35px */
+    }
+    
+    /* Calendario más compacto */
+    .calendar-header {
+        margin-bottom: 20px; /* Reducido de 25px */
+        padding: 0 10px; /* Reducido de 15px */
+    }
+    
+    .month-year {
+        font-size: 26px; /* Reducido de 28px a 26px */
+    }
+    
+    .nav-btn {
+        font-size: 28px; /* Reducido de 32px */
+        width: 45px; /* Reducido de 50px */
+        height: 45px; /* Reducido de 50px */
+    }
+    
+    .weekdays {
+        margin-bottom: 12px; /* Reducido de 15px */
     }
     
     .weekday {
-    font-size: 12px;
+        font-size: 15px; /* Reducido de 16px a 15px */
+        padding: 10px 0; /* Reducido de 12px a 10px */
+    }
+    
+    .calendar-day {
+        font-size: 17px; /* Reducido de 18px a 17px */
+        min-height: 55px; /* Reducido de 60px a 55px */
+        border-radius: 10px; /* Reducido de 12px */
+    }
+    
+    /* Panel de selección más compacto */
+    .selection-info, .selection-placeholder, .selection-status {
+        padding: 18px; /* Reducido de 25px a 18px */
+        border-radius: 14px; /* Reducido de 16px */
+        border-left-width: 5px; /* Reducido de 6px */
+    }
+    
+    .selection-info h3, .selection-placeholder h3, .selection-status h3 {
+        font-size: 18px; /* Reducido de 20px a 18px */
+        margin-bottom: 15px; /* Reducido de 20px */
+    }
+    
+    .selected-dates {
+        gap: 12px; /* Reducido de 15px */
+        margin-bottom: 15px; /* Reducido de 20px */
+    }
+    
+    .date-item .date-value {
+        font-size: 16px; /* Reducido de 18px */
+        padding: 6px 10px; /* Reducido de 8px 12px */
+        border-radius: 6px; /* Reducido de 8px */
+    }
+    
+    .nights-count {
+        font-size: 16px; /* Reducido de 18px */
+        padding: 10px 0; /* Reducido de 12px */
+        gap: 15px; /* Reducido de 20px */
+    }
+    
+    .nights-count .days-info,
+    .nights-count .nights-info {
+        font-size: 16px; /* Reducido de 18px */
+        gap: 6px; /* Reducido de 8px */
+    }
+    
+    /* Información de costos más compacta */
+    .cost-info {
+        margin-top: 12px; /* Reducido de 15px */
+        gap: 8px; /* Reducido de 10px */
+    }
+    
+    .cost-item {
+        margin-bottom: 4px; /* Reducido de 5px */
+        margin-top: 8px; /* Reducido de 10px */
+    }
+    
+    .cost-label {
+        font-size: 15px; /* Reducido de 16px */
+    }
+    
+    .cost-value {
+        font-size: 15px; /* Reducido de 16px */
+    }
+    
+    .cost-total {
+        padding: 10px 0 6px 0; /* Reducido de 12px 0 8px 0 */
+    }
+    
+    .total-label {
+        font-size: 15px; /* Reducido de 16px */
+    }
+    
+    .total-value {
+        font-size: 16px; /* Reducido de 18px */
+    }
+    
+    /* Rangos predefinidos más compactos */
+    .predefined-ranges {
+        margin-bottom: 25px; /* Reducido de 30px */
+        padding-bottom: 15px; /* Reducido de 20px */
+    }
+    
+    .predefined-ranges h3 {
+        font-size: 16px; /* Reducido de 18px */
+        margin-bottom: 12px; /* Reducido de 15px */
+    }
+    
+    .range-buttons {
+        gap: 10px; /* Reducido de 12px */
+    }
+    
+    .range-btn {
+        padding: 10px 16px; /* Reducido de 12px 20px */
+        font-size: 13px; /* Reducido de 14px */
+        border-radius: 6px; /* Reducido de 8px */
+    }
+    
+    /* Botón de limpiar más pequeño */
+    .clear-btn {
+        padding: 10px 16px; /* Reducido de 12px 20px */
+        font-size: 14px; /* Reducido de 16px */
+        border-radius: 6px; /* Reducido de 8px */
+        margin-bottom: 30px;
+    }
+    
+    /* Acciones del calendario */
+    .calendar-actions {
+        padding-top: 15px; /* Reducido de 20px */
+    }
+    
+    /* Cuadro de advertencia más compacto */
+    .no-cabin-warning {
+        margin-top: 15px; /* Reducido de 20px */
+        margin-bottom: 15px; /* Reducido de 20px */
+        padding: 12px; /* Reducido de 16px */
+        border-radius: 10px; /* Reducido de 12px */
+    }
+    
+    .warning-content {
+        gap: 10px; /* Reducido de 12px */
+    }
+    
+    .warning-icon {
+        font-size: 20px; /* Reducido de 24px */
+    }
+    
+    .warning-text strong {
+        font-size: 13px; /* Reducido de 14px */
+    }
+    
+    .warning-text small {
+        font-size: 11px; /* Reducido de 12px */
+    }
+    
+    /* Textos del placeholder más pequeños */
+    .selection-placeholder p, .selection-status p {
+        font-size: 15px; /* Reducido de 16px */
+        margin-bottom: 8px; /* Reducido de 10px */
+    }
+    
+    .selection-placeholder small {
+        font-size: 13px; /* Reducido de 14px */
+    }
+    
+    /* Modal más compacto */
+    .modal-body p {
+        font-size: 16px; /* Reducido de 18px */
     }
 }
+
+    /* MEDIA QUERY PARA CELULARES - ESTILOS COMPLETOS MODIFICADOS */
+    @media (max-width: 768px) {
+        /* 1. Contenedor principal más compacto */
+        .calendar-container {
+            padding: 15px;
+            margin: 5px;
+            border-radius: 12px;
+        }
+        
+        /* 2. TÍTULO MÁS PEQUEÑO */
+        .main-title {
+            font-size: 1.6rem; /* Reducido de 2.2rem */
+            margin-bottom: 35px; /* Reducido de 50px */
+            margin-top: 25px; /* Reducido de 25px */
+        }
+        
+        /* 3. Layout mobile: calendario arriba, info abajo */
+        .main-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Reducido gap */
+        }
+        
+        /* 4. El panel de selección va abajo */
+        .selection-panel {
+            order: 2; /* Asegurar que vaya después del calendario */
+            margin-bottom: 0;
+        }
+        
+        /* 5. El calendario y acciones van arriba */
+        .calendar {
+            order: 1;
+            margin-bottom: 25px;
+        }
+        
+        .calendar-actions {
+            order: 1;
+            margin-top: 15px; /* Espaciado reducido */
+            padding-top: 15px;
+        }
+        
+        /* 6. BOTÓN LIMPIAR MÁS PEQUEÑO */
+        .clear-btn {
+            padding: 8px 16px; /* Reducido de 12px 20px */
+            font-size: 14px; /* Reducido de 16px */
+            border-radius: 6px; /* Reducido */
+            margin-bottom: 30px;
+            margin-top: 0;
+        }
+        
+        /* 7. Rangos predefinidos más compactos */
+        .predefined-ranges {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+        }
+        
+        .predefined-ranges h3 {
+            font-size: 16px; /* Reducido */
+            margin-bottom: 12px;
+        }
+        
+        .range-buttons {
+            justify-content: center;
+            gap: 8px; /* Gap más pequeño */
+        }
+        
+        .range-btn {
+            font-size: 12px;
+            padding: 6px 12px; /* Más compacto */
+            border-radius: 6px;
+        }
+        
+        /* 8. Calendario más compacto */
+        .calendar-header {
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+        
+        .month-year {
+            font-size: 20px; /* Reducido considerablemente */
+        }
+        
+        .nav-btn {
+            font-size: 24px; /* Reducido */
+            width: 40px;
+            height: 40px;
+        }
+        
+        .weekday {
+            font-size: 12px; /* Reducido */
+            padding: 6px 0; /* Reducido */
+        }
+        
+        .calendar-day {
+            min-height: 35px; /* Muy reducido */
+            font-size: 14px; /* Reducido */
+            border-radius: 8px;
+        }
+        
+        /* 9. PANEL DE INFORMACIÓN MÁS PEQUEÑO */
+        .selection-info, .selection-placeholder, .selection-status {
+            padding: 15px; /* Reducido de 25px */
+            border-radius: 12px; /* Reducido */
+            border-left-width: 4px; /* Borde más delgado */
+        }
+        
+        /* 10. TÍTULOS DE SECCIÓN MÁS PEQUEÑOS */
+        .selection-info h3, .selection-placeholder h3, .selection-status h3 {
+            font-size: 16px; /* Reducido de 20px */
+            margin-bottom: 12px; /* Reducido de 20px */
+        }
+        
+        /* 11. FECHAS Y ELEMENTOS MÁS COMPACTOS */
+        .selected-dates {
+            gap: 10px; /* Reducido de 15px */
+            margin-bottom: 15px; /* Reducido */
+        }
+        
+        .date-item {
+            gap: 3px; /* Reducido */
+        }
+        
+        .date-item label {
+            font-size: 12px; /* Reducido de 14px */
+            letter-spacing: 0.3px;
+        }
+        
+        .date-item .date-value {
+            font-size: 15px; /* Reducido de 18px */
+            padding: 6px 10px; /* Reducido de 8px 12px */
+            border-radius: 6px;
+            border-width: 1px; /* Borde más delgado */
+        }
+        
+        /* 12. CONTADOR DE NOCHES - MODIFICADO PARA UNA SOLA LÍNEA */
+        .nights-count {
+            font-size: 14px; /* Reducido de 18px */
+            padding: 8px 0; /* Reducido */
+            flex-direction: row; /* CAMBIADO: una sola línea horizontal */
+            justify-content: space-around; /* Distribuir equitativamente */
+            gap: 20px; /* Gap más espacioso entre elementos */
+        }
+        
+        .nights-count .days-info,
+        .nights-count .nights-info {
+            font-size: 14px; /* Reducido de 18px */
+            gap: 6px;
+        }
+        
+        /* 13. INFORMACIÓN DE COSTOS - CORREGIDA PARA ALINEACIÓN */
+        .cost-info {
+            margin-top: 12px; /* Reducido */
+            gap: 8px; /* Reducido */
+        }
+        
+        .cost-item {
+            flex-direction: row; /* CAMBIADO: mantener en línea horizontal */
+            align-items: center; /* CAMBIADO: centrar verticalmente */
+            justify-content: space-between; /* Separar nombre y precio */
+            gap: 10px; /* Gap adecuado */
+            padding: 4px 0; /* Reducido */
+            margin-bottom: 3px;
+            margin-top: 6px;
+        }
+        
+        .cost-label {
+            font-size: 13px; /* Reducido de 16px */
+            font-weight: 500; /* Menos peso */
+            text-align: left; /* Mantener alineación izquierda */
+            flex: 1; /* Tomar espacio disponible */
+        }
+        
+        .cost-value {
+            font-size: 13px; /* Reducido */
+            text-align: right; /* Mantener alineación derecha */
+            flex-shrink: 0; /* No permitir que se encoja */
+        }
+        
+        .cost-total {
+            padding: 8px 0 5px 0; /* Muy reducido */
+            border-top-width: 1px; /* Borde más delgado */
+        }
+        
+        .total-label {
+            font-size: 13px; /* Reducido de 16px */
+        }
+        
+        .total-value {
+            font-size: 15px; /* Reducido de 18px */
+        }
+        
+        /* 14. ADVERTENCIA - CORREGIDA PARA ICONO AL LADO Y CENTRADO */
+        .no-cabin-warning {
+            margin: 20px auto 16px auto; /* CAMBIADO: más margen arriba y abajo, centrado */
+            padding: 10px; /* REDUCIDO: de 12px a 10px */
+            border-radius: 8px;
+            max-width: 85%; /* NUEVO: reducir ancho del cuadro */
+        }
+        
+        .warning-content {
+            flex-direction: row; /* CAMBIADO: icono al lado del texto */
+            align-items: center; /* CAMBIADO: centrar verticalmente */
+            text-align: center; /* CAMBIADO: centrar todo el contenido */
+            gap: 10px; /* AUMENTADO: mejor separación */
+            justify-content: center; /* NUEVO: centrar horizontalmente */
+        }
+        
+        .warning-icon {
+            font-size: 20px; /* REDUCIDO: de 20px a 18px */
+            flex-shrink: 0; /* No permitir que se encoja */
+        }
+        
+        .warning-text {
+            flex: 1; /* Tomar el espacio restante */
+            text-align: center; /* NUEVO: centrar el texto específicamente */
+        }
+        
+        .warning-text strong {
+            font-size: 11px; /* Reducido */
+            display: block; /* Asegurar que esté en su propia línea */
+            margin-bottom: 2px; /* Pequeño margen entre título y subtítulo */
+            text-align: center; /* NUEVO: centrar el título */
+        }
+        
+        .warning-text small {
+            font-size: 10px; /* Reducido */
+            display: block; /* Asegurar que esté en su propia línea */
+            text-align: center; /* NUEVO: centrar el subtítulo */
+        }
+        
+        /* 15. TEXTOS GENERALES MÁS PEQUEÑOS */
+        .selection-placeholder p, .selection-status p {
+            font-size: 14px; /* Reducido de 16px */
+            margin-bottom: 8px;
+        }
+        
+        .selection-placeholder small {
+            font-size: 12px; /* Reducido */
+        }
+    }
+
+    /* Para pantallas muy pequeñas */
+    @media (max-width: 480px) {
+        .main-title {
+            font-size: 1.4rem; /* Aún más pequeño */
+        }
+        
+        .calendar-day {
+            min-height: 32px; /* Muy compacto */
+            font-size: 13px;
+        }
+        
+        .weekday {
+            font-size: 11px;
+            padding: 5px 0;
+        }
+        
+        .month-year {
+            font-size: 18px;
+        }
+        
+        .selection-info h3, .selection-placeholder h3, .selection-status h3 {
+            font-size: 15px;
+        }
+    }
+

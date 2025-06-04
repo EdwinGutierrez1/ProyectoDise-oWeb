@@ -457,25 +457,193 @@
     font-size: 1.7rem;
 }
 
-/* Responsive design */
-@media (max-width: 1200px) {
-    .comidas-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
+
+/* Media query para pantallas de computador más pequeñas */
+@media (max-width: 1366px) and (min-width: 1024px) {
+    /* Ajustes para el contenedor principal */
+    .comidas-container {
+        padding: 40px 15px;
     }
-    
+
+    .titulo {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+
+    /* Ajustes para los cards de comida */
+    .comidas-grid {
+        gap: 25px;
+    }
+
     .comida-card {
-        width: 320px;
+        width: 300px;
+        padding: 20px 25px;
+        min-height: 320px;
+    }
+
+    .image-container {
+        height: 220px;
+        margin-bottom: 8px;
+    }
+
+    .comida-info {
+        margin-top: 15px;
+    }
+
+    .comida-info h3 {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+    }
+
+    .precio {
+        font-size: 1.4rem;
+    }
+
+    .precio.incluido-texto {
+        font-size: 1.4rem;
+    }
+
+    .por-persona {
+        font-size: 0.9rem;
+    }
+
+    /* Ajustes para el modal - Versión más compacta */
+    .modal-content {
+        max-width: 550px;
+        max-height: 85vh;
+    }
+
+    .modal-header {
+        padding: 8px 20px;
+    }
+
+    .modal-title {
+        font-size: 1.2rem;
+        gap: 6px;
+    }
+
+    .food-icon {
+        font-size: 1.2rem;
+    }
+
+    .close-btn {
+        font-size: 1.6rem;
+    }
+
+    .modal-body {
+        padding: 8px 20px;
+    }
+
+    .modal-info-texto {
+        margin-bottom: 15px;
+    }
+
+    .info-texto {
+        font-size: 0.85rem;
+        line-height: 1.3;
+    }
+
+    /* Ajustes para las opciones dentro del modal - CORREGIDO PARA CENTRADO */
+    .opciones-container {
+        gap: 8px;
+        margin-bottom: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra todos los elementos hijos */
+    }
+
+    .opcion-item {
+        justify-content: center; /* Centra el contenido horizontalmente */
+    }
+
+    .opcion-item-wrapper {
+        display: flex;
+        justify-content: center; /* Centra el wrapper */
+        padding: 0.5rem 1rem;
+    }
+
+    .opcion-item-centered {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Añadido para centrar mejor */
+        gap: 1rem;
+        max-width: 480px;
+        width: 100%;
+        margin: 0 auto; /* Centra el contenedor completo */
+    }
+
+    .opcion-image-container {
+        width: 110px;
+        height: 85px;
+        flex-shrink: 0; /* Evita que la imagen se encoja */
+    }
+
+    .opcion-image-container img.opcion-image {
+        width: 110px;
+        height: 85px;
+    }
+
+    .opcion-info {
+        flex: 1;
+        max-width: 280px;
+        margin-left: 15px;
+        text-align: center; 
+    }
+
+    .opcion-info h4 {
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+
+    .opcion-info p {
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+
+    /* Ajustes para el precio del modal */
+    .modal-precio-container {
+        margin-top: 6px;
+        padding: 6px 0;
+    }
+
+    .modal-precio {
+        font-size: 1.6rem;
+    }
+
+    .modal-precio.incluido-modal {
+        font-size: 1.6rem;
+    }
+
+    .modal-por-persona {
+        font-size: 0.9rem;
+    }
+
+    /* Ajustes para el footer del modal */
+    .modal-footer {
+        padding: 6px 20px 20px 20px;
+    }
+
+    .seleccionar-btn {
+        padding: 10px 35px;
+        font-size: 1rem;
+        min-width: 130px;
+    }
+
+    /* Ajustes para el total de comidas */
+    .total-comidas {
+        margin-top: 35px;
+    }
+
+    .total-texto {
+        font-size: 1.4rem;
+    }
+
+    .total-valor {
+        font-size: 1.6rem;
     }
 }
 
-@media (max-width: 900px) {
-    .comidas-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-    }
-}
-
+/* Media query para moviles */
 @media (max-width: 768px) {
     .comidas-container {
         padding: 30px 15px;
