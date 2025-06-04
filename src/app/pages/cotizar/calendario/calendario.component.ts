@@ -1,5 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
+import { CotizacionService, DatosCotizacion } from '../cotizacion.service';
+import { Subscription } from 'rxjs';
 
 interface DateRange {
   startDate: Date | null;
@@ -19,11 +21,11 @@ interface CalendarDay {
 @Component({
   selector: 'app-calendario',
   standalone: true,
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe, CurrencyPipe],
   templateUrl: './calendario.component.html',
   styleUrls: ['./calendario.component.css']
 })
-export class CalendarioComponent implements OnInit {
+export class CalendarioComponent implements OnInit, OnDestroy {
   @Output() dateRangeSelected = new EventEmitter<DateRange>();
 
   currentDate = new Date();
@@ -32,6 +34,13 @@ export class CalendarioComponent implements OnInit {
   isSelectingEndDate = false;
   showErrorModal = false;
   errorMessage = '';
+  
+  // Variables para la integración con el servicio de cotización
+  cotizacionData: DatosCotizacion | null = null;
+  cotizacionSubscription: Subscription | null = null;
+  costoTotalEstadia = 0;
+  costoPorNoche = 0;
+  cantidadNoches = 0;
   
   months = [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -47,8 +56,51 @@ export class CalendarioComponent implements OnInit {
     { label: '1 semana', days: 7 }
   ];
 
+  constructor(private cotizacionService: CotizacionService) {}
+
   ngOnInit() {
     this.generateCalendar();
+    this.suscribirACotizacion();
+  }
+
+  ngOnDestroy() {
+    if (this.cotizacionSubscription) {
+      this.cotizacionSubscription.unsubscribe();
+    }
+  }
+
+  /**
+   * Se suscribe al servicio de cotización para recibir actualizaciones
+   */
+  private suscribirACotizacion() {
+    this.cotizacionSubscription = this.cotizacionService.cotizacion$.subscribe(
+      (datos: DatosCotizacion) => {
+        this.cotizacionData = datos;
+        this.calcularCostoEstadia();
+      }
+    );
+  }
+
+  /**
+   * Calcula el costo total de la estadía basado en las fechas seleccionadas
+   */
+  private calcularCostoEstadia() {
+    if (!this.selectedRange.startDate || !this.selectedRange.endDate || !this.cotizacionData?.cabana) {
+      this.costoTotalEstadia = 0;
+      this.costoPorNoche = 0;
+      this.cantidadNoches = 0;
+      return;
+    }
+
+    // Calcular cantidad de noches
+    const diffTime = Math.abs(this.selectedRange.endDate.getTime() - this.selectedRange.startDate.getTime());
+    this.cantidadNoches = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    // Precio por noche de la cabaña
+    this.costoPorNoche = this.cotizacionData.cabana.precio;
+
+    // Costo total de la estadía (solo hospedaje)
+    this.costoTotalEstadia = this.costoPorNoche * this.cantidadNoches;
   }
 
   generateCalendar() {
@@ -163,6 +215,7 @@ export class CalendarioComponent implements OnInit {
     }
 
     this.generateCalendar();
+    this.calcularCostoEstadia(); // Recalcular costo cuando cambian las fechas
   }
 
   onPredefinedRangeClick(range: { label: string; days: number }) {
@@ -176,6 +229,7 @@ export class CalendarioComponent implements OnInit {
     this.selectedRange = { startDate, endDate };
     this.isSelectingEndDate = false;
     this.generateCalendar();
+    this.calcularCostoEstadia(); // Recalcular costo
     this.emitDateRange();
   }
 
@@ -192,6 +246,9 @@ export class CalendarioComponent implements OnInit {
   clearSelection() {
     this.selectedRange = { startDate: null, endDate: null };
     this.isSelectingEndDate = false;
+    this.costoTotalEstadia = 0;
+    this.costoPorNoche = 0;
+    this.cantidadNoches = 0;
     this.generateCalendar();
     this.dateRangeSelected.emit(this.selectedRange);
   }
@@ -220,5 +277,26 @@ export class CalendarioComponent implements OnInit {
     const diffTime = Math.abs(this.selectedRange.endDate.getTime() - this.selectedRange.startDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
     return diffDays;
+  }
+
+  /**
+   * Getter para verificar si hay una cabaña seleccionada
+   */
+  get tieneCabanaSeleccionada(): boolean {
+    return this.cotizacionData?.cabana !== null && this.cotizacionData?.cabana !== undefined;
+  }
+
+  /**
+   * Getter para obtener el nombre de la cabaña seleccionada
+   */
+  get nombreCabana(): string {
+    return this.cotizacionData?.cabana ? `Cabaña para ${this.cotizacionData.cabana.capacidad}` : '';
+  }
+
+  /**
+   * Getter para obtener la cantidad de personas
+   */
+  get cantidadPersonas(): number {
+    return this.cotizacionData?.cantidadPersonas || 0;
   }
 }

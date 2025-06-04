@@ -71,6 +71,35 @@
                 <span>{{selectedDaysCount - 1}} {{selectedDaysCount - 1 === 1 ? 'noche' : 'noches'}}</span>
             </span>
         </div>
+
+        <!-- Información de costos -->
+        <div class="cost-info" *ngIf="selectedRange.endDate && tieneCabanaSeleccionada">
+            <div class="cost-item">
+                <span class="cost-label">{{nombreCabana}}</span>
+                <span class="cost-value">{{costoPorNoche | currency:'COP':'symbol-narrow':'1.0-0'}}/noche</span>
+            </div>
+            
+            <div class="cost-item">
+                <span class="cost-label">{{cantidadNoches}} {{cantidadNoches === 1 ? 'noche' : 'noches'}}</span>
+                <span class="cost-value">{{costoTotalEstadia | currency:'COP':'symbol-narrow':'1.0-0'}}</span>
+            </div>
+            
+            <div class="cost-total">
+                <span class="total-label">Total hospedaje:</span>
+                <span class="total-value">{{costoTotalEstadia | currency:'COP':'symbol-narrow':'1.0-0'}}</span>
+            </div>
+        </div>
+
+        <!-- Mensaje cuando no hay cabaña seleccionada -->
+        <div class="no-cabin-warning" *ngIf="selectedRange.endDate && !tieneCabanaSeleccionada">
+            <div class="warning-content">
+                <span class="warning-icon">⚠️</span>
+                <div class="warning-text">
+                    <strong>Primero selecciona una cabaña</strong>
+                    <small>Para ver el costo de tu estadía, necesitas elegir una cabaña primero</small>
+                </div>
+            </div>
+        </div>
         </div>
         
         <div class="selection-placeholder" *ngIf="!selectedRange.startDate">
