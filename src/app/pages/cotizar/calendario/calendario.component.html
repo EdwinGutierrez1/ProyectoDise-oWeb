@@ -1,0 +1,109 @@
+<div class="calendar-container">
+    <h2 class="main-title">Selecciona el periodo de tu estadía</h2>
+    <!-- Rangos predefinidos -->
+    <div class="predefined-ranges">
+    <h3 style="margin-bottom: 20px;">Selección rápida</h3>
+    <div class="range-buttons">
+        <button 
+        *ngFor="let range of predefinedRanges" 
+        class="range-btn"
+        (click)="onPredefinedRangeClick(range)">
+        {{range.label}}
+        </button>
+    </div>
+    </div>
+
+    <!-- Layout principal: calendario e información -->
+    <div class="main-layout">
+    <!-- Calendario -->
+    <div class="calendar">
+        <!-- Header del calendario -->
+        <div class="calendar-header">
+        <button class="nav-btn" (click)="previousMonth()">‹</button>
+        <h2 class="month-year">{{currentMonthYear}}</h2>
+        <button class="nav-btn" (click)="nextMonth()">›</button>
+        </div>
+
+        <!-- Días de la semana -->
+        <div class="weekdays">
+        <div class="weekday" *ngFor="let day of weekDays">{{day}}</div>
+        </div>
+
+        <!-- Días del calendario -->
+        <div class="calendar-grid">
+        <div 
+            *ngFor="let day of calendarDays" 
+            class="calendar-day"
+            [class.current-month]="day.isCurrentMonth"
+            [class.selected]="day.isSelected"
+            [class.in-range]="day.isInRange"
+            [class.start-date]="day.isStartDate"
+            [class.end-date]="day.isEndDate"
+            [class.disabled]="day.isDisabled"
+            [class.other-month]="!day.isCurrentMonth"
+            (click)="onDateClick(day)">
+            {{day.date.getDate()}}
+        </div>
+        </div>
+    </div>
+
+    <!-- Información de selección -->
+    <div class="selection-panel">
+        <div class="selection-info" *ngIf="selectedRange.startDate">
+        <h3>Tu reserva</h3>
+        <div class="selected-dates">
+            <div class="date-item">
+            <label>Check-in:</label>
+            <span class="date-value">{{selectedRange.startDate | date:'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="date-item" *ngIf="selectedRange.endDate">
+            <label>Check-out:</label>
+            <span class="date-value">{{selectedRange.endDate | date:'dd/MM/yyyy'}}</span>
+            </div>
+        </div>
+        <div class="nights-count" *ngIf="selectedRange.endDate">
+            <span class="days-info">
+                <span>📅</span>
+                <span>{{selectedDaysCount}} días</span>
+            </span>
+            <span class="nights-info">
+                <span>🌙</span>
+                <span>{{selectedDaysCount - 1}} {{selectedDaysCount - 1 === 1 ? 'noche' : 'noches'}}</span>
+            </span>
+        </div>
+        </div>
+        
+        <div class="selection-placeholder" *ngIf="!selectedRange.startDate">
+        <h3>Selecciona tus fechas</h3>
+        <p>Elige tu fecha de entrada y salida</p>
+        <small>Mínimo 2 días (1 noche), máximo 7 días consecutivos</small>
+        </div>
+        
+        <div class="selection-status" *ngIf="selectedRange.startDate && !selectedRange.endDate">
+        <h3>Selecciona fecha de salida</h3>
+        <p>Ya tienes tu check-in, ahora elige cuándo te vas</p>
+        </div>
+    </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="calendar-actions">
+    <button class="clear-btn" (click)="clearSelection()">Limpiar selección</button>
+    </div>
+
+    <!-- Modal de error -->
+    <div class="error-modal" *ngIf="showErrorModal" (click)="closeErrorModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+        <h3>Error en la reserva</h3>
+        <button class="close-btn" (click)="closeErrorModal()">×</button>
+        </div>
+        <div class="modal-body">
+        <p>{{errorMessage}}</p>
+        </div>
+        <div class="modal-footer">
+        <button class="error-btn" (click)="closeErrorModal()">Entendido</button>
+        </div>
+    </div>
+    </div>
+</div>

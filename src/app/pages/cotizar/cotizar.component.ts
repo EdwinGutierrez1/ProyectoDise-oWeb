@@ -4,14 +4,16 @@ import { FormularioComponent } from "./formulario/formulario.component";
 import { ActividadesComponent } from "./actividades/actividades.component";
 import { CotizacionService } from './cotizacion.service';
 import { MenuComponent } from "./menu/menu.component";
+import { CalendarioComponent } from './calendario/calendario.component';
 
 @Component({
   selector: 'app-cotizar',
   standalone: true,
-  imports: [CabanasComponent, FormularioComponent, ActividadesComponent, MenuComponent],  
+  imports: [CabanasComponent, FormularioComponent, ActividadesComponent, MenuComponent, CalendarioComponent],  
   templateUrl: './cotizar.component.html',
   styleUrls: ['./cotizar.component.css']
 })
+
 export class CotizarComponent implements OnInit {
   
   constructor(private cotizacionService: CotizacionService) { }

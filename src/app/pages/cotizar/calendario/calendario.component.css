@@ -1,0 +1,506 @@
+.calendar-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border-radius: 16px;
+    /* Eliminados: box-shadow y border */
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+}
+
+.main-title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 50px;
+    margin-top: 25px;
+}
+
+/* Rangos predefinidos */
+.predefined-ranges {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e8f5e8;
+    text-align: center;
+}
+
+.predefined-ranges h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: #2d5016;
+    font-weight: 600;
+}
+
+.range-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center; 
+}
+
+.range-btn {
+    padding: 12px 20px;
+    border: 2px solid #418f43; /* verde sobrio */
+    background: white;
+    color: #2e7d32; /* texto más oscuro */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.range-btn:hover {
+    background: #2e7d32;
+    color: white;
+    transform: translateY(-2px);
+    border: 2px solid #2e7d32; /* verde sobrio */
+}
+
+/* Layout principal */
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+/* Calendario */
+.calendar {
+    background: white;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 0 15px;
+}
+
+.month-year {
+    font-size: 28px;
+    font-weight: 700;
+    color: #222222;
+    margin: 0;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    color: #333333;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #e8f5e8;
+    transform: scale(1.1);
+}
+
+/* Días de la semana */
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 15px;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: 600;
+    color: #222222;
+    font-size: 16px;
+    padding: 12px 0;
+    background: #f1f8e9;
+    border-radius: 8px;
+}
+
+/* Grid del calendario */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    background: white;
+    border: 2px solid transparent;
+    min-height: 60px;
+}
+
+/* Hover solo para días no seleccionados */
+.calendar-day:hover:not(.disabled):not(.selected):not(.start-date):not(.end-date) {
+    background-color: #e8f5e8;
+    transform: scale(1.05);
+    border-color: #7cb342;
+}
+
+/* Hover para días seleccionados - solo agrandar */
+.calendar-day.selected:hover:not(.disabled),
+.calendar-day.start-date:hover:not(.disabled),
+.calendar-day.end-date:hover:not(.disabled) {
+    transform: scale(1.05);
+}
+
+.calendar-day.other-month {
+    color: #bdbdbd;
+    background: #f9f9f9;
+}
+
+.calendar-day.disabled {
+    color: #bdbdbd;
+    cursor: not-allowed;
+    text-decoration: line-through;
+    background: #f5f5f5;
+}
+
+.calendar-day.disabled:hover {
+    background-color: #f5f5f5;
+    transform: none;
+    border-color: transparent;
+}
+
+/* Estilos para fechas seleccionadas */
+.calendar-day.selected {
+    background-color: #7cb342;
+    color: white;
+    font-weight: 700;
+    border-color: #558b2f;
+}
+
+.calendar-day.start-date {
+    background-color: #2e7d32;
+    color: white;
+    font-weight: 700;
+    border-color: #1b5e20;
+}
+
+.calendar-day.end-date {
+    background-color: #2e7d32;
+    color: white;
+    font-weight: 700;
+    border-color: #1b5e20;
+}
+
+.calendar-day.in-range {
+    background-color: #c8e6c9;
+    color: #1b5e20;
+    border-color: #7cb342;
+}
+
+.calendar-day.start-date.end-date {
+    background-color: #2e7d32;
+}
+
+/* Panel de selección */
+.selection-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #333333;
+}
+
+.selection-info, .selection-placeholder, .selection-status {
+    background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+    padding: 25px;
+    border-radius: 16px;
+    border-left: 6px solid #2e7d32; /* Cambiado a verde intermedio */
+    box-shadow: 0 4px 16px rgba(124, 179, 66, 0.1);
+}
+
+.selection-info h3, .selection-placeholder h3, .selection-status h3 {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    color: #333333;
+    font-weight: 700;
+}
+
+.selected-dates {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.date-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.date-item label {
+    font-size: 14px;
+    color: #1b5e20;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.date-item .date-value {
+    font-size: 18px;
+    color: #333333;
+    font-weight: 700;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 8px;
+    border: 2px solid #c8e6c9;
+}
+
+/* Nuevo estilo para días y noches sin bordes y con emojis */
+.nights-count {
+    color: #333333;
+    font-size: 18px; /* Aumentado de 16px a 18px */
+    text-align: center;
+    padding: 12px 0; /* Solo padding vertical */
+    background: transparent; /* Sin fondo */
+    /* Eliminados: border y border-radius */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+}
+
+.nights-count .days-info,
+.nights-count .nights-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 18px; /* Tamaño específico para el texto */
+}
+
+.selection-placeholder p, .selection-status p {
+    color: #333333; /* Cambiado de #558b2f a #333333 */
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.selection-placeholder small {
+    color: #2f7c25;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* Acciones del calendario */
+.calendar-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid #e8f5e8;
+}
+
+.clear-btn {
+    padding: 12px 20px; /* Mismo padding que range-btn */
+    border: 2px solid #418f43; /* Mismo estilo que range-btn */
+    background: white; /* Mismo fondo que range-btn */
+    color: #2e7d32; /* Mismo color de texto que range-btn */
+    border-radius: 8px; /* Mismo border-radius que range-btn */
+    cursor: pointer;
+    font-size: 16px; /* Ligeramente más grande que range-btn para diferenciarlo */
+    font-weight: 500; /* Mismo font-weight que range-btn */
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    background: #2e7d32; /* Mismo hover que range-btn */
+    color: white;
+    transform: translateY(-2px);
+    border: 2px solid #2e7d32; /* Mismo hover border que range-btn */
+}
+
+/* Modal de error */
+.error-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+    overflow: hidden;
+    animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #ff5722 0%, #e53935 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    margin: 0;
+    padding: 0;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    padding: 20px 25px 5px 25px;
+    text-align: center;
+}
+
+.modal-body p {
+    color: #333;
+    font-size: 18px; /* Aumentado de 16px a 18px */
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+.modal-footer {
+    padding: 20px 25px;
+    text-align: center;
+    border-top: 1px solid #f0f0f0;
+    display: flex; /* Añadido para centrar */
+    justify-content: center; /* Centrar el botón */
+}
+
+.error-btn {
+    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.error-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4); /* Azul */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .calendar-container {
+    padding: 20px;
+    margin: 10px;
+    }
+    
+    .main-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    }
+    
+    .selection-panel {
+    order: -1;
+    }
+    
+    .range-buttons {
+    justify-content: center;
+    }
+    
+    .range-btn {
+    font-size: 12px;
+    padding: 8px 16px;
+    }
+    
+    .calendar-day {
+    min-height: 45px;
+    font-size: 16px;
+    }
+    
+    .month-year {
+    font-size: 22px;
+    }
+    
+    .weekday {
+    font-size: 14px;
+    padding: 8px 0;
+    }
+
+    .modal-content {
+    margin: 20px;
+    width: calc(100% - 40px);
+    }
+
+    .nights-count {
+    flex-direction: column;
+    gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-day {
+    min-height: 40px;
+    font-size: 14px;
+    }
+    
+    .weekday {
+    font-size: 12px;
+    }
+}
