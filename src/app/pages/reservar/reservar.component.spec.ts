@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CotizarComponent } from './cotizar.component';
+import { ReservarComponent } from './reservar.component';
 
 describe('CotizarComponent', () => {
-  let component: CotizarComponent;
-  let fixture: ComponentFixture<CotizarComponent>;
+  let component: ReservarComponent;
+  let fixture: ComponentFixture<ReservarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CotizarComponent]
+      imports: [ReservarComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CotizarComponent);
+    fixture = TestBed.createComponent(ReservarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

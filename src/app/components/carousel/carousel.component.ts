@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class CarouselComponent {
   constructor(private router: Router) {}
 
-  goToCotizar() {
-    this.router.navigate(['/cotizar']);
+  goToReservar() {
+    this.router.navigate(['/reservar']);
   }
 }

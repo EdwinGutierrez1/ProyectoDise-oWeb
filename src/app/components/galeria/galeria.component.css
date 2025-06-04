@@ -2,104 +2,126 @@
 
 /* Estilo para el título de la sección de galería */
 #Galeria{
-    padding-top: 50px; /* Espaciado superior para separar de la sección anterior */
-  }
-  
-  /* Contenedor principal para las imágenes */
-  .image-container {
-    margin-top:0px;
-    position: relative; /* Permite posicionar elementos hijos (como .overlay) de manera absoluta dentro de este contenedor */
-    width: 100%; /* El contenedor ocupa todo el ancho disponible */
-    height: 300px; /* Altura fija del contenedor */
-    overflow: hidden; /* Oculta cualquier contenido que se desborde de los límites del contenedor */
-    margin-bottom: 2px; /* Añade un pequeño espacio debajo del contenedor */
-  }
-  
-  /* Imágenes dentro del contenedor */
-  .image-container img {
-    width: 100%; /* La imagen ocupa todo el ancho del contenedor */
-    height: 100%; /* La imagen ocupa toda la altura del contenedor */
-    display: block; /* Elimina los espacios blancos alrededor de las imágenes */
-    object-fit: cover; /* Asegura que la imagen llene el contenedor sin distorsionarse */
-    transition: transform 0.3s ease; /* Aplica una transición suave al escalar la imagen */
-  }
-  
-  /* Superposición (overlay) que aparece al pasar el mouse */
-  .overlay {
-    position: absolute; /* Se posiciona de manera absoluta dentro de .image-container */
-    bottom: 0; /* Comienza en la parte inferior del contenedor */
-    left: 0; /* Alinea al borde izquierdo del contenedor */
-    right: 0; /* Alinea al borde derecho del contenedor */
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro con opacidad del 70% */
-    overflow: hidden; /* Oculta cualquier contenido que se desborde de los límites del overlay */
-    width: 100%; /* El overlay ocupa todo el ancho del contenedor */
-    height: 0; /* Inicialmente, no es visible */
-    transition: 0.5s ease; /* Transición suave para cambiar la altura del overlay */
-  }
-  
-  /* Comportamiento al pasar el mouse sobre el contenedor de la imagen */
-  .image-container:hover .overlay {
-    height: 100%; /* El overlay se expande para cubrir todo el contenedor */
-  }
-  
-  /* Efecto de zoom en la imagen al pasar el mouse */
-  .image-container:hover img {
-    transform: scale(1.05); /* Escala la imagen al 105% de su tamaño original */
-  }
-  
-  /* Texto dentro de la superposición (overlay) */
-  .text {
-    color: white; /* El texto es de color blanco */
-    font-size: 20px; /* Tamaño de fuente del texto */
-    position: absolute; /* El texto se posiciona dentro del contenedor del overlay */
-    top: 50%; /* El texto se centra verticalmente */
-    left: 50%; /* El texto se centra horizontalmente */
-    transform: translate(-50%, -50%); /* Ajuste preciso para centrar el texto */
-    text-align: center; /* Centra el texto dentro de su área */
-    width: 90%; /* Limita el ancho del texto al 90% del overlay */
-  }
+  padding-top: 50px; /* Espaciado superior para separar de la sección anterior */
+}
 
-  .text-center{
-    font-size: 50px;
-  }
+/* Contenedor principal de la galería con ancho más amplio */
+.container-galeria {
+  max-width: 85%; /* Cambiado de 1000px a 80% para ocupar más pantalla */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  padding: 0 20px; /* Añade padding lateral para móviles */
+}
 
-  /* Estilos responsivos para galerías en pantallas grandes */
-  @media (min-width: 768px) {
-    .row.gallery {
+/* Contenedor principal para las imágenes */
+.image-container {
+  margin-top:0px;
+  position: relative; /* Permite posicionar elementos hijos (como .overlay) de manera absoluta dentro de este contenedor */
+  width: 100%; /* El contenedor ocupa todo el ancho disponible */
+  height: 300px; /* Altura fija del contenedor */
+  overflow: hidden; /* Oculta cualquier contenido que se desborde de los límites del contenedor */
+  margin-bottom: 2px; /* Añade un pequeño espacio debajo del contenedor */
+}
+
+/* Imágenes dentro del contenedor */
+.image-container img {
+  width: 100%; /* La imagen ocupa todo el ancho del contenedor */
+  height: 100%; /* La imagen ocupa toda la altura del contenedor */
+  display: block; /* Elimina los espacios blancos alrededor de las imágenes */
+  object-fit: cover; /* Asegura que la imagen llene el contenedor sin distorsionarse */
+  transition: transform 0.3s ease; /* Aplica una transición suave al escalar la imagen */
+}
+
+/* Superposición (overlay) que aparece al pasar el mouse */
+.overlay {
+  position: absolute; /* Se posiciona de manera absoluta dentro de .image-container */
+  bottom: 0; /* Comienza en la parte inferior del contenedor */
+  left: 0; /* Alinea al borde izquierdo del contenedor */
+  right: 0; /* Alinea al borde derecho del contenedor */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo negro con opacidad del 70% */
+  overflow: hidden; /* Oculta cualquier contenido que se desborde de los límites del overlay */
+  width: 100%; /* El overlay ocupa todo el ancho del contenedor */
+  height: 0; /* Inicialmente, no es visible */
+  transition: 0.5s ease; /* Transición suave para cambiar la altura del overlay */
+}
+
+/* Comportamiento al pasar el mouse sobre el contenedor de la imagen */
+.image-container:hover .overlay {
+  height: 100%; /* El overlay se expande para cubrir todo el contenedor */
+}
+
+/* Efecto de zoom en la imagen al pasar el mouse */
+.image-container:hover img {
+  transform: scale(1.05); /* Escala la imagen al 105% de su tamaño original */
+}
+
+/* Texto dentro de la superposición (overlay) */
+.text {
+  color: white; /* El texto es de color blanco */
+  font-size: 20px; /* Tamaño de fuente del texto */
+  position: absolute; /* El texto se posiciona dentro del contenedor del overlay */
+  top: 50%; /* El texto se centra verticalmente */
+  left: 50%; /* El texto se centra horizontalmente */
+  transform: translate(-50%, -50%); /* Ajuste preciso para centrar el texto */
+  text-align: center; /* Centra el texto dentro de su área */
+  width: 90%; /* Limita el ancho del texto al 90% del overlay */
+}
+
+.text-center{
+  font-size: 50px;
+}
+
+/* Estilos responsivos para galerías en pantallas grandes */
+@media (min-width: 768px) {
+  .row.gallery {
       display: flex; /* Cambia la disposición a flexbox para alinear los elementos en fila */
       align-items: stretch; /* Asegura que todas las columnas tengan la misma altura */
-    }
-  }
-
-@media (max-width: 991px) {
-  .image-container {
-    height: 220px;
-  }
-  .text {
-    font-size: 16px;
-    width: 95%;
   }
 }
 
-@media (max-width: 767px) {
+/* Pantallas medianas */
+@media (max-width: 991px) {
+  .container-galeria {
+      max-width: 85%; /* Ajustado de 800px a 85% para mantener proporción */
+      padding: 0 15px;
+  }
   .image-container {
-    height: 160px;
+      height: 220px;
   }
   .text {
-    font-size: 14px;
-    padding: 0 4px;
+      font-size: 16px;
+      width: 95%;
+  }
+}
+
+/* Tabletas */
+@media (max-width: 767px) {
+  .container-galeria {
+      max-width: 90%; /* Ajustado de 600px a 90% para aprovechar más espacio */
+      padding: 0 10px;
+  }
+  .image-container {
+      height: 160px;
+  }
+  .text {
+      font-size: 14px;
+      padding: 0 4px;
   }
   .row.gallery {
-    flex-direction: column;
+      flex-direction: column;
   }
 }
 
+/* Móviles */
 @media (max-width: 480px) {
+  .container-galeria {
+      max-width: 95%; /* Ajustado de 80% a 95% para aprovechar mejor el espacio móvil */
+      padding: 0 5px;
+  }
   .image-container {
-    height: 110px;
+      height: 110px;
   }
   .text {
-    font-size: 12px;
-    padding: 0 2px;
+      font-size: 12px;
+      padding: 0 2px;
   }
 }

@@ -10,11 +10,11 @@ import { CalendarioComponent } from './calendario/calendario.component';
   selector: 'app-cotizar',
   standalone: true,
   imports: [CabanasComponent, FormularioComponent, ActividadesComponent, MenuComponent, CalendarioComponent],  
-  templateUrl: './cotizar.component.html',
-  styleUrls: ['./cotizar.component.css']
+  templateUrl: './reservar.component.html',
+  styleUrls: ['./reservar.component.css']
 })
 
-export class CotizarComponent implements OnInit {
+export class ReservarComponent implements OnInit {
   
   constructor(private cotizacionService: CotizacionService) { }
 
