@@ -485,3 +485,220 @@
     padding: 12px 15px;
   }
 }
+
+/* ===== MEJORAS DE RESPONSIVIDAD ===== */
+
+/* Media query para tablets */
+@media (max-width: 992px) {
+  .formulario-container {
+    max-width: 90%;
+    padding: 25px 30px;
+  }
+  
+  .formulario-titulo {
+    font-size: 2.2rem;
+  }
+  
+  .caracteristicas {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+/* Media query para tablets pequeñas y móviles grandes */
+@media (max-width: 768px) {
+  .formulario-section {
+    padding: 30px 15px;
+  }
+  
+  .formulario-container {
+    padding: 20px;
+  }
+  
+  .formulario-titulo {
+    font-size: 2rem;
+  }
+  
+  .formulario-subtitulo {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .botones-container {
+    flex-direction: column-reverse;
+    gap: 15px;
+  }
+  
+  .btn-volver, .btn-cotizar {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .caracteristicas {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .resumen-container {
+    padding: 20px 15px;
+  }
+  
+  .total-resumen {
+    font-size: 1.2em;
+    padding: 12px 15px;
+  }
+}
+
+/* Media query para móviles */
+@media (max-width: 576px) {
+  .formulario-section {
+    padding: 20px 10px;
+  }
+  
+  .formulario-container {
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  .formulario-titulo {
+    font-size: 1.8rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 10px 15px 10px 35px;
+    font-size: 15px;
+  }
+  
+  .form-group i {
+    top: 38px;
+    left: 12px;
+  }
+  
+  .resumen-categoria {
+    font-size: 1em;
+  }
+  
+  .item-info {
+    width: 100%;
+  }
+  
+  .item-precio {
+    margin-top: 5px;
+    align-self: flex-end;
+  }
+  
+  .mensaje-vacio i {
+    font-size: 1.8em;
+  }
+  
+  .mensaje-vacio p {
+    font-size: 0.95em;
+  }
+}
+
+/* Mejoras para la accesibilidad en dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 16px; /* Evita el zoom automático en iOS */
+  }
+  
+  .btn-volver, .btn-cotizar {
+    padding: 14px 20px; /* Botones más grandes para tocar */
+    min-height: 50px;
+  }
+  
+  .resumen-item {
+    padding: 15px 0; /* Más espacio para tocar */
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .formulario-titulo {
+    font-size: 1.6rem;
+  }
+  
+  .formulario-subtitulo {
+    font-size: 0.9rem;
+  }
+  
+  .form-group label {
+    font-size: 0.95rem;
+  }
+  
+  .total-resumen {
+    font-size: 1.1em;
+  }
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 1200px) {
+  .formulario-container {
+    max-width: 900px;
+    padding: 40px 50px;
+  }
+}
+
+/* Ajustes para orientación horizontal en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .formulario-section {
+    padding: 15px;
+    height: auto;
+    min-height: auto;
+  }
+  
+  .formulario-container {
+    margin: 10px auto;
+  }
+  
+  .formulario-titulo {
+    font-size: 1.7rem;
+    margin-bottom: 5px;
+  }
+  
+  .formulario-subtitulo {
+    margin-bottom: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 12px;
+  }
+  
+  #resumen-reserva {
+    max-height: 200px;
+  }
+}
+
+/* Mejoras para la impresión */
+@media print {
+  .formulario-section {
+    padding: 0;
+    min-height: auto;
+  }
+  
+  .formulario-container {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    max-width: 100%;
+  }
+  
+  .botones-container, .caracteristicas {
+    display: none;
+  }
+  
+  .resumen-container {
+    break-inside: avoid;
+  }
+}

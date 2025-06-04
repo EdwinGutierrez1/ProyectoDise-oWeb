@@ -35,6 +35,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
   comidasSeleccionadas: any[] = [];
   totalComidas: number = 0;
 
+
+
   ngOnInit(): void {
     this.subscription.add(
       this.cotizacionService.cotizacion$.subscribe((cotizacion) => {
