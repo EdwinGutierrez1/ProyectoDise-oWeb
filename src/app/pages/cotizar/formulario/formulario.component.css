@@ -133,7 +133,11 @@
 
 /* Estilo para el total del resumen - MEJORADO */
 .total-resumen {
-  background: linear-gradient(135deg, #2c3e50, #3498db); /* Gradiente más elegante */
+  background: linear-gradient(
+    135deg,
+    #2c3e50,
+    #3498db
+  ); /* Gradiente más elegante */
   color: white; /* Texto blanco */
   padding: 18px 25px; /* Más espaciado interno */
   border-radius: 10px; /* Bordes más redondeados */
@@ -219,6 +223,22 @@
   gap: 15px;
   color: #6c757d;
   padding: 30px 0; /* Más espaciado vertical */
+}
+
+.mensaje-enviado {
+  margin-top: 20px;
+  padding: 15px;
+  background: #e0ffe0;
+  color: #207520;
+  border: 1px solid #b2e6b2;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+  animation: fadeIn 0.7s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .mensaje-vacio i {
@@ -494,11 +514,11 @@
     max-width: 90%;
     padding: 25px 30px;
   }
-  
+
   .formulario-titulo {
     font-size: 2.2rem;
   }
-  
+
   .caracteristicas {
     flex-wrap: wrap;
     gap: 15px;
@@ -510,45 +530,46 @@
   .formulario-section {
     padding: 30px 15px;
   }
-  
+
   .formulario-container {
     padding: 20px;
   }
-  
+
   .formulario-titulo {
     font-size: 2rem;
   }
-  
+
   .formulario-subtitulo {
     font-size: 1rem;
     margin-bottom: 25px;
   }
-  
+
   .form-row {
     flex-direction: column;
     gap: 15px;
   }
-  
+
   .botones-container {
     flex-direction: column-reverse;
     gap: 15px;
   }
-  
-  .btn-volver, .btn-cotizar {
+
+  .btn-volver,
+  .btn-cotizar {
     width: 100%;
     justify-content: center;
   }
-  
+
   .caracteristicas {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .resumen-container {
     padding: 20px 15px;
   }
-  
+
   .total-resumen {
     font-size: 1.2em;
     padding: 12px 15px;
@@ -560,45 +581,45 @@
   .formulario-section {
     padding: 20px 10px;
   }
-  
+
   .formulario-container {
     padding: 15px;
     border-radius: 10px;
   }
-  
+
   .formulario-titulo {
     font-size: 1.8rem;
   }
-  
+
   .form-group input,
   .form-group textarea,
   .form-group select {
     padding: 10px 15px 10px 35px;
     font-size: 15px;
   }
-  
+
   .form-group i {
     top: 38px;
     left: 12px;
   }
-  
+
   .resumen-categoria {
     font-size: 1em;
   }
-  
+
   .item-info {
     width: 100%;
   }
-  
+
   .item-precio {
     margin-top: 5px;
     align-self: flex-end;
   }
-  
+
   .mensaje-vacio i {
     font-size: 1.8em;
   }
-  
+
   .mensaje-vacio p {
     font-size: 0.95em;
   }
@@ -613,12 +634,13 @@
     padding-bottom: 12px;
     font-size: 16px; /* Evita el zoom automático en iOS */
   }
-  
-  .btn-volver, .btn-cotizar {
+
+  .btn-volver,
+  .btn-cotizar {
     padding: 14px 20px; /* Botones más grandes para tocar */
     min-height: 50px;
   }
-  
+
   .resumen-item {
     padding: 15px 0; /* Más espacio para tocar */
   }
@@ -629,15 +651,15 @@
   .formulario-titulo {
     font-size: 1.6rem;
   }
-  
+
   .formulario-subtitulo {
     font-size: 0.9rem;
   }
-  
+
   .form-group label {
     font-size: 0.95rem;
   }
-  
+
   .total-resumen {
     font-size: 1.1em;
   }
@@ -658,24 +680,24 @@
     height: auto;
     min-height: auto;
   }
-  
+
   .formulario-container {
     margin: 10px auto;
   }
-  
+
   .formulario-titulo {
     font-size: 1.7rem;
     margin-bottom: 5px;
   }
-  
+
   .formulario-subtitulo {
     margin-bottom: 15px;
   }
-  
+
   .form-group {
     margin-bottom: 12px;
   }
-  
+
   #resumen-reserva {
     max-height: 200px;
   }
@@ -687,18 +709,381 @@
     padding: 0;
     min-height: auto;
   }
-  
+
   .formulario-container {
     box-shadow: none;
     border: 1px solid #ddd;
     max-width: 100%;
   }
-  
-  .botones-container, .caracteristicas {
+
+  .botones-container,
+  .caracteristicas {
     display: none;
   }
-  
+
   .resumen-container {
     break-inside: avoid;
   }
+}
+
+.mensaje-confirmacion {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 18px;
+  text-align: center;
+  font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  animation: fadeIn 0.5s;
+}
+.mensaje-confirmacion i {
+  font-size: 1.5em;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== ESTILOS MEJORADOS PARA EL MODAL POPUP ===== */
+
+/* Backdrop del modal con efecto de desenfoque */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: backdropFadeIn 0.3s ease-out;
+  padding: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* Animación de entrada para el backdrop */
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+/* Contenedor principal del modal */
+.modal {
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 0;
+  max-width: 450px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: default;
+}
+
+/* Animación de entrada para el modal */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Header del modal con gradiente */
+.modal-header {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  padding: 30px 25px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de brillo en el header */
+.modal-header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* Icono de éxito en el header */
+.modal-success-icon {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  animation: successPulse 2s infinite;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-success-icon i {
+  font-size: 2.5em;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes successPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+}
+
+/* Título del modal */
+.modal h3 {
+  color: white;
+  font-size: 1.8em;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+/* Cuerpo del modal */
+.modal-body {
+  padding: 30px 25px;
+  text-align: center;
+}
+
+/* Párrafo del mensaje */
+.modal p {
+  color: #555;
+  font-size: 1.1em;
+  line-height: 1.6;
+  margin: 0 0 25px 0;
+  font-weight: 400;
+}
+
+/* Contenedor de botones */
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Botón principal del modal */
+.modal-button {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+/* Efecto de onda en el botón */
+.modal-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.modal-button:hover::before {
+  width: 100px;
+  height: 100px;
+}
+
+.modal-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+.modal-button:active {
+  transform: translateY(0);
+}
+
+/* Botón secundario (opcional) */
+.modal-button-secondary {
+  background: transparent;
+  color: #666;
+  border: 2px solid #e0e0e0;
+  padding: 10px 28px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.modal-button-secondary:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+  transform: translateY(-1px);
+}
+
+/* Botón de cerrar (X) en la esquina */
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.modal-close i {
+  color: white;
+  font-size: 14px;
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+  .modal {
+    max-width: 90%;
+    margin: 0 auto;
+    border-radius: 15px;
+  }
+
+  .modal-header {
+    padding: 25px 20px 15px;
+  }
+
+  .modal-success-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .modal-success-icon i {
+    font-size: 2em;
+  }
+
+  .modal h3 {
+    font-size: 1.5em;
+  }
+
+  .modal-body {
+    padding: 25px 20px;
+  }
+
+  .modal p {
+    font-size: 1em;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-button,
+  .modal-button-secondary {
+    width: 100%;
+    padding: 14px 20px;
+  }
+}
+
+/* Animaciones de salida */
+.modal-backdrop.fade-out {
+  animation: backdropFadeOut 0.3s ease-in forwards;
+}
+
+.modal-backdrop.fade-out .modal {
+  animation: modalSlideOut 0.3s ease-in forwards;
+}
+
+@keyframes backdropFadeOut {
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+}
+
+@keyframes modalSlideOut {
+  to {
+    opacity: 0;
+    transform: scale(0.8) translateY(50px);
+  }
+}
+
+/* Accesibilidad - focus visible */
+.modal-button:focus,
+.modal-button-secondary:focus,
+.modal-close:focus {
+  outline: 3px solid rgba(76, 175, 80, 0.5);
+  outline-offset: 2px;
 }
