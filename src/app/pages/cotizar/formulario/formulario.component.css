@@ -102,27 +102,152 @@
   flex: 1; /* Todos los elementos ocupan el mismo espacio */
 }
 
-/* Contenedor para la sección de resumen */
+/* Contenedor para la sección de resumen - MEJORADO */
 .resumen-container {
-  background-color: #f8f9fa; /* Fondo gris claro */
-  border-radius: 10px; /* Bordes redondeados */
-  padding: 20px; /* Espaciado interno */
-  margin-top: 20px;
-  margin-bottom: 20px;
+  background-color: #ffffff; /* Fondo blanco más limpio */
+  border-radius: 12px; /* Bordes más redondeados */
+  padding: 25px; /* Más espaciado interno */
+  margin-top: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Sombra más suave y elegante */
+  border: 1px solid #e9ecef; /* Borde sutil */
+  transition: all 0.3s ease; /* Transición suave para efectos */
 }
 
-/* Título de la sección de resumen */
+/* Efecto hover para el contenedor del resumen */
+.resumen-container:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); /* Sombra más pronunciada al pasar el cursor */
+  transform: translateY(-2px); /* Ligero efecto de elevación */
+}
+
+/* Título de la sección de resumen - MEJORADO */
 .resumen-container h4 {
-  color: #333; /* Color oscuro */
-  margin-bottom: 15px; /* Separación inferior */
+  color: #2c3e50; /* Color más oscuro y elegante */
+  margin-bottom: 20px; /* Mayor separación inferior */
+  font-size: 1.3rem; /* Texto más grande */
+  font-weight: 600; /* Más negrita */
+  border-bottom: 2px solid #4a90e2; /* Línea decorativa debajo del título */
+  padding-bottom: 10px; /* Espacio para la línea */
+  display: inline-block; /* Para que la línea solo ocupe el ancho del texto */
 }
 
-/* Estilo para el total del resumen */
+/* Estilo para el total del resumen - MEJORADO */
 .total-resumen {
-  font-weight: bold; /* Texto en negrita */
-  color: #2c3e50; /* Color azul oscuro */
-  margin-top: 15px; /* Separación superior */
-  font-size: 1.2rem; /* Tamaño del texto */
+  background: linear-gradient(135deg, #2c3e50, #3498db); /* Gradiente más elegante */
+  color: white; /* Texto blanco */
+  padding: 18px 25px; /* Más espaciado interno */
+  border-radius: 10px; /* Bordes más redondeados */
+  margin-top: 20px; /* Mayor separación superior */
+  text-align: center; /* Texto centrado */
+  font-size: 1.4em; /* Texto más grande */
+  font-weight: 700; /* Más negrita */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  letter-spacing: 0.5px; /* Espaciado entre letras */
+  text-transform: uppercase; /* Texto en mayúsculas */
+}
+
+/* Mejoras para los elementos del resumen */
+#resumen-reserva {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 400px; /* Altura máxima con scroll si hay muchos elementos */
+  overflow-y: auto; /* Scroll vertical si es necesario */
+  scrollbar-width: thin; /* Scrollbar delgado para Firefox */
+}
+
+/* Estilo para scrollbar en Chrome/Safari */
+#resumen-reserva::-webkit-scrollbar {
+  width: 6px;
+}
+
+#resumen-reserva::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+#resumen-reserva::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+#resumen-reserva::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Mejoras para cada elemento del resumen */
+.resumen-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15px 10px; /* Más espaciado interno */
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease; /* Transición suave */
+}
+
+.resumen-item:hover {
+  background-color: #f8f9fa; /* Color de fondo al pasar el cursor */
+}
+
+/* Mejoras para las categorías */
+.resumen-categoria {
+  padding: 18px 0 10px 0;
+  font-size: 1.1em;
+  color: #2c3e50;
+  border-bottom: 2px solid #e9ecef; /* Borde más visible */
+  margin-top: 10px; /* Espacio superior */
+  font-weight: 600; /* Más negrita */
+}
+
+/* Mejoras para los precios */
+.item-precio {
+  font-weight: bold;
+  color: #28a745; /* Verde más vibrante */
+  font-size: 1.1em;
+  white-space: nowrap;
+  margin-left: 20px;
+  background-color: rgba(40, 167, 69, 0.1); /* Fondo verde claro */
+  padding: 5px 10px; /* Espaciado interno */
+  border-radius: 6px; /* Bordes redondeados */
+}
+
+/* Mejoras para el mensaje vacío */
+.mensaje-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  color: #6c757d;
+  padding: 30px 0; /* Más espaciado vertical */
+}
+
+.mensaje-vacio i {
+  font-size: 2.5em; /* Icono más grande */
+  color: #adb5bd;
+  animation: pulse 2s infinite; /* Animación pulsante */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+.mensaje-vacio p {
+  margin: 0;
+  font-style: italic;
+  font-size: 1.1em; /* Texto más grande */
+  text-align: center;
+  max-width: 80%; /* Limita el ancho del texto */
 }
 
 /* Estilos para el contenedor de botones */

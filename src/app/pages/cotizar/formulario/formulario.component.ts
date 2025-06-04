@@ -23,21 +23,43 @@ export class FormularioComponent implements OnInit, OnDestroy {
     total: 0,
   };
 
+  // Eliminar estas propiedades duplicadas ya que están definidas como getters abajo
+  // tieneCabana: boolean = false;
+  // tieneActividades: boolean = false;
+  // tieneComidas: boolean = false;
+
   private subscription: Subscription = new Subscription();
 
   constructor(private cotizacionService: CotizacionService) {}
 
+  comidasSeleccionadas: any[] = [];
+  totalComidas: number = 0;
+
   ngOnInit(): void {
-    // Suscribirse a los cambios de cotización
     this.subscription.add(
       this.cotizacionService.cotizacion$.subscribe((cotizacion) => {
         this.datosCotizacion = cotizacion;
+        this.comidasSeleccionadas = cotizacion.comidas;
+        this.totalComidas = cotizacion.subtotalComidas;
+        
+        // Eliminar estas asignaciones ya que usaremos los getters
+        // this.tieneCabana = cotizacion.cabana !== null;
+        // this.tieneActividades = cotizacion.actividades.length > 0;
+        // this.tieneComidas = cotizacion.comidas.length > 0;
+        
         this.actualizarResumenDOM();
       })
     );
-
     // Obtener datos iniciales
     this.datosCotizacion = this.cotizacionService.obtenerDatosCotizacion();
+    this.comidasSeleccionadas = this.datosCotizacion.comidas;
+    this.totalComidas = this.datosCotizacion.subtotalComidas;
+    
+    // Eliminar estas asignaciones ya que usaremos los getters
+    // this.tieneCabana = this.datosCotizacion.cabana !== null;
+    // this.tieneActividades = this.datosCotizacion.actividades.length > 0;
+    // this.tieneComidas = this.datosCotizacion.comidas.length > 0;
+    
     this.actualizarResumenDOM();
   }
 
@@ -121,16 +143,84 @@ export class FormularioComponent implements OnInit, OnDestroy {
       });
     }
 
+    // Mostrar comidas seleccionadas
+    if (this.datosCotizacion.comidas.length > 0) {
+      html += `
+        <li class="resumen-categoria">
+          <strong>🍽️ Comidas seleccionadas:</strong>
+        </li>
+      `;
+
+      this.datosCotizacion.comidas.forEach((comida) => {
+        const precioInfo = comida.porPersona
+          ? `$${this.formatearPrecio(comida.precioUnitario)} x ${
+              this.datosCotizacion.cantidadPersonas
+            } personas`
+          : `Precio fijo`;
+
+        html += `
+          <li class="resumen-item comida">
+            <div class="item-info">
+              <span class="comida-nombre">${comida.nombre}</span>
+              <span class="item-detalles">${precioInfo}</span>
+            </div>
+            <span class="item-precio">$${this.formatearPrecio(
+              comida.precioTotal
+            )}</span>
+          </li>
+        `;
+      });
+
+      // Mostrar subtotal de comidas
+      html += `
+        <li class="resumen-subtotal">
+          <div class="item-info">
+            <span>Subtotal comidas</span>
+          </div>
+          <span class="item-precio">$${this.formatearPrecio(
+            this.datosCotizacion.subtotalComidas
+          )}</span>
+        </li>
+      `;
+    }
+
+    // Mostrar subtotales y total
+    if (this.tieneCabana || this.tieneActividades || this.tieneComidas) {
+      // Subtotal general
+      const subtotal = this.datosCotizacion.subtotalCabana + 
+                      this.datosCotizacion.subtotalActividades + 
+                      this.datosCotizacion.subtotalComidas;
+      
+      // Calcular IVA (19%)
+      const iva = subtotal * 0.19;
+      
+      html += `
+        <li class="resumen-subtotal total">
+          <div class="item-info">
+            <span>Subtotal</span>
+          </div>
+          <span class="item-precio">$${this.formatearPrecio(subtotal)}</span>
+        </li>
+        <li class="resumen-iva">
+          <div class="item-info">
+            <span>IVA (19%)</span>
+          </div>
+          <span class="item-precio">$${this.formatearPrecio(iva)}</span>
+        </li>
+      `;
+    }
+
     // Si no hay nada seleccionado
     if (
-      !this.datosCotizacion.cabana &&
-      this.datosCotizacion.actividades.length === 0
+      !this.tieneCabana &&
+      !this.tieneActividades &&
+      !this.tieneComidas
     ) {
       html = `
         <li class="resumen-vacio">
           <div class="mensaje-vacio">
             <i class="fas fa-info-circle"></i>
-            <p>Selecciona una cabaña y actividades para ver tu resumen</p>
+            <p>Selecciona una cabaña, actividades o comidas para ver tu resumen</p>
           </div>
         </li>
       `;
@@ -220,6 +310,11 @@ export class FormularioComponent implements OnInit, OnDestroy {
 
   get tieneActividades(): boolean {
     return this.datosCotizacion.actividades.length > 0;
+  }
+  
+  // Añadir este getter que falta
+  get tieneComidas(): boolean {
+    return this.datosCotizacion.comidas.length > 0;
   }
 
   get totalFormateado(): string {

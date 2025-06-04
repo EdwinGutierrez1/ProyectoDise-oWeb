@@ -548,3 +548,5 @@ export class MenuComponent implements OnInit, OnDestroy {
     return 'por persona';
   }
 }
+// REMOVE this erroneous line at the end of the file:
+// this.cotizacionService.setComidasSeleccionadas(this.selectedComidasArray);
