@@ -35,6 +35,41 @@
   width: 10% !important; /* Amplía el área clickeable para facilitar la navegación */
 }
 
+/* ---------- Indicadores del Carrusel ------------- */
+
+/* Contenedor de los indicadores */
+.carousel-indicators {
+  bottom: 15px !important; /* Separación desde la parte inferior */
+  margin-bottom: 1rem !important;
+}
+
+/* Estilos individuales de cada indicador */
+.carousel-indicators button {
+  width: 15px !important;
+  height: 15px !important;
+  border-radius: 50% !important; /* Hace los indicadores circulares */
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  margin: 0 8px !important; /* Espaciado entre indicadores */
+  opacity: 0.7 !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Indicador activo */
+.carousel-indicators button.active {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(255, 255, 255, 1) !important;
+  opacity: 1 !important;
+  transform: scale(1.2) !important;
+}
+
+/* Efecto hover en los indicadores */
+.carousel-indicators button:hover {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  opacity: 0.9 !important;
+  cursor: pointer;
+}
+
 /* ----- Fondos de Imágenes -----*/
 
 /* Se asignan imágenes de fondo a diferentes diapositivas del carrusel */
@@ -83,10 +118,13 @@
 .carousel-caption {
   position: absolute; /*Por encima de otros elemenetos */
   bottom: 10%; /* Ubicación en la parte inferior */
-  left: 10%; /* Separación desde la izquierda */
+  left: 50%; /* Centrado horizontalmente */
+  transform: translateX(-50%); /* Centra perfectamente el elemento */
   color: white; /* Color del texto */
   padding: 2rem;
-  max-width: 80%; /* Evita que el texto ocupe demasiado espacio */
+  max-width: 90%; /* Aumenta el ancho disponible para el texto */
+  width: 90%; /* Establece un ancho fijo para mejor control */
+  text-align: center; /* Centra el texto dentro del contenedor */
 }
 
 /* Estilos del botón dentro del carrusel */
@@ -101,7 +139,6 @@
   background-color: white;
   transition: transform 0.3s ease;
 }
-
 
 /* Efecto al pasar el cursor sobre el botón */
 .btn-primary:hover {
@@ -118,58 +155,148 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); /* Agrega sombra para mejorar la legibilidad */
 }
 
+
 /*Ajustes Responsivos*/
 
-/* Para pantallas medianas (tablets) */
-@media (max-width: 992px) {
-  .carousel-container {
-    width: 95%;
-    margin: 4vh auto 3vh;
-    border-radius: 8px;
+/* Para pantallas de PC pequeñas (laptops y monitores pequeños) */
+@media (max-width: 1366px) and (min-width: 1024px) {
+  .carousel-caption h2 {
+    font-size: 1.8rem; /* Reduce el tamaño del título */
+    margin-bottom: 0.8rem;
   }
 
-  .carousel-image {
-    height: 70vh; /* Reduce la altura del carrusel */
+  .carousel-caption .btn {
+    padding: 0.4rem 1.2rem;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+    margin-bottom: 15px;
+  }
+
+  .carousel-caption {
+    max-width: 80%; /* Aumenta el ancho disponible para el texto */
+    width: 80%; /* Establece un ancho fijo para mejor control */
+  }
+
+  /* Indicadores más pequeños para PC pequeñas */
+  .carousel-indicators {
+    bottom: 12px !important;
+    margin-bottom: 0.8rem !important;
+  }
+
+  .carousel-indicators button {
+    width: 12px !important;
+    height: 12px !important;
+    margin: 0 6px !important;
+  }
+
+  .carousel-indicators button.active {
+    transform: scale(1.1) !important; /* Reduce el efecto de escala */
   }
 }
 
-/* Para pantallas pequeñas (teléfonos en posición horizontal) */
+/* Para pantallas pequeñas (teléfonos moviles) */
 @media (max-width: 768px) {
+  /* NUEVOS ESTILOS PARA MÓVILES - 100VH CON COMPENSACIÓN NAVBAR */
+  .carousel-seccion {
+    margin-top: 0; /* Elimina el margen negativo en móviles */
+    padding: 0; /* Elimina padding innecesario */
+    /* Posicionamiento absoluto para ocupar toda la pantalla */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000; /* Debajo del navbar pero encima del resto */
+  }
+  
+  .carousel-container {
+    width: 100%; /* Ocupa todo el ancho */
+    max-width: none; /* Sin límite de ancho máximo */
+    margin: 0; /* Sin márgenes */
+    border-radius: 0; /* Sin bordes redondeados en móviles */
+    height: 100vh; /* Altura completa del viewport */
+    /* Padding-top para compensar la altura del navbar */
+    padding-top: 80px; /* Ajusta este valor según la altura real de tu navbar */
+  }
+  
+  .carousel-image {
+    height: calc(100vh - 80px); /* Altura completa menos la altura del navbar */
+  }
+  
+  /* Ajustar el carrusel principal para ocupar toda la altura disponible */
+  #carouselExampleAutoplaying {
+    height: calc(100vh - 80px) !important;
+  }
+  
+  .carousel-inner,
+  .carousel-item {
+    height: calc(100vh - 80px) !important;
+  }
+  
+  /* Ajustes del texto para móviles */
   .carousel-caption {
-    left: 5%;
-    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 12%; /* Movido más abajo para mejor posicionamiento en pantalla completa */
     padding: 1rem;
     max-width: 90%;
-    text-align: left;
+    width: 90%;
+    text-align: center;
   }
 
   .carousel-caption h2 {
     font-size: 1.5rem; /* Reduce tamaño del título */
+    margin-bottom: 1.5rem; /* Reduce espacio entre título y botón */
+
   }
 
   .carousel-caption .btn {
     padding: 0.4rem 1rem;
     font-size: 0.9rem;
+    margin-top: 0.8rem; /* Reduce espacio superior del botón */
+    margin-bottom: 0; /* Elimina margen inferior para acercar más al borde */
+  }
+
+  /* Ajustes para indicadores en móviles - más abajo */
+  .carousel-indicators {
+    bottom: 12px !important; /* Menos separación del borde para dar más espacio al texto */
+    margin-bottom: 0.5rem !important;
+  }
+
+  .carousel-indicators button {
+    width: 12px !important;
+    height: 12px !important;
+    margin: 0 6px !important;
+  }
+  
+  /* Asegurar que los controles estén visibles */
+  #carouselExampleAutoplaying .carousel-control-prev,
+  #carouselExampleAutoplaying .carousel-control-next {
+    height: calc(100vh - 80px) !important;
+  }
+  
+  /* Asegurar que el contenido siguiente no se superponga */
+  .carousel-seccion + * {
+    margin-top: 100vh;
   }
 }
 
-@media (max-width: 576px) {
-  .carousel-caption {
-    left: 5%;
-    bottom: 5%;
-    padding: 0.5rem;
-    max-width: 90%;
-    text-align: left;
+/* Media query adicional para navbars más altos en algunos dispositivos */
+@media (max-width: 768px) and (max-height: 667px) {
+  /* Para iPhone SE y dispositivos similares con pantallas más pequeñas */
+  .carousel-container {
+    padding-top: 70px; /* Navbar más pequeño en pantallas cortas */
   }
-
-  .carousel-caption h2 {
-    font-size: 1.2rem; /* Aún más pequeño para teléfonos */
+  
+  .carousel-image,
+  #carouselExampleAutoplaying,
+  .carousel-inner,
+  .carousel-item {
+    height: calc(100vh - 70px) !important;
   }
-
-  .carousel-caption .btn {
-    padding: 0.3rem 0.8rem;
-    font-size: 0.8rem;
+  
+  #carouselExampleAutoplaying .carousel-control-prev,
+  #carouselExampleAutoplaying .carousel-control-next {
+    height: calc(100vh - 70px) !important;
   }
 }
-
-
