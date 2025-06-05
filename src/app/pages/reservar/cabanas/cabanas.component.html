@@ -9,7 +9,7 @@
             [class.selected]="selectedCabana === 1"
             (click)="abrirModal(1)">
             <div class="image-container">
-                <img src="/cabañapequeña.jpg" alt="Cabaña pequeña" class="cabana-image">
+                <img src="/cabañapequeña.jpg" loading="lazy" alt="Cabaña pequeña" class="cabana-image">
             </div>
             <div class="cabana-info">
                 <h3>Cabaña #1</h3>
@@ -23,7 +23,7 @@
             [class.selected]="selectedCabana === 2"
             (click)="abrirModal(2)">
             <div class="image-container">
-                <img src="/cabañamediana.jpg" alt="Cabaña mediana" class="cabana-image">
+                <img src="/cabañamediana.jpg" loading="lazy" alt="Cabaña mediana" class="cabana-image">
             </div>
             <div class="cabana-info">
                 <h3>Cabaña #2</h3>
@@ -37,7 +37,7 @@
             [class.selected]="selectedCabana === 3"
             (click)="abrirModal(3)">
             <div class="image-container">
-                <img src="/cabañagrande.jpeg" alt="Cabaña grande" class="cabana-image">
+                <img src="/cabañagrande.jpeg" loading="lazy" alt="Cabaña grande" class="cabana-image">
             </div>
             <div class="cabana-info">
                 <h3>Cabaña #3</h3>
@@ -87,7 +87,8 @@
                     <img 
                         [src]="getImagenActual()" 
                         [alt]="'Cabaña #' + cabanaModalActual + ' - Imagen ' + (imagenActualIndex + 1)"
-                        class="imagen-galeria">
+                        class="imagen-galeria"
+                        loading="lazy">
                     
                     <!-- Flecha Izquierda -->
                     <button 

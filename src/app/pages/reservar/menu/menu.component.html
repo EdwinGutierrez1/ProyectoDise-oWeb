@@ -18,7 +18,7 @@
             [class.incluido]="true"
             (click)="canSelectComida(1) ? openModal(1) : null">
             <div class="image-container">
-                <img [src]="getComidaById(1)?.imagen" alt="Desayuno" class="comida-image">
+                <img [src]="getComidaById(1)?.imagen" loading="lazy" alt="Desayuno" class="comida-image">
             </div>
             <div class="comida-info">
                 <h3>Desayuno</h3>
@@ -36,7 +36,7 @@
             [class.disabled]="!canSelectComida(2)"
             (click)="canSelectComida(2) ? openModal(2) : null">
             <div class="image-container">
-                <img [src]="getComidaById(2)?.imagen" alt="Almuerzo" class="comida-image">
+                <img [src]="getComidaById(2)?.imagen" loading="lazy" alt="Almuerzo" class="comida-image">
             </div>
             <div class="comida-info">
                 <h3>Almuerzo</h3>
@@ -54,7 +54,7 @@
             [class.disabled]="!canSelectComida(3)"
             (click)="canSelectComida(3) ? openModal(3) : null">
             <div class="image-container">
-                <img [src]="getComidaById(3)?.imagen" alt="Cena" class="comida-image">
+                <img [src]="getComidaById(3)?.imagen" loading="lazy" alt="Cena" class="comida-image">
             </div>
             <div class="comida-info">
                 <h3>Cena</h3>
@@ -108,6 +108,7 @@
                     [src]="opcion.imagen"
                     [alt]="opcion.nombre"
                     class="opcion-image"
+                    loading="lazy"
                     />
                 </div>
                 <div class="opcion-info">

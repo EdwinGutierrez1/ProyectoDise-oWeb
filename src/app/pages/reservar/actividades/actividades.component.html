@@ -25,7 +25,7 @@
             [class.pareja-disabled]="isActividadParejaDeshabilitada(1)"
             (click)="canSelectActivity(1) ? openModal(1) : null">
             <div class="image-container">
-                <img src="/fotospa.jpg" alt="Spa en pareja" class="actividad-image">
+                <img src="/fotospa.jpg" loading="lazy" alt="Spa en pareja" class="actividad-image">
             </div>
             <div class="actividad-info">
                 <h3>Spa en pareja</h3>
@@ -43,7 +43,7 @@
             [class.pareja-disabled]="isActividadParejaDeshabilitada(2)"
             (click)="canSelectActivity(2) ? openModal(2) : null">
             <div class="image-container">
-                <img src="/fotopicnic.png" alt="Picnic gourmet" class="actividad-image">
+                <img src="/fotopicnic.png" loading="lazy" alt="Picnic gourmet" class="actividad-image">
             </div>
             <div class="actividad-info">
                 <h3>Picnic gourmet en la naturaleza</h3>
@@ -60,7 +60,7 @@
             [class.disabled]="!canSelectActivity(3)"
             (click)="canSelectActivity(3) ? openModal(3) : null">
             <div class="image-container">
-                <img src="fotokayak.jpg" alt="Kayak" class="actividad-image">
+                <img src="fotokayak.jpg" loading="lazy" alt="Kayak" class="actividad-image">
             </div>
             <div class="actividad-info">
                 <h3>Kayak en río</h3>
@@ -78,7 +78,7 @@
             [class.disabled]="!canSelectActivity(4)"
             (click)="canSelectActivity(4) ? openModal(4) : null">
             <div class="image-container">
-                <img src="fotobici.jpg" alt="Bici de montaña" class="actividad-image">
+                <img src="fotobici.jpg" loading="lazy" alt="Bici de montaña" class="actividad-image">
             </div>
             <div class="actividad-info">
                 <h3>Ruta en bici de montaña</h3>
@@ -96,7 +96,7 @@
             [class.disabled]="!canSelectActivity(5)"
             (click)="canSelectActivity(5) ? openModal(5) : null">
             <div class="image-container">
-                <img src="/fotocascada.jpg" alt="Senderismo" class="actividad-image">
+                <img src="/fotocascada.jpg" loading="lazy" alt="Senderismo" class="actividad-image">
             </div>
             <div class="actividad-info">
                 <h3>Senderismo a cascada natural</h3>
@@ -114,7 +114,7 @@
             [class.disabled]="!canSelectActivity(6)"
             (click)="canSelectActivity(6) ? openModal(6) : null">
             <div class="image-container">
-                <img src="fotoescalada.jpg" alt="Escalada en roca" class="actividad-image">
+                <img src="fotoescalada.jpg" loading="lazy" alt="Escalada en roca" class="actividad-image">
             </div>
             <div class="actividad-info">
                 <h3>Escalada en roca</h3>
@@ -144,7 +144,7 @@
         
         <div class="modal-body">
             <div class="modal-image-container">
-                <img [src]="selectedActivityData?.imagen" [alt]="selectedActivityData?.nombre" class="modal-image">
+                <img [src]="selectedActivityData?.imagen" [alt]="selectedActivityData?.nombre" loading="lazy" class="modal-image">
             </div>
             
             <div class="modal-info">
