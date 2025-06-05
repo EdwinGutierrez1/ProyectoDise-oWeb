@@ -281,6 +281,8 @@
   }
 }
 
+
+
 /* Media query adicional para navbars más altos en algunos dispositivos */
 @media (max-width: 768px) and (max-height: 667px) {
   /* Para iPhone SE y dispositivos similares con pantallas más pequeñas */

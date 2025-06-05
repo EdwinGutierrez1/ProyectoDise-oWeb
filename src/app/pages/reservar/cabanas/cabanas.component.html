@@ -1,6 +1,6 @@
 <!-- cabanas.component.html -->
 <div class="cabanas-container">
-    <h1 class="titulo">¡Elige la Cabaña!</h1>
+    <h1 class="titulo">Paso 1: Elige la Cabaña</h1>
     
     <div class="cabanas-grid">
         <!-- Cabaña #1 -->
@@ -70,6 +70,12 @@
             <div class="precio-box">${{ getPrecio() | number:'1.0-0' }}</div>
         </div>
     </div>
+
+    <!-- Texto informativo -->
+    <div class="texto-informativo" *ngIf="selectedCabana">
+        <p>El valor por noche puede variar según la cantidad de personas ingresada</p>
+    </div>
+
 
     <!-- Modal de Galería -->
     <div class="modal-overlay" *ngIf="modalAbierto" (click)="cerrarModal()">

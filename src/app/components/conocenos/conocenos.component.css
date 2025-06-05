@@ -2,132 +2,175 @@
 
 /* Contenedor principal de la sección */
 .content-box {
-  padding: 35px; /* Reducido ligeramente de 40px a 35px */
-  border-radius: 15px; /* Esquinas redondeadas de 15px */
-  height: 100%; /* Ocupa toda la altura disponible */
-  display: flex; /* Usa Flexbox para organizar el contenido */
-  align-items: center; /* Centra los elementos verticalmente */
-  justify-content: center; /* Centra los elementos horizontalmente */
-  overflow: hidden; /* Oculta el contenido que se desborde del contenedor */
+  padding: 35px;
+  border-radius: 15px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 /* Alineación de las filas en la sección */
 .row {
-  align-items: center; /* Alinea verticalmente las columnas dentro de la fila */
+  align-items: stretch;
+  min-height: 500px; /* Altura mínima uniforme para todas las filas */
 }
 
 /* Estilos para las cajas de contenido dentro de la sección */
-.caja-conocenos, .caja-propietarios, .caja-cabaña {
-  height: 100%; /* Ocupa toda la altura disponible */
-  display: flex; /* Usa Flexbox para organizar el contenido */
-  flex-direction: column; /* Organiza los elementos en una columna */
-  justify-content: center; /* Centra los elementos dentro de la caja */
+.caja-conocenos, .caja-conocenos2, .caja-propietarios, .caja-cabaña {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Estilos para las imágenes dentro de las cajas - LIGERAMENTE REDUCIDAS */
+/* Estilos para las imágenes dentro de las cajas - DIMENSIONES UNIFORMES */
 .caja-propietarios img,
 .caja-cabaña img {
-  width: calc(90% + 30px); /* Reducido moderadamente de calc(100% + 50px) */
-  height: auto;
+  width: 100%;
+  height: 400px; /* Altura fija para uniformidad */
   border-radius: 15px;
   object-fit: cover;
+  object-position: center;
 }
 
 /* Estilos generales de la sección "Conócenos" */
 .conocenos-seccion {
-  padding: 70px 0; /* Reducido ligeramente de 80px a 70px */
+  padding: 70px 0;
 }
 
-/* Estilos para el título de la sección - LIGERAMENTE REDUCIDO */
+/* Estilos para el título de la sección */
 .titulo-conocenos {
-  font-size: 42px; /* Reducido moderadamente de 50px a 42px */
-  text-align: center; /* Centra el texto */
-  margin-bottom: 28px; /* Reducido ligeramente de 30px a 28px */
-  margin-top: -25px; /* Reducido ligeramente de -30px a -25px */
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 28px;
+  margin-top: -25px;
 }
 
-/* Estilos para la descripción de la sección - LIGERAMENTE REDUCIDO */
-.descripcion-conocenos {
-  text-align: justify; /* Justifica el texto */
-  font-size: 22px; /* Reducido moderadamente de 25px a 22px */
-  width: 100%; /* Ocupa todo el ancho disponible */
-  max-width: 100%; /* Evita que el contenido se expanda más allá del contenedor */
-  padding: 13px; /* Reducido ligeramente de 15px a 13px */
+/* Estilos para la descripción de la sección - ALTURA UNIFORME */
+.descripcion-conocenos, .descripcion-2 {
+  text-align: justify;
+  font-size: 22px;
+  width: 100%;
+  max-width: 100%;
+  padding: 13px;
+  margin-bottom: 20px;
+  line-height: 1.6; /* Espaciado de línea uniforme */
 }
 
-/*descripción 2 con un tamaño de fuente mayor - LIGERAMENTE REDUCIDO */
-.descripcion-2 {
-  text-align: justify; /* Justifica el texto */
-  font-size: 22px; /* Reducido moderadamente de 25px a 22px */
-  width: 100%; /* Ocupa todo el ancho disponible */
-  max-width: 100%; /* Evita que el contenido se expanda más allá del contenedor */
-  padding: 13px; /* Reducido ligeramente de 15px a 13px */
+/* Contenedores de texto con altura uniforme */
+.caja-conocenos, .caja-conocenos2 {
+  min-height: 400px; /* Misma altura que las imágenes */
+  padding: 20px;
+}
+
+/* Remover margen inferior del último párrafo */
+.descripcion-conocenos:last-child,
+.descripcion-2:last-child {
+  margin-bottom: 0;
+}
+
+/* Asegurar altura uniforme en las columnas */
+.col-md-6 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ESTILO ITALIC PARA "MONTAÑA ENCANTADA" */
+.montaña-encantada {
+  font-style: italic;
+  font-weight: 600;
 }
 
 /* Efecto hover para resaltar las cajas de propietarios y cabañas */
 .caja-cabaña:hover, 
 .caja-propietarios:hover {
-  transform: scale(1.02); /* Reducido de 1.03 a 1.02 */
-  transition: 0.3s ease-in-out; /* Hace que la transición sea suave y fluida */
+  transform: scale(1.02);
+  transition: 0.3s ease-in-out;
 }
 
-@media (max-width: 992px) {
-  .content-box {
-      padding: 18px; /* Reducido ligeramente de 20px a 18px */
-      flex-direction: column;
+/* Query para pantallas de PC más pequeñas (laptops y monitores pequeños) */
+@media (max-width: 1366px) and (min-width: 1024px) {
+  .row {
+      min-height: 380px; /* Altura ajustada para que el texto quepa */
+      margin-bottom: 0; /* Reducir espacio entre filas */
   }
+  
+  .conocenos-seccion {
+      padding: 40px 0; /* Padding general reducido */
+  }
+  
   .titulo-conocenos {
-      font-size: 32px; /* Reducido ligeramente de 36px a 32px */
-      margin-top: 0;
+      font-size: 32px; /* Título más pequeño */
+      margin-bottom: 20px;
+      margin-top: -15px;
   }
+  
   .descripcion-conocenos, .descripcion-2 {
-      font-size: 17px; /* Reducido ligeramente de 18px a 17px */
-      padding: 9px; /* Reducido ligeramente de 10px a 9px */
+      font-size: 18px; /* Texto ligeramente más pequeño */
+      padding: 8px;
+      margin-bottom: 12px;
+      line-height: 1.4; /* Espaciado de línea más compacto */
   }
+  
   .caja-propietarios img,
   .caja-cabaña img {
-      width: 85%; /* Reducido ligeramente de 90% a 85% */
-      max-width: 350px; /* Reducido ligeramente de 400px a 350px */
-      margin: 0 auto;
+      width: 100%;
+      height: 300px; /* Altura de imagen ajustada */
+      border-radius: 15px;
+      object-fit: cover;
+      object-position: center;
+  }
+  
+  .caja-conocenos, .caja-conocenos2 {
+      min-height: 300px; /* Misma altura que las imágenes para simetría */
+      padding: 15px; /* Padding reducido */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Centrar contenido verticalmente */
+      overflow: visible; /* Permitir que el contenido sea visible */
+  }
+  
+  .content-box {
+      padding: 25px; /* Padding del contenedor reducido */
+  }
+  
+  /* Asegurar que las cajas de texto tengan el mismo ancho */
+  .caja-conocenos .descripcion-conocenos,
+  .caja-conocenos2 .descripcion-2 {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
   }
 }
 
+
+/* moviles */
 @media (max-width: 768px) {
   .conocenos-seccion {
-      padding: 35px 0; /* Reducido ligeramente de 40px a 35px */
+      padding: 35px 0;
   }
+  
   .titulo-conocenos {
-      font-size: 26px; /* Reducido ligeramente de 28px a 26px */
+      font-size: 26px;
   }
+  
   .descripcion-conocenos, .descripcion-2 {
-      font-size: 15px; /* Reducido ligeramente de 16px a 15px */
-      padding: 7px; /* Reducido ligeramente de 8px a 7px */
+      font-size: 15px;
+      padding: 7px;
+      margin-bottom: 12px;
   }
+  
   .content-box {
-      padding: 9px; /* Reducido ligeramente de 10px a 9px */
+      padding: 9px;
   }
+  
   .caja-propietarios img,
   .caja-cabaña img {
-      width: 90%; /* Reducido ligeramente de 95% a 90% */
-      max-width: 300px; /* Reducido ligeramente de 320px a 300px */
+      width: 90%;
+      height: 250px; /* Altura reducida para tablets */
+      max-width: 300px;
   }
 }
 
-@media (max-width: 480px) {
-  .conocenos-seccion {
-      padding: 18px 0; /* Reducido ligeramente de 20px a 18px */
-  }
-  .titulo-conocenos {
-      font-size: 19px; /* Reducido ligeramente de 20px a 19px */
-      margin-bottom: 14px; /* Reducido ligeramente de 15px a 14px */
-  }
-  .descripcion-conocenos, .descripcion-2 {
-      font-size: 13px; /* Reducido ligeramente de 14px a 13px */
-      padding: 4px; /* Reducido ligeramente de 5px a 4px */
-  }
-  .caja-propietarios img,
-  .caja-cabaña img {
-      width: 95%; /* Reducido ligeramente de 98% a 95% */
-      max-width: 220px; /* Reducido ligeramente de 240px a 220px */
-  }
-}
