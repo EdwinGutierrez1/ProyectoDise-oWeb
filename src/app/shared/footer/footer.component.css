@@ -1,9 +1,16 @@
-  /* FOOTER */
+/* FOOTER */
   /* Estilos generales para la sección de contacto */
   #Contacto {
     background-color: #0d110d; /* Fondo negro para resaltar la sección */
     color: white; /* Texto en blanco para mejor visibilidad */
     border-top: 60px solid var(--color-primario); /* Espaciado superior para separar la sección de otras */
+  }
+
+  /* Fila del footer con altura uniforme */
+  #Contacto .row {
+    display: flex;
+    align-items: stretch; /* Hace que todas las columnas tengan la misma altura */
+    min-height: 350px; /* Define una altura mínima para el footer */
   }
 
   /* Estilo para las columnas dentro de la sección de contacto */
@@ -13,6 +20,7 @@
     flex-direction: column; /* Los elementos se colocan en una columna vertical */
     align-items: center; /* Centra los elementos horizontalmente */
     text-align: center; /* Alinea el texto al centro */
+    justify-content: flex-start; /* Alinea el contenido al inicio de la columna */
   }
 
   /* Títulos de los bloques de la sección de contacto */
@@ -85,6 +93,8 @@
   .social-icon {
     color: var(--color-secundario); /* Color inicial de los íconos */
     font-size: 35px; /* Tamaño grande para visibilidad */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    transition: color 0.3s ease; /* Transición suave para el cambio de color */
   }
 
   /* Estilos para información de contacto - MÁS GRANDES */
@@ -133,7 +143,7 @@
   .mapa-columna {
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important; /* Centra verticalmente todo el contenido */
+    justify-content: flex-start !important; /* Alinea al inicio como las otras columnas */
     align-items: center !important;
   }
 
@@ -143,6 +153,7 @@
     display: flex; /* Flexbox para organizar elementos */
     justify-content: center; /* Centra el mapa horizontalmente */
     align-items: center; /* Centra el mapa verticalmente */
+    margin-top: 10px; /* Espaciado superior para alinear con el contenido de otras columnas */
   }
 
   /* Estilo para la sección de copyright centrada */
