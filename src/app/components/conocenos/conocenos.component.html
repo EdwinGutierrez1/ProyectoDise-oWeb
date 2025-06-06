@@ -6,23 +6,33 @@
         <!-- Primera fila -->
         <div class="row align-items-stretch">
             <!-- Columna izquierda con texto -->
-            <div class="col-md-6">
+            <div class="col-md-6 order-1 order-md-1">
                 <div class="content-box caja-conocenos">
                     <h2 class="titulo-conocenos">¡Conócenos!</h2>
-                    <p class="descripcion-conocenos">
+                    <!-- Texto completo para PC -->
+                    <p class="descripcion-conocenos texto-completo">
                         Todo comenzó con un sueño. Laura y Andrés, una pareja amante de la naturaleza y los viajes,
                         querían escapar del ajetreo de la ciudad y encontrar un lugar de paz.
                     </p>
-                    <p class="descripcion-conocenos">
+                    <p class="descripcion-conocenos texto-completo">
                         Durante una escapada a las montañas, entre fogatas y cielos estrellados, nació la idea de crear 
                         <span class="montaña-encantada">Montaña Encantada</span>, un refugio en la cima de una montaña donde cualquiera pudiera desconectarse 
+                        del estrés sin renunciar a la comodidad.
+                    </p>
+                    
+                    <!-- Texto resumido para móviles -->
+                    <p class="descripcion-conocenos texto-resumido">
+                        Laura y Andrés, amantes de la naturaleza, soñaban con crear un refugio de paz lejos del ajetreo urbano.
+                    </p>
+                    <p class="descripcion-conocenos texto-resumido">
+                        Así nació <span class="montaña-encantada">Montaña Encantada</span>, un lugar donde desconectarse 
                         del estrés sin renunciar a la comodidad.
                     </p>
                 </div>
             </div>
 
             <!-- Columna derecha con imagen de los propietarios -->
-            <div class="col-md-6 caja-propietarios">
+            <div class="col-md-6 caja-propietarios order-2 order-md-2">
                 <div class="content-box">
                     <img loading="lazy" src="propietarios.png" alt="Propietarios de Montaña Encantada">
                 </div>
@@ -31,27 +41,37 @@
 
         <!-- Segunda fila -->
         <div class="row align-items-stretch">
-            <!-- Columna izquierda con imagen de la cabaña -->
-            <div class="col-md-6">
-                <div class="content-box caja-cabaña">
-                    <img loading="lazy" src="cabaña3.jpg" alt="Cabaña del glamping">
-                </div>
-            </div>
-
             <!-- Columna derecha con más información sobre el glamping -->
-            <div class="col-md-6">
+            <div class="col-md-6 order-3 order-md-2">
                 <div class="content-box caja-conocenos2">
-                    <p class="descripcion-2">
+                    <!-- Texto completo para PC -->
+                    <p class="descripcion-2 texto-completo">
                         Hoy, ese sueño es una realidad en este refugio especial. 
                         <span class="montaña-encantada">Montaña Encantada</span> ofrece alojamientos acogedores con vistas que se extienden hasta el horizonte.
                     </p>
-                    <p class="descripcion-2">
+                    <p class="descripcion-2 texto-completo">
                         Un ambiente de calma total, donde cada amanecer tiñe el cielo con colores únicos. 
                         Ya sea para descansar, conectar con la naturaleza o disfrutar de la tranquilidad mientras el tiempo parece detenerse.
                     </p>
-                    <p class="descripcion-2">
+                    <p class="descripcion-2 texto-completo">
                         Este es el lugar perfecto para escapar. ¿Listo para la experiencia?
                     </p>
+                    
+                    <!-- Texto resumido para móviles -->
+                    <p class="descripcion-2 texto-resumido">
+                        <span class="montaña-encantada">Montaña Encantada</span> ofrece alojamientos acogedores con vistas espectaculares al horizonte.
+                    </p>
+                    <p class="descripcion-2 texto-resumido">
+                        Un refugio de calma total donde cada amanecer pinta el cielo con colores únicos. 
+                        El lugar perfecto para escapar y conectar con la naturaleza.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Columna izquierda con imagen de la cabaña -->
+            <div class="col-md-6 order-4 order-md-1">
+                <div class="content-box caja-cabaña">
+                    <img loading="lazy" src="cabaña3.jpg" alt="Cabaña del glamping">
                 </div>
             </div>
         </div>

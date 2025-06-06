@@ -1,8 +1,8 @@
 /* ESTILOS GALERIA */
 
-/* Estilo para el título de la sección de galería */
+/* Estilo para el título de la sección de galería - PADDING REDUCIDO */
 #Galeria{
-  padding-top: 50px; /* Espaciado superior para separar de la sección anterior */
+  padding-top: 20px; /* Reducido de 50px a 20px para menos espacio vertical */
 }
 
 /* Contenedor principal de la galería con ancho más amplio */
@@ -181,6 +181,13 @@
   margin-top: 5px;
 }
 
+.titulo-galeria {
+  margin-bottom: 50px; /* Aumentado de 30px a 50px para más espacio en pantallas grandes */
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top:0;
+}
+
 /* ========== RESPONSIVE STYLES ========== */
 
 /* Estilos responsivos para galerías en pantallas grandes */
@@ -192,8 +199,8 @@
   }
 }
 
-/* Pantallas medianas */
-@media (max-width: 991px) {
+/* Pantallas medianas (PC más pequeñas) */
+@media (max-width: 1366px) and (min-width: 1024px){
   .container-galeria {
       max-width: 85%; /* Ajustado de 800px a 85% para mantener proporción */
       padding: 0 15px;
@@ -216,7 +223,8 @@
       right: -50px;
   }
   .titulo-galeria {
-    font-size: 42px;
+    font-size: 38px; /* Reducido de 42px a 38px para pantallas PC pequeñas */
+    margin-bottom: 30px; /* Reducido de 30px a 25px para mantener espaciado actual */
   }
 }
 
@@ -228,6 +236,8 @@
   }
   .titulo-galeria {
     font-size: 36px;
+    margin-bottom: 15px;
+    padding-bottom: 0;
   }
   .image-container {
       height: 160px;
@@ -259,6 +269,9 @@
   }
   .titulo-galeria {
     font-size: 35px;
+    margin-bottom: 20px;
+    margin-top: 60px;
+    padding-bottom: 0;
   }
   .container-galeria {
       max-width: 95%; /* Ajustado de 80% a 95% para aprovechar mejor el espacio móvil */
