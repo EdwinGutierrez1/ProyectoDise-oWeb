@@ -14,7 +14,7 @@
       <div class="row gallery g-1 justify-content-center m-0">
         <!-- Primera imagen de la fila -->
         <div class="col-md-5">
-          <div class="image-container">
+          <div class="image-container" (click)="openModal(0)">
             <!-- Imagen con descripción decorativa -->
             <img src="decoracion.jpg" loading="lazy" alt="Imagen 1">
             <!-- Superposición con texto informativo -->
@@ -27,7 +27,7 @@
         <!-- Segunda imagen de la fila -->
         <div class="col-md-4">
           <!-- Segunda imagen de la fila -->
-          <div class="image-container">
+          <div class="image-container" (click)="openModal(1)">
             <!-- Imagen con descripción decorativa -->
             <img src="rio.jpeg" loading="lazy" alt="Imagen 2">
             <!-- Superposición con texto informativo -->
@@ -40,7 +40,7 @@
         <!-- Tercera imagen de la fila -->
         <div class="col-md-3">
           <!-- Tercera imagen de la fila -->
-          <div class="image-container">
+          <div class="image-container" (click)="openModal(2)">
             <!-- Imagen con descripción decorativa -->
             <img src="gamplin2-vertical.jpg" loading="lazy" alt="Imagen 3">
             <!-- Superposición con texto informativo -->
@@ -55,7 +55,7 @@
       <div class="row gallery g-1 justify-content-center m-0">
         <!-- Primera imagen de la fila -->
         <div class="col-md-3">
-          <div class="image-container">
+          <div class="image-container" (click)="openModal(3)">
             <!-- Imagen con descripción decorativa -->
             <img src="gamplin-v.jpg" loading="lazy" alt="Imagen 4">
             <!-- Superposición con texto informativo -->
@@ -67,7 +67,7 @@
 
         <!-- Segunda imagen de la fila -->
         <div class="col-md-4">
-          <div class="image-container">
+          <div class="image-container" (click)="openModal(4)">
             <!-- Imagen con descripción decorativa -->
             <img src="gamplin2-1.jpg" loading="lazy" alt="Imagen 5">
             <!-- Superposición con texto informativo -->
@@ -79,7 +79,7 @@
 
         <!-- Tercera imagen de la fila -->
         <div class="col-md-5">
-          <div class="image-container">
+          <div class="image-container" (click)="openModal(5)">
             <!-- Imagen con descripción decorativa -->
             <img src="gampling2-2.jpg" loading="lazy" alt="Imagen 6">
             <!-- Superposición con texto informativo -->
@@ -90,12 +90,13 @@
         </div>
       </div>
 
+      <!-- Tercera fila de imágenes -->
       <div class="row gallery g-1 justify-content-center m-0">
         <!-- Primera imagen de la fila -->
         <div class="col-md-5">
-          <div class="image-container">
+          <div class="image-container" (click)="openModal(6)">
             <!-- Imagen con descripción decorativa -->
-            <img src="vaca.jpg" loading="lazy" alt="Imagen 1">
+            <img src="vaca.jpg" loading="lazy" alt="Imagen 7">
             <!-- Superposición con texto informativo -->
             <div class="overlay">
               <div class="text">Conexión con la naturaleza</div>
@@ -106,9 +107,9 @@
         <!-- Segunda imagen de la fila -->
         <div class="col-md-4">
           <!-- Segunda imagen de la fila -->
-          <div class="image-container">
+          <div class="image-container" (click)="openModal(7)">
             <!-- Imagen con descripción decorativa -->
-            <img src="malla.jpg" loading="lazy" alt="Imagen 2">
+            <img src="malla.jpg" loading="lazy" alt="Imagen 8">
             <!-- Superposición con texto informativo -->
             <div class="overlay">
               <div class="text">Relajación en familia</div>
@@ -119,9 +120,9 @@
         <!-- Tercera imagen de la fila -->
         <div class="col-md-3">
           <!-- Tercera imagen de la fila -->
-          <div class="image-container">
+          <div class="image-container" (click)="openModal(8)">
             <!-- Imagen con descripción decorativa -->
-            <img src="Vistas.jpg" loading="lazy" alt="Imagen 3">
+            <img src="Vistas.jpg" loading="lazy" alt="Imagen 9">
             <!-- Superposición con texto informativo -->
             <div class="overlay">
               <div class="text">Paisajes de ensueño</div>
@@ -133,3 +134,28 @@
     </div>
   </div>
 </section>
+
+<!-- MODAL PARA MOSTRAR IMÁGENES -->
+<div class="modal-overlay" [class.active]="isModalOpen" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <!-- Botón cerrar -->
+    <button class="modal-close" (click)="closeModal()">&times;</button>
+    
+    <!-- Botón anterior -->
+    <button class="modal-nav modal-prev" (click)="previousImage()" *ngIf="galleryImages.length > 1">&#8249;</button>
+    
+    <!-- Imagen del modal -->
+    <img [src]="currentImage?.src" [alt]="currentImage?.alt" class="modal-image">
+    
+    <!-- Botón siguiente -->
+    <button class="modal-nav modal-next" (click)="nextImage()" *ngIf="galleryImages.length > 1">&#8250;</button>
+    
+    <!-- Información de la imagen -->
+    <div class="modal-info">
+      <div class="modal-title">{{ currentImage?.description }}</div>
+      <div class="modal-counter" *ngIf ="galleryImages.length > 1">
+        {{ currentImageIndex + 1 }} de {{ galleryImages.length }}
+      </div>
+    </div>
+  </div>
+</div>
