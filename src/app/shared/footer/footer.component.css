@@ -51,6 +51,11 @@
     background-color: var(--color-secundario); /* Usa la variable para el color secundario */
   }
 
+  /* Contenedor principal para móviles - por defecto invisible */
+  .nosotros-mobile-container {
+    display: none;
+  }
+
   /* Contenedor para el logo y nombre - MÁS PEQUEÑO */
   .logoYNombre {
     display: flex; /* Flexbox para organizar los elementos */
@@ -139,6 +144,11 @@
     border-top: 1px solid rgba(255, 255, 255, 0.2); /* Línea sutil de separación */
   }
 
+  /* Grupo unificado para móviles */
+  .contacto-grupo-unificado {
+    /* Estilos por defecto - se aplicarán en mobile */
+  }
+
   /* Columna del mapa - centrado vertical */
   .mapa-columna {
     display: flex !important;
@@ -168,3 +178,279 @@
     background-color: var(--color-primario) !important; /* Color del separador */ 
     margin: 0 !important; /* Elimina cualquier margen */
   }
+
+  .copyright-text {
+    padding: 13px 0;  /* Padding arriba y abajo */
+    font-size: 16px;  /* Opcional: cambia el tamaño del texto */
+  }
+
+
+/* MEDIA QUERIES PARA FOOTER RESPONSIVE */
+
+/* ===== PANTALLAS DE PC MÁS PEQUEÑAS (1024px - 1366px) ===== */
+@media (max-width: 1366px) and (min-width: 1024px) {
+  /* Ajustes generales para la sección de contacto */
+  #Contacto .row {
+    min-height: 300px; /* Reduce la altura mínima */
+  }
+
+  #Contacto .col-md-4 {
+    padding-top: 15px; /* Reduce padding superior */
+  }
+
+  /* Títulos más pequeños */
+  #Contacto h5 {
+    font-size: 16px; /* Reduce tamaño de fuente */
+    margin-bottom: 15px; /* Reduce espaciado inferior */
+  }
+
+  #Contacto h5.title {
+    font-size: 20px; /* Reduce tamaño del título principal */
+  }
+
+  /* Logo y nombre más pequeños */
+  .logoYNombre {
+    transform: scale(0.8); /* Reduce al 80% del tamaño original */
+    margin-bottom: 15px;
+  }
+
+  .logoYNombre img:first-child,
+  .logoYNombre img:last-child {
+    max-height: 65px; /* Reduce altura de las imágenes */
+  }
+
+  /* Iconos de redes sociales más pequeños */
+  .social-icon {
+    font-size: 28px; /* Reduce tamaño de iconos */
+  }
+
+  .social-icons {
+    gap: 12px; /* Reduce espaciado entre iconos */
+  }
+
+  /* Información de contacto más pequeña */
+  .horario-contactanos, 
+  .telefono-contactanos, 
+  .email-contactanos, 
+  .direccion-contactanos {
+    font-size: 16px; /* Reduce tamaño de fuente */
+    margin-left: 8px;
+  }
+
+  /* Ajustes para el mapa - alineación corregida */
+  .map-container {
+    margin-top: 0 !important; /* Elimina margen superior para alinear con otras columnas */
+  }
+
+  .map-container iframe {
+    width: 65% !important;
+    height: 180px !important;
+  }
+
+  /* Copyright más pequeño */
+  .copyright-text {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+}
+
+/* ===== DISPOSITIVOS MÓVILES (hasta 768px) ===== */
+@media (max-width: 768px) {
+  /* Ajustes generales para móviles */
+  #Contacto {
+    border-top: 20px solid var(--color-primario); /* Reduce borde superior */
+  }
+
+  #Contacto .row {
+    min-height: auto; /* Altura automática para móviles */
+    flex-direction: column; /* Columnas en vertical */
+  }
+
+  #Contacto .col-md-4 {
+    padding-top: 15px; /* Reduce padding superior */
+    padding-bottom: 15px; /* Reduce padding inferior */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separador entre secciones */
+  }
+
+  #Contacto .col-md-4:last-child {
+    border-bottom: none; /* Sin borde en la última columna */
+  }
+
+  /* Títulos para móviles */
+  #Contacto h5 {
+    font-size: 18px;
+    margin-bottom: 15px; /* Reduce margen inferior */
+    padding-bottom: 8px; /* Reduce padding inferior */
+  }
+
+  #Contacto h5.title {
+    font-size: 22px;
+  }
+
+  /* ===== CAMBIO 1: SECCIÓN NOSOTROS HORIZONTAL ===== */
+  /* En móviles, cambiar la dirección del primer col-md-4 a horizontal */
+  #Contacto .col-md-4:first-child {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    text-align: left !important;
+  }
+
+  /* Logo y nombre para móviles - lado izquierdo */
+  #Contacto .col-md-4:first-child .logoYNombre {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    margin-bottom: 0 !important;
+    transform: scale(0.8) !important;
+    flex: 1;
+    justify-content: flex-start !important;
+  }
+
+  #Contacto .col-md-4:first-child .logoYNombre img:first-child,
+  #Contacto .col-md-4:first-child .logoYNombre img:last-child {
+    max-height: 50px !important;
+    margin-bottom: 0 !important;
+    margin-right: 5px;
+  }
+
+  /* Redes sociales para móviles - lado derecho */
+  #Contacto .col-md-4:first-child .redes-sociales {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    flex: 1;
+    justify-content: flex-end !important;
+    width: auto !important;
+  }
+
+  #Contacto .col-md-4:first-child .redes-sociales p {
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+    text-align: center;
+  }
+
+  #Contacto .col-md-4:first-child .social-icon {
+    font-size: 24px !important;
+  }
+
+  #Contacto .col-md-4:first-child .social-icons {
+    gap: 10px !important;
+    justify-content: center !important;
+  }
+
+  /* ===== CAMBIO 2: INFORMACIÓN DE CONTACTO EN LÍNEA ===== */
+  /* Información de contacto para móviles - iconos al lado del texto */
+  .contact-info li {
+    flex-direction: row !important; /* Horizontal: icono al lado del texto */
+    justify-content: flex-start !important; /* Alinea al inicio */
+    text-align: left !important;
+    margin-bottom: 8px !important; /* Menos espacio entre elementos */
+    padding: 2px 0; /* Padding mínimo */
+  }
+
+  .contact-info li i {
+    margin-bottom: 0 !important; /* Sin margen inferior */
+    margin-right: 8px !important; /* Margen derecho para separar del texto */
+    font-size: 14px !important;
+    min-width: 16px; /* Ancho mínimo para alinear iconos */
+    text-align: center;
+  }
+
+  /* Unificar grupos - eliminar separaciones y márgenes */
+  .contacto-grupo-principal {
+    margin-bottom: 0 !important; /* Sin margen inferior */
+  }
+
+  .contacto-grupo-secundario {
+    padding-top: 0 !important; /* Sin padding superior */
+    border-top: none !important; /* Sin borde separador */
+    margin-top: 0 !important;
+  }
+
+  .contacto-grupo-unificado {
+    padding: 0 20px; /* Padding horizontal para que no se pegue a los bordes */
+  }
+
+  .horario-contactanos, 
+  .telefono-contactanos, 
+  .email-contactanos, 
+  .direccion-contactanos {
+    font-size: 14px !important;
+    margin-left: 0 !important; /* Sin margen izquierdo adicional */
+    text-align: left !important;
+  }
+
+  .direccion-contactanos {
+    margin-top: 0 !important; /* Sin margen superior especial */
+  }
+
+  /* ===== CAMBIO 3: MAPA MÁS ESTRECHO CON MÁS MARGEN ===== */
+  .map-container {
+    margin-top: 20px !important; /* Más margen superior */
+    margin-bottom: 20px !important; /* Más margen inferior */
+  }
+
+  .map-container iframe {
+    width: 60% !important; /* Más estrecho - era 75% */
+    height: 160px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Copyright para móviles */
+  .copyright-text {
+    font-size: 14px;
+    padding: 10px 5px; /* Reduce padding */
+    text-align: center;
+  }
+}
+
+/* ===== MÓVILES MUY PEQUEÑOS (hasta 480px) ===== */
+@media (max-width: 480px) {
+  /* Ajustes adicionales para pantallas muy pequeñas */
+  #Contacto .col-md-4:first-child .logoYNombre {
+    transform: scale(0.7) !important; /* Más pequeño en pantallas muy pequeñas */
+  }
+
+  #Contacto .col-md-4:first-child .logoYNombre img:first-child,
+  #Contacto .col-md-4:first-child .logoYNombre img:last-child {
+    max-height: 40px !important;
+  }
+
+  #Contacto .col-md-4:first-child .redes-sociales p {
+    font-size: 12px !important;
+  }
+
+  #Contacto .col-md-4:first-child .social-icon {
+    font-size: 20px !important;
+  }
+
+  #Contacto .col-md-4:first-child .social-icons {
+    gap: 8px !important;
+  }
+
+  /* Información de contacto más compacta */
+  .horario-contactanos, 
+  .telefono-contactanos, 
+  .email-contactanos, 
+  .direccion-contactanos {
+    font-size: 12px !important;
+  }
+
+  .contact-info li i {
+    font-size: 12px !important;
+    margin-right: 6px !important;
+  }
+
+  /* Mapa aún más estrecho */
+  .map-container iframe {
+    width: 70% !important;
+    height: 140px !important;
+  }
+
+  /* Copyright más compacto */
+  .copyright-text {
+    font-size: 12px;
+    padding: 8px 5px;
+  }
+}
