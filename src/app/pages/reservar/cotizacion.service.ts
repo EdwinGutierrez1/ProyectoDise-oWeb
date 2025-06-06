@@ -371,4 +371,11 @@
     obtenerComidasSeleccionadas(): ComidaSeleccionada[] {
         return [...this.datosCotizacion.comidas];
     }
+    
+    private fechaRangeSubject = new BehaviorSubject<{startDate: Date|null, endDate: Date|null}>({startDate: null, endDate: null});
+    fechaRange$ = this.fechaRangeSubject.asObservable();
+
+    setFechaRange(range: {startDate: Date|null, endDate: Date|null}) {
+        this.fechaRangeSubject.next(range);
+    }
 }

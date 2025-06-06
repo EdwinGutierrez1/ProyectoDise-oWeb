@@ -28,7 +28,16 @@ export class FormularioComponent implements OnInit, OnDestroy {
 
   constructor(private cotizacionService: CotizacionService) {}
 
+  fechaLlegada: string = '';
+  fechaSalida: string = '';
+
   ngOnInit(): void {
+    this.subscription.add(
+      this.cotizacionService.fechaRange$.subscribe((range) => {
+        this.fechaLlegada = range.startDate ? this.formatDate(range.startDate) : '';
+        this.fechaSalida = range.endDate ? this.formatDate(range.endDate) : '';
+      })
+    );
     this.subscription.add(
       this.cotizacionService.cotizacion$.subscribe((cotizacion) => {
         this.datosCotizacion = cotizacion;
@@ -117,5 +126,10 @@ export class FormularioComponent implements OnInit, OnDestroy {
 
   cotizar() {
     this.mensajeEnviado = true;
+  }
+
+  formatDate(date: Date): string {
+    // Formato yyyy-MM-dd para input type="date"
+    return date.toISOString().split('T')[0];
   }
 }

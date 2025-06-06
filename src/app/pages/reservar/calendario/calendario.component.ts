@@ -255,6 +255,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
 
   emitDateRange() {
     this.dateRangeSelected.emit(this.selectedRange);
+    this.cotizacionService.setFechaRange(this.selectedRange); // <-- Añade esta línea
   }
 
   showError(message: string) {

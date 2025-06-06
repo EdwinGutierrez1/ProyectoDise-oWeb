@@ -1,151 +1,228 @@
 <div class="formulario-section">
-  <div class="formulario-container">
+  <!-- Header -->
+  <div class="formulario-header">
     <h2 class="formulario-titulo">Cotiza tu experiencia</h2>
     <p class="formulario-subtitulo">Complete sus datos para finalizar la reserva</p>
+  </div>
 
-    <div *ngIf="mensajeEnviado" class="mensaje-confirmacion">
-      <i class="fas fa-check-circle"></i> ¡Tu información fue enviada exitosamente!
+  <!-- Contenido principal dividido -->
+  <div class="formulario-contenido">
+    
+    <!-- FORMULARIO - LADO IZQUIERDO -->
+    <div class="formulario-container">
+      <h3 class="seccion-titulo">
+        <i class="fas fa-user-edit"></i>
+        Información Personal
+      </h3>
+
+      <div class="mensaje-confirmacion" *ngIf="mensajeEnviado">
+        <i class="fas fa-check-circle"></i> 
+        ¡Tu información fue enviada exitosamente!
+      </div>
+
+      <form id="cotizar-form" (ngSubmit)="onSubmit($event)">
+        <div class="form-group">
+          <label for="nombre">
+            <i class="fas fa-user"></i>
+            Nombre completo
+          </label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">
+            <i class="fas fa-envelope"></i>
+            Correo electrónico
+          </label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="telefono">
+              <i class="fas fa-phone"></i>
+              Teléfono
+            </label>
+            <input type="tel" class="form-control" id="telefono" name="telefono" required>
+          </div>
+
+          <div class="form-group">
+            <label for="fecha">
+              <i class="fas fa-calendar"></i>
+              Fecha de llegada
+            </label>
+            <input type="date" class="form-control" id="fecha" name="fecha" required [value]="fechaLlegada">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="comentarios">
+            <i class="fas fa-comment"></i>
+            Comentarios adicionales
+          </label>
+          <textarea class="form-control" id="comentarios" name="comentarios" rows="4"
+            placeholder="Solicitudes especiales, preguntas adicionales..."></textarea>
+        </div>
+
+        <div class="botones-container">
+          <button type="button" class="btn-volver" (click)="onVolver()">
+            <i class="fas fa-arrow-left"></i>
+            Volver
+          </button>
+          <button type="button" class="btn-cotizar" (click)="cotizar()">
+            <i class="fas fa-paper-plane"></i>
+            Enviar Cotización
+          </button>
+        </div>
+
+        <div class="mensaje-enviado" *ngIf="mensajeEnviado">
+          <i class="fas fa-check-circle"></i>
+          Información enviada, un asesor se comunicará con usted
+        </div>
+      </form>
     </div>
 
-    <form id="cotizar-form" (ngSubmit)="onSubmit($event)">
-      <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <i class="fas fa-user"></i>
-        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    <!-- COTIZACIÓN - LADO DERECHO -->
+    <div class="cotizacion-container">
+      <h3 class="seccion-titulo">
+        <i class="fas fa-receipt"></i>
+        Resumen de Cotización
+      </h3>
+
+      <!-- Tabla de cotización -->
+      <div class="tabla-cotizacion">
+        <table class="cotizacion-table">
+          <thead>
+            <tr>
+              <th>Cant.</th>
+              <th>Producto/Servicio</th>
+              <th>Precio Unit.</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-productos">
+            <!-- Cabaña -->
+            <tr class="producto-row" *ngIf="tieneCabana">
+              <td class="cantidad">1</td>
+              <td class="producto-info">
+                <div class="producto-nombre">
+                  <i class="fas fa-home"></i>
+                  {{ datosCotizacion.cabana?.capacidad || 'Cabaña Seleccionada' }}
+                </div>
+                <div class="producto-detalles">
+                  {{ datosCotizacion.cabana?.capacidad }} - {{ datosCotizacion.cantidadPersonas }} 
+                  {{ datosCotizacion.cantidadPersonas === 1 ? 'persona' : 'personas' }}
+                </div>
+              </td>
+              <td class="precio-unitario">${{ formatearPrecio(datosCotizacion.cabana?.precio ?? 0) }}</td>
+              <td class="subtotal-producto">${{ formatearPrecio(datosCotizacion.subtotalCabana) }}</td>
+            </tr>
+
+            <!-- Actividades -->
+            <tr class="producto-row" *ngFor="let actividad of datosCotizacion.actividades">
+              <td class="cantidad">{{ actividad.porPersona ? datosCotizacion.cantidadPersonas : 1 }}</td>
+              <td class="producto-info">
+                <div class="producto-nombre">
+                  <i class="fas fa-hiking"></i>
+                  {{ actividad.nombre }}
+                </div>
+                <div class="producto-detalles">
+                  {{ actividad.porPersona ? 'Por persona' : 'Precio fijo' }}
+                </div>
+              </td>
+              <td class="precio-unitario">${{ formatearPrecio(actividad.precio) }}</td>
+              <td class="subtotal-producto">${{ formatearPrecio(actividad.precioTotal) }}</td>
+            </tr>
+
+            <!-- Comidas -->
+            <tr class="producto-row" *ngFor="let comida of datosCotizacion.comidas">
+              <td class="cantidad">{{ comida.porPersona ? datosCotizacion.cantidadPersonas : 1 }}</td>
+              <td class="producto-info">
+                <div class="producto-nombre">
+                  <i class="fas fa-utensils"></i>
+                  {{ comida.nombre }}
+                </div>
+                <div class="producto-detalles">
+                  {{ comida.porPersona ? 'Por persona' : 'Precio fijo' }}
+                </div>
+              </td>
+              <td class="precio-unitario">${{ formatearPrecio(comida.precioUnitario) }}</td>
+              <td class="subtotal-producto">${{ formatearPrecio(comida.precioTotal) }}</td>
+            </tr>
+
+            <!-- Mensaje cuando no hay productos -->
+            <tr class="fila-vacia" *ngIf="!tieneCabana && !tieneActividades && !tieneComidas">
+              <td colspan="4">
+                <div class="mensaje-vacio">
+                  <i class="fas fa-info-circle"></i>
+                  <p>No hay productos seleccionados</p>
+                  <small>Selecciona cabañas, actividades o comidas para ver tu cotización</small>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="form-group">
-        <label for="email">Correo electrónico</label>
-        <i class="fas fa-envelope"></i>
-        <input type="email" class="form-control" id="email" name="email" required>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="telefono">Teléfono</label>
-          <i class="fas fa-phone"></i>
-          <input type="tel" class="form-control" id="telefono" name="telefono" required>
+      <!-- Totales -->
+      <div class="totales-container">
+        <div class="total-fila subtotal">
+          <span class="total-label">Subtotal:</span>
+          <span class="total-valor">${{ formatearPrecio(subtotalGeneral) }}</span>
         </div>
-
-        <div class="form-group">
-          <label for="fecha">Fecha de llegada</label>
-          <i class="fas fa-calendar"></i>
-          <input type="date" class="form-control" id="fecha" name="fecha" required>
+        
+        <div class="total-fila iva">
+          <span class="total-label">IVA (19%):</span>
+          <span class="total-valor">${{ formatearPrecio(iva) }}</span>
+        </div>
+        
+        <div class="total-fila total-final">
+          <span class="total-label">Total Final:</span>
+          <span class="total-valor">${{ formatearPrecio(total) }}</span>
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="comentarios">Comentarios</label>
-        <i class="fas fa-comment"></i>
-        <textarea class="form-control" id="comentarios" name="comentarios" rows="3"
-          placeholder="Solicitudes especiales, preguntas adicionales..."></textarea>
-      </div>
-
-      <div class="resumen-container">
-        <h4>Resumen de tu reserva:</h4>
-        <ul id="resumen-reserva">
-          <li *ngIf="!tieneCabana && !tieneActividades && !tieneComidas" class="resumen-vacio">
-            <div class="mensaje-vacio">
-              <i class="fas fa-info-circle"></i>
-              <p>Selecciona una cabaña, actividades o comidas para ver tu resumen</p>
-            </div>
-          </li>
-
-          <!-- Cabaña -->
-          <li *ngIf="tieneCabana" class="resumen-item">
-            <div class="item-info">
-              <strong>🏠 Cabaña seleccionada</strong>
-              <span class="item-detalles">{{ datosCotizacion.cabana?.capacidad }} - {{ datosCotizacion.cantidadPersonas
-                }} {{ datosCotizacion.cantidadPersonas === 1 ? 'persona' : 'personas' }}</span>
-            </div>
-            <span class="item-precio">{{ '$' + formatearPrecio(datosCotizacion.cabana?.precio ?? 0) }}</span>
-          </li>
-
-          <!-- Actividades -->
-          <ng-container *ngIf="tieneActividades">
-            <li class="resumen-categoria"><strong>🎯 Actividades seleccionadas:</strong></li>
-            <li class="resumen-item actividad" *ngFor="let act of datosCotizacion.actividades">
-              <div class="item-info">
-                <span class="actividad-nombre">{{ act.nombre }}</span>
-                <span class="item-detalles">
-                  {{ act.porPersona ? ('$' + formatearPrecio(act.precio) + ' x ' + datosCotizacion.cantidadPersonas + '
-                  personas') : 'Precio fijo' }}
-                </span>
-              </div>
-              <span class="item-precio">{{ '$' + formatearPrecio(act.precioTotal) }}</span>
-            </li>
-          </ng-container>
-
-          <!-- Comidas -->
-          <ng-container *ngIf="tieneComidas">
-            <li class="resumen-categoria"><strong>🍽️ Comidas seleccionadas:</strong></li>
-            <li class="resumen-item comida" *ngFor="let comida of datosCotizacion.comidas">
-              <div class="item-info">
-                <span class="comida-nombre">{{ comida.nombre }}</span>
-                <span class="item-detalles">
-                  {{ comida.porPersona ? ('$' + formatearPrecio(comida.precioUnitario) + ' x ' +
-                  datosCotizacion.cantidadPersonas + ' personas') : 'Precio fijo' }}
-                </span>
-              </div>
-              <span class="item-precio">{{ '$' + formatearPrecio(comida.precioTotal) }}</span>
-            </li>
-          </ng-container>
-
-          <!-- Subtotal e IVA -->
-          <ng-container *ngIf="tieneCabana || tieneActividades || tieneComidas">
-            <li class="resumen-subtotal total">
-              <div class="item-info"><span>Subtotal</span></div>
-              <span class="item-precio">{{ '$' + formatearPrecio(datosCotizacion.subtotalCabana +
-                datosCotizacion.subtotalActividades + datosCotizacion.subtotalComidas) }}</span>
-            </li>
-            <li class="resumen-iva">
-              <div class="item-info"><span>IVA (19%)</span></div>
-              <span class="item-precio">{{ '$' + formatearPrecio((datosCotizacion.subtotalCabana +
-                datosCotizacion.subtotalActividades + datosCotizacion.subtotalComidas) * 0.19) }}</span>
-            </li>
-          </ng-container>
-        </ul>
-
-        <h4 class="total-resumen">Total: <span>{{ '$' + formatearPrecio(datosCotizacion.total + datosCotizacion.total *
-            0.19) }}</span></h4>
-      </div>
-
-      <div class="botones-container">
-        <button type="button" class="btn-volver" id="volver-btn" (click)="onVolver()">Volver</button>
-        <button type="button" class="btn-cotizar" id="cotizar-btn" (click)="cotizar()">Cotizar</button>
-      </div>
-      <div *ngIf="mensajeEnviado" class="mensaje-enviado">
-        Información enviada, un asesor se comunicará con usted
-      </div>
-    </form>
-
-    <!-- Modal popup -->
-    <!-- Modal popup mejorado -->
-    <div class="modal-backdrop" *ngIf="mostrarPopup" (click)="cerrarPopup()">
-      <div class="modal" (click)="$event.stopPropagation()">
-        <!-- Botón de cerrar opcional -->
-        <button class="modal-close" (click)="cerrarPopup()">
-          <i class="fas fa-times"></i>
-        </button>
-
-        <!-- Header con icono de éxito -->
-        <div class="modal-header">
-          <div class="modal-success-icon">
-            <i class="fas fa-check"></i>
-          </div>
-          <h3>¡Cotización Enviada!</h3>
+      <!-- Información adicional -->
+      <div class="info-adicional">
+        <div class="info-item">
+          <i class="fas fa-users"></i>
+          <span>Personas: <strong>{{ datosCotizacion.cantidadPersonas || 'No definido' }}</strong></span>
         </div>
+        <div class="info-item">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Fecha:
+            <strong id="fechaSeleccionada">
+              {{ fechaLlegada ? (fechaSalida ? (fechaLlegada + ' a ' + fechaSalida) : fechaLlegada) : 'Por definir' }}
+            </strong>
+          </span>
+        </div>
+      </div>
+    </div>
 
-        <!-- Cuerpo del modal -->
-        <div class="modal-body">
-          <p>Tu solicitud ha sido enviada exitosamente. Un asesor se comunicará contigo pronto para confirmar los
-            detalles de tu reserva.</p>
+  </div>
 
-          <div class="modal-buttons">
-            <button class="modal-button" (click)="cerrarPopup()">
-              <i class="fas fa-thumbs-up"></i> Perfecto
-            </button>
-          </div>
+  <!-- Modal popup -->
+  <div class="modal-backdrop" *ngIf="mostrarPopup" (click)="cerrarPopup()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="cerrarPopup()">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="modal-header">
+        <div class="modal-success-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <h3>¡Cotización Enviada!</h3>
+      </div>
+
+      <div class="modal-body">
+        <p>Tu solicitud ha sido enviada exitosamente. Un asesor se comunicará contigo pronto para confirmar los detalles de tu reserva.</p>
+
+        <div class="modal-buttons">
+          <button class="modal-button" (click)="cerrarPopup()">
+            <i class="fas fa-thumbs-up"></i> 
+            Perfecto
+          </button>
         </div>
       </div>
     </div>
