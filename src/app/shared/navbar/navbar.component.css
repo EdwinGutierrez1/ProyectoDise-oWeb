@@ -6,6 +6,7 @@
     top: 0;
     left: 0;
     background: linear-gradient(90deg, #163d13 0%, #1e521a 20%, #2a6825 50%, #1e521a 80%, #163d13 100%);
+    margin-bottom: 0; /* Eliminar cualquier margen inferior */
 }
 
 @media (min-width: 1200px) {
@@ -136,6 +137,7 @@
     .navbar-collapse {
         padding-left: 10px;
         padding-right: 10px;
+        margin-bottom: 0; /* Eliminar margen inferior en móviles */
     }
 
     /* Desactivamos el hover animado (línea blanca animada) */

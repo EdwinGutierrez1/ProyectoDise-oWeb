@@ -185,6 +185,7 @@
 
 /* Estilos responsivos para galerías en pantallas grandes */
 @media (min-width: 768px) {
+
   .row.gallery {
       display: flex; /* Cambia la disposición a flexbox para alinear los elementos en fila */
       align-items: stretch; /* Asegura que todas las columnas tengan la misma altura */
@@ -214,13 +215,19 @@
   .modal-next {
       right: -50px;
   }
+  .titulo-galeria {
+    font-size: 42px;
+  }
 }
 
 /* Tabletas */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .container-galeria {
       max-width: 90%; /* Ajustado de 600px a 90% para aprovechar más espacio */
       padding: 0 10px;
+  }
+  .titulo-galeria {
+    font-size: 36px;
   }
   .image-container {
       height: 160px;
@@ -246,6 +253,13 @@
 
 /* Móviles */
 @media (max-width: 480px) {
+  /* Reduce el espacio superior del título solo en móviles */
+  #Galeria {
+    padding-top: 5px; /* Reducido de 50px a 5px para dispositivos móviles */
+  }
+  .titulo-galeria {
+    font-size: 35px;
+  }
   .container-galeria {
       max-width: 95%; /* Ajustado de 80% a 95% para aprovechar mejor el espacio móvil */
       padding: 0 5px;
