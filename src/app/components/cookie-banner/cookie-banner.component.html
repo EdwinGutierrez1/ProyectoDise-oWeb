@@ -1,0 +1,10 @@
+<div class="cookie-banner" *ngIf="mostrarBanner">
+  <div class="cookie-content">
+    <h3>Aviso de Cookies</h3>
+    <p>Utilizamos cookies para mejorar tu experiencia en nuestro sitio web. Al continuar navegando, aceptas nuestra política de cookies.</p>
+    <div class="cookie-buttons">
+      <button (click)="aceptarCookies()" class="btn-aceptar">Aceptar</button>
+      <button (click)="rechazarCookies()" class="btn-rechazar">Rechazar</button>
+    </div>
+  </div>
+</div>
