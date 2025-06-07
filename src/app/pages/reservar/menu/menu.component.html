@@ -1,7 +1,8 @@
-<!-- comidas.component.html -->
+<!-- Contenedor principal del componente de selección de menú -->
 <div class="comidas-container">
     <h1 class="titulo">Paso 3: Explora nuestro menú</h1>
 
+    <!-- Mensaje de validación que aparece cuando no hay cabaña seleccionada -->
     <div class="mensaje-validacion" *ngIf="!tieneCabanaSeleccionada()">
         <p class="mensaje-texto">
             <span class="icono-info">🛈</span>
@@ -9,8 +10,9 @@
         </p>
     </div>
     
+    <!-- Grid principal con las tres opciones de comida -->
     <div class="comidas-grid">
-        <!-- Desayuno -->
+        <!-- Card de Desayuno - Siempre incluido -->
         <div 
             class="comida-card" 
             [class.selected]="isComidaSelected(1)"
@@ -29,7 +31,7 @@
             </div>
         </div>
 
-        <!-- Almuerzo -->
+        <!-- Card de Almuerzo - Opcional con precio -->
         <div 
             class="comida-card" 
             [class.selected]="isComidaSelected(2)"
@@ -47,7 +49,7 @@
             </div>
         </div>
 
-        <!-- Cena -->
+        <!-- Card de Cena - Opcional con precio -->
         <div 
             class="comida-card" 
             [class.selected]="isComidaSelected(3)"
@@ -66,15 +68,16 @@
         </div>
     </div>
 
-    <!-- Total de comidas -->
+    <!-- Resumen del costo total de las comidas seleccionadas -->
     <div class="total-comidas" *ngIf="datosCotizacion && datosCotizacion.comidas.length > 0">
         <p class="total-texto">Costo total diario del menú: <span class="total-valor">${{ datosCotizacion.subtotalComidas.toLocaleString() }}</span></p>
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal para mostrar detalles y opciones de cada comida -->
 <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
+        <!-- Header del modal con título e icono -->
         <div class="modal-header">
             <h2 class="modal-title">
             <span class="food-icon">{{ getComidaIcon(selectedComidaId!) }}</span>
@@ -84,7 +87,7 @@
         </div>
     
         <div class="modal-body">
-            <!-- Texto informativo específico para cada comida -->
+            <!-- Texto informativo personalizado según el tipo de comida -->
             <div class="modal-info-texto">
                 <p *ngIf="selectedComidaId === 1" class="info-texto">
                     El desayuno está incluido durante tu visita. Podrás elegir una de las siguientes tres opciones:
@@ -97,6 +100,7 @@
                 </p>
             </div>
 
+            <!-- Lista de opciones disponibles para la comida seleccionada -->
             <div class="opciones-container">
             <div
                 class="opcion-item-wrapper"
@@ -119,6 +123,7 @@
             </div>
             </div>
     
+            <!-- Información de precio en el modal -->
             <div class="modal-precio-container">
                 <p class="modal-precio" [class.incluido-modal]="selectedComidaId === 1">
                     {{ selectedComidaId === 1 ? 'Incluido' : selectedComidaData?.precio }}
@@ -129,6 +134,7 @@
             </div>
         </div>
     
+        <!-- Footer del modal con botón de acción (no aparece para desayuno) -->
         <div class="modal-footer">
             <button
             class="seleccionar-btn"

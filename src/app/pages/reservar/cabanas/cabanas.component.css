@@ -1,9 +1,12 @@
 /* cabanas.component.css */
+
+/* Contenedor principal del componente */
 .cabanas-container {
     max-width: 100%;
     margin: 0 auto;
     padding: 50px 20px;
     font-family: Arial, sans-serif;
+    /* Bordes superior e inferior para delimitar la sección */
     border-top: 2px solid #c4c3c3;
     border-bottom: 2px solid #c4c3c3;
 }
@@ -17,6 +20,7 @@
     margin-top: 20px;
 }
 
+/* Grid principal que contiene las 3 opciones de cabañas */
 .cabanas-grid {
     display: flex;
     justify-content: space-between;
@@ -24,8 +28,9 @@
     margin-bottom: 30px;
 }
 
+/* Card individual de cada cabaña */
 .cabana-card {
-    width: 380px; /* Ancho fijo específico */
+    width: 380px; /* Ancho fijo para mantener consistencia visual */
     border: 2px solid #ccc;
     border-radius: 10px;
     padding: 25px 35px;
@@ -34,12 +39,14 @@
     background-color: white;
 }
 
+/* Efectos hover para mejorar la interactividad */
 .cabana-card:hover {
     border-color: #9e9e9e;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transform: scale(1.02); /* Agranda el card un 3% */
+    transform: scale(1.02); /* Agranda ligeramente el card para feedback visual */
 }
 
+/* Estado seleccionado con colores verdes distintivos */
 .cabana-card.selected {
     border-color: #28a745;
     border-width: 2.8px;
@@ -47,18 +54,19 @@
     background-color: #CCECCC;
 }
 
+/* Contenedor de imagen con altura fija para uniformidad */
 .image-container {
     width: 100%;
     height: 400px;
     margin-bottom: 10px;
     border-radius: 8px;
-    overflow: hidden;
+    overflow: hidden; /* Evita que la imagen se desborde del contenedor */
 }
 
 .cabana-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Mantiene proporción de imagen sin distorsión */
     background-color: #1e5799;
 }
 
@@ -74,6 +82,7 @@
     margin: 0 0 8px 0;
 }
 
+/* Información de capacidad con emoji e ícono */
 .capacity {
     font-size: 1.2rem;
     color: #3f3f3f;
@@ -84,7 +93,7 @@
     gap: 5px;
 }
 
-/* Contenedor principal para contador y precio - CENTRADO */
+/* Contenedor principal que agrupa contador de personas y precio - perfectamente centrado */
 .contador-precio-container {
     display: flex;
     justify-content: center;
@@ -93,7 +102,7 @@
     margin: 40px 0;
 }
 
-/* Cuadros de información - CENTRADOS Y OPTIMIZADOS */
+/* Cuadros informativos estilizados con sombra y bordes redondeados */
 .cuadro-info {
     width: 400px;
     height: 80px;
@@ -101,15 +110,16 @@
     border-radius: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: center; /* CENTRADO HORIZONTAL */
-    align-items: center; /* CENTRADO VERTICAL */
+    justify-content: center;
+    align-items: center;
     padding: 15px 20px;
     background-color: white;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra pronunciada para darle profundidad */
     overflow: hidden;
-    gap: 20px; /* Espacio uniforme entre elementos */
+    gap: 20px;
 }   
 
+/* Etiquetas de los cuadros informativos */
 .cuadro-label {
     font-weight: bold;
     font-size: 1.4rem;
@@ -117,13 +127,13 @@
     white-space: nowrap;
     display: flex;
     align-items: center;
-    justify-content: center; /* CENTRADO DEL TEXTO */
+    justify-content: center;
     text-align: center;
     flex-shrink: 0;
-    min-width: 150px; /* Ancho mínimo consistente */
+    min-width: 150px; /* Ancho mínimo para mantener consistencia */
 }
 
-/* Contenedor del contador - COMPLETAMENTE CENTRADO */
+/* Contenedor específico para los controles del contador */
 .contador-box {
     display: flex;
     align-items: center;
@@ -133,7 +143,7 @@
     max-width: 200px;
 }
 
-/* Contenedor del precio - PERFECTAMENTE CENTRADO */
+/* Contenedor del precio calculado */
 .precio-box {
     font-size: 1.6rem;
     font-weight: bold;
@@ -146,7 +156,7 @@
     white-space: nowrap;
 }
 
-/* Botones del contador */
+/* Botones circulares del contador con estados hover y disabled */
 .contador-btn {
     width: 40px;
     height: 40px;
@@ -161,7 +171,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    user-select: none;
+    user-select: none; /* Evita selección de texto accidental */
     flex-shrink: 0;
 }
 
@@ -172,9 +182,10 @@
 }
 
 .contador-btn:active:not(:disabled) {
-    transform: scale(0.95);
+    transform: scale(0.95); /* Efecto de presión */
 }
 
+/* Estado deshabilitado para los botones */
 .contador-btn:disabled {
     background-color: #6c757d;
     border-color: #6c757d;
@@ -183,6 +194,7 @@
     transform: none;
 }
 
+/* Botón de decrementar con color rojo distintivo */
 .contador-btn-minus {
     background-color: #dc3545;
     border-color: #dc3545;
@@ -193,6 +205,7 @@
     border-color: #c82333;
 }
 
+/* Display del número actual de personas */
 .contador-display {
     font-size: 1.8rem;
     font-weight: bold;
@@ -207,7 +220,9 @@
     justify-content: center;
 }
 
-/* ESTILOS DEL MODAL */
+/* === ESTILOS DEL MODAL === */
+
+/* Overlay oscuro que cubre toda la pantalla */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -218,15 +233,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1060;
+    z-index: 1060; /* Z-index alto para estar sobre todo el contenido */
     padding: 20px;
     box-sizing: border-box;
 }
 
+/* Contenedor principal del modal con animación de entrada */
 .modal-content {
     background-color: white;
     border-radius: 15px;
-    max-width: 700px; /* REDUCIDO: menos ancho */
+    max-width: 700px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
@@ -235,6 +251,7 @@
     animation: modalFadeIn 0.3s ease-out;
 }
 
+/* Animación suave de aparición del modal */
 @keyframes modalFadeIn {
     from {
         opacity: 0;
@@ -246,15 +263,16 @@
     }
 }
 
+/* Header del modal con título centrado y botón de cierre posicionado absolutamente */
 .modal-header {
     display: flex;
-    justify-content: center; /* CENTRADO: sin considerar la X */
+    justify-content: center;
     align-items: center;
     padding: 20px 25px;
     border-bottom: 2px solid #eee;
     background-color: #f8f9fa;
     border-radius: 15px 15px 0 0;
-    position: relative; /* Para posicionar la X de forma absoluta */
+    position: relative; /* Necesario para posicionar la X de forma absoluta */
 }
 
 .modal-header h2 {
@@ -262,9 +280,10 @@
     font-size: 1.8rem;
     font-weight: bold;
     color: #333;
-    text-align: center; /* CENTRADO PERFECTO */
+    text-align: center;
 }
 
+/* Botón X de cierre posicionado en la esquina superior derecha */
 .modal-close {
     background: none;
     border: none;
@@ -278,8 +297,8 @@
     justify-content: center;
     border-radius: 50%;
     transition: all 0.3s ease;
-    position: absolute; /* POSICIÓN ABSOLUTA para no afectar el centrado */
-    right: 20px; /* Posicionado en la esquina derecha */
+    position: absolute; /* No afecta el centrado del título */
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -289,15 +308,17 @@
     color: #333;
 }
 
-/* GALERÍA DE IMÁGENES */
+/* === GALERÍA DE IMÁGENES === */
+
 .galeria-container {
     padding: 20px;
 }
 
+/* Contenedor principal de la imagen con navegación */
 .imagen-principal {
     position: relative;
     width: 100%;
-    height: 450px; /* AUMENTADO: más alto */
+    height: 450px;
     margin-bottom: 15px;
     border-radius: 10px;
     overflow: hidden;
@@ -311,6 +332,7 @@
     transition: opacity 0.3s ease;
 }
 
+/* Flechas de navegación flotantes sobre la imagen */
 .flecha-navegacion {
     position: absolute;
     top: 50%;
@@ -335,6 +357,7 @@
     transform: translateY(-50%) scale(1.1);
 }
 
+/* Estado deshabilitado para las flechas cuando no hay más imágenes */
 .flecha-navegacion:disabled {
     background-color: rgba(0, 0, 0, 0.3);
     cursor: not-allowed;
@@ -349,7 +372,7 @@
     right: 15px;
 }
 
-/* INDICADORES */
+/* Indicadores de posición en la galería */
 .indicadores {
     display: flex;
     justify-content: center;
@@ -371,11 +394,13 @@
     transform: scale(1.2);
 }
 
+/* Indicador activo de la imagen actual */
 .indicador.activo {
     background-color: #28a745;
     transform: scale(1.3);
 }
 
+/* Contador de posición actual en la galería */
 .info-imagen {
     text-align: center;
     font-size: 0.9rem;
@@ -383,6 +408,7 @@
     margin-bottom: 15px;
 }
 
+/* Texto informativo sobre variación de precios */
 .texto-informativo {
     text-align: center;
     margin: 20px 0 30px 0;
@@ -397,19 +423,19 @@
     line-height: 1.4;
 }
 
-
-/* INFORMACIÓN DEL MODAL - SIMPLIFICADA */
+/* Información de características de la cabaña */
 .modal-info {
     padding: 0 25px 20px;
     border-bottom: 2px solid #eee;
 }
 
+/* Contenedor de características con distribución centrada */
 .caracteristicas-cabana {
     display: flex;
     justify-content: center;
-    gap: 30px; /* Reducido de 40px a 30px para dar espacio al tercer elemento */
+    gap: 30px;
     align-items: center;
-    flex-wrap: wrap; /* Permite que se ajusten en pantallas pequeñas */
+    flex-wrap: wrap; /* Se adapta a pantallas pequeñas */
 }
 
 .caracteristica {
@@ -428,13 +454,14 @@
     font-weight: 500;
 }
 
-/* FOOTER DEL MODAL */
+/* Footer del modal con botón de confirmación */
 .modal-footer {
     padding: 20px 25px;
     display: flex;
     justify-content: center;
 }
 
+/* Botón principal de selección con efectos visuales */
 .btn-elegir {
     background-color: #28a745;
     color: white;
@@ -450,7 +477,7 @@
 
 .btn-elegir:hover {
     background-color: #218838;
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Efecto de elevación */
     box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
 }
 
@@ -459,7 +486,8 @@
     box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
 }
 
-/* Estilos que ya no se usan pero mantenemos por compatibilidad */
+/* === ESTILOS LEGACY === */
+/* Mantenidos por compatibilidad pero ya no se usan activamente */
 .contador-group,
 .precio-container {
     gap: 10px;
@@ -493,7 +521,7 @@
 
 .personas-container,
 .precio-container {
-    width: 300px; /* Mismo tamaño */
+    width: 300px;
     min-height: 150px;
     background-color: #f8f9fa;
     border: 2px solid #babdc0;
@@ -518,68 +546,71 @@
     margin: 0;
 }
 
-/* Media query para pantallas de computador más pequeñas */
-/* Media query para pantallas de computador más pequeñas */
+/* === RESPONSIVE DESIGN === */
+
+/* Adaptación para pantallas de escritorio medianas (1024px - 1366px) */
 @media (max-width: 1366px) and (min-width: 1024px) {
     .cabanas-grid {
-        gap: 25px; /* Reducido de 40px a 25px */
+        gap: 25px; /* Espacio reducido entre cards */
     }
     
     .cabana-card {
-        width: 320px; /* Reducido de 380px a 320px */
-        padding: 20px 28px; /* Reducido de 25px 35px a 20px 28px */
+        width: 320px; /* Cards más compactos */
+        padding: 20px 28px;
     }
     
     .image-container {
-        height: 350px; /* Reducido de 400px a 350px */
-        margin-bottom: 8px; /* Reducido de 10px a 8px */
+        height: 350px; /* Imágenes menos altas */
+        margin-bottom: 8px;
     }
     
     .cabana-info h3 {
-        font-size: 1.5rem; /* Reducido de 1.6rem a 1.5rem */
-        margin: 0 0 6px 0; /* Reducido de 8px a 6px */
+        font-size: 1.5rem;
+        margin: 0 0 6px 0;
     }
     
     .capacity {
-        font-size: 1.1rem; /* Reducido de 1.2rem a 1.1rem */
+        font-size: 1.1rem;
     }
     
     .titulo {
-        font-size: 2.2rem; /* Reducido de 2.5rem a 2.2rem */
-        margin-bottom: 40px; /* Reducido de 50px a 40px */
+        font-size: 2.2rem;
+        margin-bottom: 40px;
     }
     
+    /* Cuadros informativos más compactos */
     .cuadro-info {
-        width: 350px; /* Reducido de 400px a 350px */
-        height: 75px; /* Reducido de 80px a 75px */
-        padding: 12px 18px; /* Reducido de 15px 20px a 12px 18px */
-        gap: 18px; /* Reducido de 20px a 18px */
+        width: 350px;
+        height: 75px;
+        padding: 12px 18px;
+        gap: 18px;
     }
     
     .cuadro-label {
-        font-size: 1.3rem; /* Reducido de 1.4rem a 1.3rem */
-        min-width: 140px; /* Reducido de 150px a 140px */
+        font-size: 1.3rem;
+        min-width: 140px;
     }
     
     .contador-box {
-        gap: 10px; /* Reducido de 12px a 10px */
-        max-width: 180px; /* Reducido de 200px a 180px */
+        gap: 10px;
+        max-width: 180px;
     }
     
     .precio-box {
-        font-size: 1.5rem; /* Reducido de 1.6rem a 1.5rem */
+        font-size: 1.5rem;
     }
     
+    /* Botones del contador más pequeños */
     .contador-btn {
-        width: 35px; /* Reducido de 40px a 35px */
-        height: 35px; /* Reducido de 40px a 35px */
-        font-size: 1.3rem; /* Reducido de 1.5rem a 1.3rem */
+        width: 35px;
+        height: 35px;
+        font-size: 1.3rem;
     }
     
     .contador-display {
-        font-size: 1.6rem; /* Reducido de 1.8rem a 1.6rem */
-        min-width: 45px; /* Reducido de 50px a 45px */
-        padding: 6px 10px; /* Reducido de 8px 12px a 6px 10px */
+        font-size: 1.6rem;
+        min-width: 45px;
+        padding: 6px 10px;
     }
 
     .texto-informativo {
@@ -591,96 +622,93 @@
         font-size: 0.95rem;
     }
     
-    /* ESTILOS DEL MODAL PARA PANTALLAS PEQUEÑAS */
+    /* Modal adaptado para pantallas medianas */
     .modal-content {
-        max-width: 600px; /* Reducido de 700px a 600px */
-        max-height: 85vh; /* Reducido de 90vh a 85vh */
+        max-width: 600px;
+        max-height: 85vh;
     }
     
     .modal-header {
-        padding: 15px 20px; /* Reducido de 20px 25px a 15px 20px */
+        padding: 15px 20px;
     }
     
     .modal-header h2 {
-        font-size: 1.6rem; /* Reducido de 1.8rem a 1.6rem */
+        font-size: 1.6rem;
     }
     
     .modal-close {
-        font-size: 1.8rem; /* Reducido de 2rem a 1.8rem */
-        width: 35px; /* Reducido de 40px a 35px */
-        height: 35px; /* Reducido de 40px a 35px */
-        right: 15px; /* Reducido de 20px a 15px */
+        font-size: 1.8rem;
+        width: 35px;
+        height: 35px;
+        right: 15px;
     }
     
     .galeria-container {
-        padding: 15px; /* Reducido de 20px a 15px */
+        padding: 15px;
     }
     
     .imagen-principal {
-        height: 320px; /* Reducido de 450px a 320px */
-        margin-bottom: 12px; /* Reducido de 15px a 12px */
+        height: 320px; /* Galería menos alta */
+        margin-bottom: 12px;
     }
     
     .flecha-navegacion {
-        width: 40px; /* Reducido de 50px a 40px */
-        height: 40px; /* Reducido de 50px a 40px */
-        font-size: 1.3rem; /* Reducido de 1.5rem a 1.3rem */
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
     }
     
     .flecha-izquierda {
-        left: 12px; /* Reducido de 15px a 12px */
+        left: 12px;
     }
     
     .flecha-derecha {
-        right: 12px; /* Reducido de 15px a 12px */
+        right: 12px;
     }
     
     .indicadores {
-        gap: 6px; /* Reducido de 8px a 6px */
-        margin-bottom: 8px; /* Reducido de 10px a 8px */
+        gap: 6px;
+        margin-bottom: 8px;
     }
     
     .indicador {
-        width: 10px; /* Reducido de 12px a 10px */
-        height: 10px; /* Reducido de 12px a 10px */
+        width: 10px;
+        height: 10px;
     }
     
     .info-imagen {
-        font-size: 0.8rem; /* Reducido de 0.9rem a 0.8rem */
-        margin-bottom: 12px; /* Reducido de 15px a 12px */
+        font-size: 0.8rem;
+        margin-bottom: 12px;
     }
     
     .modal-info {
-        padding: 0 20px 15px; /* Reducido de 0 25px 20px a 0 20px 15px */
+        padding: 0 20px 15px;
     }
     
     .caracteristicas-cabana {
-        gap: 25px; /* Reducido de 30px a 25px */
+        gap: 25px;
     }
     
     .caracteristica {
-        font-size: 1.1rem; /* Reducido de 1.2rem a 1.1rem */
-        gap: 6px; /* Reducido de 8px a 6px */
+        font-size: 1.1rem;
+        gap: 6px;
     }
     
     .caracteristica .icono {
-        font-size: 1.2rem; /* Reducido de 1.4rem a 1.2rem */
+        font-size: 1.2rem;
     }
     
     .modal-footer {
-        padding: 15px 20px; /* Reducido de 20px 25px a 15px 20px */
+        padding: 15px 20px;
     }
     
     .btn-elegir {
-        padding: 10px 35px; /* Reducido de 8px 40px a 10px 35px */
-        font-size: 1.1rem; /* Reducido de 1.2rem a 1.1rem */
+        padding: 10px 35px;
+        font-size: 1.1rem;
     }
-
-
 }
 
-
-/* Responsive para celulares*/
+/* Adaptación completa para dispositivos móviles */
 @media (max-width: 768px) {
 
     .cabanas-container {
@@ -689,39 +717,38 @@
         box-sizing: border-box;
     }
     
-    /* NUEVO: Hacer los cards más pequeños en móvil */
+    /* Cards más pequeños y optimizados para móvil */
     .cabana-card {
-        width: 320px; /* Reducido de 380px a 320px */
-        padding: 20px 25px; /* Reducido de 25px 35px a 20px 25px */
+        width: 320px;
+        padding: 20px 25px;
     }
     
-    /* NUEVO: Reducir altura del contenedor de imagen */
     .image-container {
-        height: 320px; /* Reducido de 400px a 320px */
-        margin-bottom: 8px; /* Reducido de 10px a 8px */
+        height: 320px; /* Altura reducida para mejor visualización en móvil */
+        margin-bottom: 8px;
     }
     
-    /* NUEVO: Ajustar tamaños de texto */
     .cabana-info h3 {
-        font-size: 1.4rem; /* Reducido de 1.6rem a 1.4rem */
-        margin: 0 0 6px 0; /* Reducido de 8px a 6px */
+        font-size: 1.4rem;
+        margin: 0 0 6px 0;
     }
     
     .capacity {
-        font-size: 1.1rem; /* Reducido de 1.2rem a 1.1rem */
+        font-size: 1.1rem;
     }
     
-    /* NUEVO: Quitar todos los efectos hover en móvil */
+    /* Eliminar efectos hover en móvil para mejor UX táctil */
     .cabana-card:hover {
-        border-color: #ccc; /* Mantiene el color original */
-        box-shadow: none; /* Quita la sombra */
-        transform: none; /* Quita el efecto de escala */
+        border-color: #ccc;
+        box-shadow: none;
+        transform: none;
     }
 
+    /* Layout vertical para móvil */
     .cabanas-grid {
         flex-direction: column;
         gap: 15px;
-        align-items: center; /* NUEVO: Centra los cards horizontalmente */
+        align-items: center; /* Cards centrados horizontalmente */
     }
     
     .titulo {   
@@ -729,6 +756,7 @@
         margin-top: 20px;
     }
     
+    /* Contenedor de contador y precio en layout vertical */
     .contador-precio-container {
         flex-direction: column;
         gap: 20px;
@@ -736,6 +764,7 @@
         padding: 15px;
     }
 
+    /* Cuadros informativos adaptados para móvil */
     .cuadro-info {
         width: 350px;
         height: 70px;
@@ -763,6 +792,7 @@
         font-size: 1.4rem;
     }
 
+    /* Botones del contador más pequeños para interacción táctil */
     .contador-btn {
         width: 30px;
         height: 30px;
@@ -788,13 +818,13 @@
         line-height: 1.2;
     }
 
-    /* RESPONSIVE PARA EL MODAL */
+    /* Modal completamente adaptado para móvil */
     .modal-overlay {
         padding: 10px;
     }
 
     .modal-content {
-        max-width: 95%;
+        max-width: 95%; /* Casi todo el ancho de pantalla */
         max-height: 95vh;
     }
 
@@ -828,19 +858,20 @@
         padding: 0 20px 15px;
     }
 
+    /* Características optimizadas para pantallas pequeñas */
     .caracteristicas-cabana {
-        gap: 15px; /* Reducido para pantallas pequeñas */
+        gap: 15px;
         justify-content: space-around; /* Mejor distribución en móvil */
     }
     
     .caracteristica {
-        font-size: 0.9rem; /* Reducido de 1.1rem para que quepa mejor */
-        min-width: 90px; /* Ancho mínimo para evitar texto cortado */
-        text-align: center; /* Centrado en móvil */
+        font-size: 0.9rem;
+        min-width: 90px; /* Evita texto cortado */
+        text-align: center;
     }
     
     .caracteristica .icono {
-        font-size: 0.9rem; /* Reducido de 1.2rem */
+        font-size: 0.9rem;
     }
 
     .modal-footer {

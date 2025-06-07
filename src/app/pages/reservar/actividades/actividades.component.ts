@@ -8,7 +8,7 @@ interface Actividad {
   id: number;
   nombre: string;
   precio: string;
-  precioNumerico: number; // Nuevo campo para cálculos
+  precioNumerico: number; // Para hacer cálculos matemáticos sin formato
   imagen: string;
   descripcion: string;
   incluye: string[];
@@ -28,17 +28,17 @@ export class ActividadesComponent implements OnInit, OnDestroy {
   selectedActivityId: number | null = null;
   selectedActivityData: Actividad | null = null;
   
-  // Datos de la cotización actual
+  // Variables que mantienen el estado actual de la cotización
   cantidadPersonas: number = 0;
   datosCotizacion: DatosCotizacion | null = null;
   
-  // Suscripción para cleanup
+  // Para limpiar suscripciones y evitar memory leaks
   private subscription: Subscription = new Subscription();
 
-  // IDs de actividades que son "por persona"
+  // Actividades que se cobran por cada persona (no son precio fijo)
   private actividadesPorPersona: number[] = [3, 4, 5, 6]; // Kayak, Bici, Senderismo, Escalada
 
-  // Iconos para cada actividad
+  // Emojis para mejorar la interfaz visual
   private activityIcons: { [key: number]: string } = {
     1: '🧘‍♀️', // Spa en pareja
     2: '🍎',   // Picnic gourmet
@@ -48,7 +48,7 @@ export class ActividadesComponent implements OnInit, OnDestroy {
     6: '⛰️ '    // Escalada en roca
   };
 
-  // Datos de las actividades (actualizados con precios numéricos)
+  // Base de datos local de todas las actividades disponibles
   private actividades: Actividad[] = [
     {
       id: 1,
@@ -156,13 +156,13 @@ export class ActividadesComponent implements OnInit, OnDestroy {
   constructor(private cotizacionService: CotizacionService) {}
 
   ngOnInit(): void {
-    // Suscribirse a cambios en la cotización
+    // Mantener el componente sincronizado con los cambios del servicio de cotización
     this.subscription.add(
       this.cotizacionService.cotizacion$.subscribe(cotizacion => {
         this.datosCotizacion = cotizacion;
         this.cantidadPersonas = cotizacion.cantidadPersonas;
         
-        // Actualizar selectedActividades basado en las actividades del servicio
+        // Sincronizar las actividades seleccionadas localmente
         this.selectedActividades = cotizacion.actividades.map(a => a.id);
         
         console.log('Datos de cotización actualizados:', cotizacion);
@@ -170,7 +170,7 @@ export class ActividadesComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Listener para cerrar modal con Escape
+    // Funcionalidad para cerrar modal con tecla Escape
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && this.showModal) {
         this.closeModal();
@@ -183,18 +183,14 @@ export class ActividadesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Verifica si una actividad es "por persona"
-   * @param actividadId - ID de la actividad
-   * @returns true si la actividad es por persona
+   * Determina si una actividad tiene precio variable según personas
    */
   isPorPersona(actividadId: number): boolean {
     return this.actividadesPorPersona.includes(actividadId);
   }
 
   /**
-   * Calcula el precio total de una actividad según si es por persona o no
-   * @param actividadId - ID de la actividad
-   * @returns Precio total calculado
+   * Calcula el precio final considerando si es por persona o precio fijo
    */
   calcularPrecioTotal(actividadId: number): number {
     const actividad = this.actividades.find(a => a.id === actividadId);
@@ -208,14 +204,13 @@ export class ActividadesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Obtiene el precio formateado para mostrar
-   * @param actividadId - ID de la actividad
-   * @returns String con el precio formateado
+   * Genera el texto de precio para mostrar en la interfaz
    */
   getPrecioMostrar(actividadId: number): string {
     const actividad = this.actividades.find(a => a.id === actividadId);
     if (!actividad) return '$0';
 
+    // Para actividades por persona, mostrar cálculo detallado
     if (this.isPorPersona(actividadId) && this.cantidadPersonas > 0) {
       const precioTotal = this.calcularPrecioTotal(actividadId);
       return `$${precioTotal.toLocaleString()} (${actividad.precio} x${this.cantidadPersonas})`;
@@ -225,32 +220,31 @@ export class ActividadesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Abre el modal con la información de la actividad seleccionada
-   * @param actividadId - ID de la actividad
+   * Abrir modal con información detallada de la actividad
    */
   openModal(actividadId: number): void {
     this.selectedActivityId = actividadId;
     this.selectedActivityData = this.actividades.find(a => a.id === actividadId) || null;
     this.showModal = true;
     
-    // Prevenir scroll del body cuando el modal está abierto
+    // Bloquear scroll del fondo mientras el modal está abierto
     document.body.style.overflow = 'hidden';
   }
 
   /**
-   * Cierra el modal
+   * Cerrar modal y limpiar datos relacionados
    */
   closeModal(): void {
     this.showModal = false;
     this.selectedActivityId = null;
     this.selectedActivityData = null;
     
-    // Restaurar scroll del body
+    // Restaurar scroll normal
     document.body.style.overflow = 'auto';
   }
 
   /**
-   * Alterna la selección de una actividad (agregar o quitar)
+   * Maneja la selección/deselección de actividades desde el modal
    */
   elegirActividad(): void {
     if (this.selectedActivityId) {
@@ -258,10 +252,10 @@ export class ActividadesComponent implements OnInit, OnDestroy {
       if (!actividad) return;
 
       if (this.isActividadSelected(this.selectedActivityId)) {
-        // Quitar actividad del servicio
+        // Remover de la cotización
         this.cotizacionService.quitarActividad(this.selectedActivityId);
       } else {
-        // Agregar actividad al servicio
+        // Agregar a la cotización con la información necesaria
         this.cotizacionService.agregarActividad({
           id: actividad.id,
           nombre: actividad.nombre,
@@ -275,18 +269,14 @@ export class ActividadesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Verifica si una actividad está seleccionada
-   * @param actividadId - ID de la actividad
-   * @returns true si la actividad está seleccionada
+   * Consulta el estado de selección de una actividad desde el servicio
    */
   isActividadSelected(actividadId: number): boolean {
     return this.cotizacionService.isActividadSeleccionada(actividadId);
   }
 
   /**
-   * Verifica si el título es largo para mobile
-   * @param actividadId - ID de la actividad
-   * @returns true si tiene título largo
+   * Identifica actividades con nombres largos para ajustar el diseño móvil
    */
   hasLongTitleForMobile(actividadId: number): boolean {
     const actividadesConTituloLargo = [2, 5]; // Picnic gourmet y Senderismo
@@ -294,8 +284,7 @@ export class ActividadesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Obtiene la lista de actividades seleccionadas con su información completa
-   * @returns Array de actividades seleccionadas
+   * Obtiene las actividades seleccionadas con información completa
    */
   getActividadesSeleccionadas(): Actividad[] {
     const actividadesDelServicio = this.cotizacionService.obtenerActividadesSeleccionadas();
@@ -306,8 +295,6 @@ export class ActividadesComponent implements OnInit, OnDestroy {
 
   /**
    * Obtiene el icono correspondiente a una actividad
-   * @param activityId - ID de la actividad
-   * @returns Emoji del icono o string vacío si no existe
    */
   getActivityIcon(activityId: number): string {
     return this.activityIcons[activityId] || '';
@@ -315,14 +302,13 @@ export class ActividadesComponent implements OnInit, OnDestroy {
 
   /**
    * Obtiene el total de actividades seleccionadas
-   * @returns Número de actividades seleccionadas
    */
   getTotalActividadesSeleccionadas(): number {
     return this.selectedActividades.length;
   }
 
   /**
-   * Limpia todas las selecciones
+   * Limpia todas las actividades seleccionadas
    */
   limpiarSelecciones(): void {
     // Remover todas las actividades del servicio
@@ -334,8 +320,7 @@ export class ActividadesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Obtiene información resumida de la selección actual
-   * @returns Objeto con información de las actividades seleccionadas
+   * Genera un resumen de la selección actual para mostrar en la interfaz
    */
   getResumenSeleccion(): {
     cantidad: number;
@@ -356,7 +341,6 @@ export class ActividadesComponent implements OnInit, OnDestroy {
 
   /**
    * Verifica si hay al menos una actividad seleccionada
-   * @returns true si hay selecciones válidas
    */
   hasValidSelection(): boolean {
     return this.selectedActividades.length > 0;
@@ -364,8 +348,6 @@ export class ActividadesComponent implements OnInit, OnDestroy {
 
   /**
    * Obtiene una actividad por su ID
-   * @param id - ID de la actividad
-   * @returns Actividad encontrada o null
    */
   getActividadById(id: number): Actividad | null {
     return this.actividades.find(actividad => actividad.id === id) || null;
@@ -373,7 +355,6 @@ export class ActividadesComponent implements OnInit, OnDestroy {
 
   /**
    * Maneja el cierre del modal con la tecla Escape
-   * @param event - Evento del teclado
    */
   onKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Escape' && this.showModal) {
@@ -382,8 +363,7 @@ export class ActividadesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Verifica si se puede mostrar información de actividades (hay personas seleccionadas)
-   * @returns true si hay personas seleccionadas en cabañas
+   * Verifica si se puede mostrar las actividades (necesita tener personas)
    */
   canShowActividades(): boolean {
     return this.cantidadPersonas > 0;
@@ -391,7 +371,6 @@ export class ActividadesComponent implements OnInit, OnDestroy {
 
   /**
    * Obtiene mensaje de advertencia si no hay personas seleccionadas
-   * @returns Mensaje para mostrar al usuario
    */
   getMensajeAdvertencia(): string {
     if (this.cantidadPersonas === 0) {
@@ -402,7 +381,6 @@ export class ActividadesComponent implements OnInit, OnDestroy {
 
   /**
    * Obtiene el subtotal de actividades formateado
-   * @returns String con el subtotal formateado
    */
   getSubtotalFormateado(): string {
     const subtotal = this.datosCotizacion?.subtotalActividades || 0;
@@ -411,55 +389,44 @@ export class ActividadesComponent implements OnInit, OnDestroy {
 
   /**
    * Verifica si hay una cabaña seleccionada
-   * @returns true si hay cabaña seleccionada
    */
   tieneCabanaSeleccionada(): boolean {
     return this.datosCotizacion?.cabana !== null;
   }
 
-    /**
-   * Verifica si la cabaña seleccionada es para parejas (ID 1)
-   * @returns true si es cabaña para parejas
+  /**
+   * Verifica si la cabaña seleccionada es la romántica para parejas
    */
   esCabanaPareja(): boolean {
     return this.datosCotizacion?.cabana?.id === 1;
   }
 
-
   /**
-   * Verifica si una actividad de pareja está deshabilitada por no tener cabaña de pareja
-   * @param actividadId - ID de la actividad
-   * @returns true si está deshabilitada
+   * Determina si actividades de pareja están deshabilitadas por tipo de cabaña
    */
   isActividadParejaDeshabilitada(actividadId: number): boolean {
     return this.tieneCabanaSeleccionada() && !this.esCabanaPareja() && [1, 2].includes(actividadId);
   }
 
-  
-    /**
-   * Verifica si se puede seleccionar una actividad
-   * @param actividadId - ID de la actividad
-   * @returns true si se puede seleccionar
+  /**
+   * Lógica de negocio para determinar si una actividad se puede seleccionar
    */
-
-    canSelectActivity(actividadId: number): boolean {
-      // No se puede seleccionar si no hay cabaña
-      if (!this.tieneCabanaSeleccionada()) {
-        return false;
-      }
-      
-      // Si NO es cabaña para parejas y es actividad de pareja (1 o 2), no se puede seleccionar
-      if (!this.esCabanaPareja() && [1, 2].includes(actividadId)) {
-        return false;
-      }
-      
-      return true;
+  canSelectActivity(actividadId: number): boolean {
+    // Primero debe haber una cabaña seleccionada
+    if (!this.tieneCabanaSeleccionada()) {
+      return false;
     }
-
+    
+    // Las actividades de pareja solo para cabañas de pareja
+    if (!this.esCabanaPareja() && [1, 2].includes(actividadId)) {
+      return false;
+    }
+    
+    return true;
+  }
 
   /**
-   * Obtiene información de actividades por persona vs fijas
-   * @returns Objeto con conteos de actividades
+   * Estadísticas de actividades para informes o análisis
    */
   getEstadisticasActividades(): {
     porPersona: number;
