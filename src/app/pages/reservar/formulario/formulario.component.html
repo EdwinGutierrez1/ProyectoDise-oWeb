@@ -15,18 +15,22 @@
         Información Personal
       </h3>
 
-      <div class="mensaje-confirmacion" *ngIf="mensajeEnviado">
-        <i class="fas fa-check-circle"></i> 
-        ¡Tu información fue enviada exitosamente!
-      </div>
+      <form id="cotizar-form" #cotizarForm="ngForm" (ngSubmit)="onSubmit($event)" novalidate>
+        <!-- Mensaje de confirmación justo encima de los botones -->
+        <div class="mensaje-confirmacion" *ngIf="mensajeEnviado">
+          <i class="fas fa-check-circle"></i> 
+          ¡Tu información fue enviada exitosamente!
+        </div>
 
-      <form id="cotizar-form" (ngSubmit)="onSubmit($event)">
         <div class="form-group">
           <label for="nombre">
             <i class="fas fa-user"></i>
             Nombre completo
           </label>
-          <input type="text" class="form-control" id="nombre" name="nombre" required>
+          <input type="text" class="form-control" id="nombre" name="nombre" required minlength="1" [(ngModel)]="nombre" #nombreCtrl="ngModel">
+          <div class="invalid-feedback" *ngIf="esCampoInvalido('nombre')">
+            {{ obtenerErrorCampo('nombre') }}
+          </div>
         </div>
 
         <div class="form-group">
@@ -34,7 +38,11 @@
             <i class="fas fa-envelope"></i>
             Correo electrónico
           </label>
-          <input type="email" class="form-control" id="email" name="email" required>
+          <input type="email" class="form-control" id="email" name="email" required pattern="^[^@\s]+@[^@\s]+\.com$" [(ngModel)]="email" #emailCtrl="ngModel">
+          <div class="invalid-feedback" *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)">
+            <span *ngIf="emailCtrl.errors?.['required']">El correo es obligatorio.</span>
+            <span *ngIf="emailCtrl.errors?.['pattern']">Correo no válido.</span>
+          </div>
         </div>
 
         <div class="form-row">
@@ -43,15 +51,21 @@
               <i class="fas fa-phone"></i>
               Teléfono
             </label>
-            <input type="tel" class="form-control" id="telefono" name="telefono" required>
+            <input type="tel" class="form-control" id="telefono" name="telefono" required pattern="^[0-9]{7,15}$" [(ngModel)]="telefono" #telefonoCtrl="ngModel">
+            <div class="invalid-feedback" *ngIf="telefonoCtrl.invalid && (telefonoCtrl.dirty || telefonoCtrl.touched)">
+              <span *ngIf="telefonoCtrl.errors?.['required']">El teléfono es obligatorio.</span>
+              <span *ngIf="telefonoCtrl.errors?.['pattern']">Solo números (7-15 dígitos).</span>
+            </div>
           </div>
-
           <div class="form-group">
             <label for="fecha">
               <i class="fas fa-calendar"></i>
               Fecha de llegada
             </label>
-            <input type="date" class="form-control" id="fecha" name="fecha" required [value]="fechaLlegada">
+            <input type="date" class="form-control" id="fecha" name="fecha" required [(ngModel)]="fechaLlegada" #fechaCtrl="ngModel">
+            <div class="invalid-feedback" *ngIf="fechaCtrl.invalid && (fechaCtrl.dirty || fechaCtrl.touched)">
+              <span *ngIf="fechaCtrl.errors?.['required']">La fecha es obligatoria.</span>
+            </div>
           </div>
         </div>
 
@@ -69,15 +83,10 @@
             <i class="fas fa-arrow-left"></i>
             Volver
           </button>
-          <button type="button" class="btn-cotizar" (click)="cotizar()">
+          <button type="submit" class="btn-cotizar" [disabled]="cotizarForm.invalid">
             <i class="fas fa-paper-plane"></i>
-            Enviar Cotización
+            Enviar Reservación
           </button>
-        </div>
-
-        <div class="mensaje-enviado" *ngIf="mensajeEnviado">
-          <i class="fas fa-check-circle"></i>
-          Información enviada, un asesor se comunicará con usted
         </div>
       </form>
     </div>
