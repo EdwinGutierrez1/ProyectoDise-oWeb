@@ -1,21 +1,23 @@
+// Importación de módulos necesarios para definir el componente en Angular
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// Decorador que define el componente Angular
 @Component({
-  selector: 'app-galeria',
-  standalone: true, // si tu componente es standalone
-  imports: [CommonModule],
-  templateUrl: './galeria.component.html',
-  styleUrls: ['./galeria.component.css']
+  selector: 'app-galeria', // Identificador para referenciar el componente en plantillas HTML
+  standalone: true, // Indica que el componente es standalone (no depende de un módulo)
+  imports: [CommonModule], // Importa el módulo CommonModule para funcionalidades básicas
+  templateUrl: './galeria.component.html', // Archivo de plantilla HTML del componente
+  styleUrls: ['./galeria.component.css'] // Archivo de estilos CSS asociado al componente
 })
 export class GaleriaComponent {
 
-  // Estado del modal
+  // Estado del modal: controla si está abierto o cerrado
   isModalOpen = false;
-  currentImageIndex = 0;
-  currentImage: any = null;
+  currentImageIndex = 0; // Índice de la imagen actual en la galería
+  currentImage: any = null; // Imagen activa en el modal
 
-  // Array con todas las imágenes de la galería
+  // Array con todas las imágenes de la galería y sus descripciones
   galleryImages = [
     {
       src: 'decoracion.jpg',
@@ -71,7 +73,7 @@ export class GaleriaComponent {
     this.currentImageIndex = index;
     this.currentImage = this.galleryImages[index];
     this.isModalOpen = true;
-    // Prevenir scroll del body cuando el modal está abierto
+    // Prevenir scroll en el body cuando el modal está abierto
     document.body.style.overflow = 'hidden';
   }
 
@@ -79,11 +81,11 @@ export class GaleriaComponent {
   closeModal(): void {
     this.isModalOpen = false;
     this.currentImage = null;
-    // Restaurar scroll del body
+    // Restaurar el scroll en el body cuando el modal se cierra
     document.body.style.overflow = 'auto';
   }
 
-  // Función para ir a la imagen anterior
+  // Función para navegar a la imagen anterior
   previousImage(): void {
     if (this.currentImageIndex > 0) {
       this.currentImageIndex--;
@@ -94,18 +96,18 @@ export class GaleriaComponent {
     this.currentImage = this.galleryImages[this.currentImageIndex];
   }
 
-  // Función para ir a la imagen siguiente
+  // Función para navegar a la imagen siguiente
   nextImage(): void {
     if (this.currentImageIndex < this.galleryImages.length - 1) {
       this.currentImageIndex++;
     } else {
-      // Si está en la última imagen, ir a la primera
+      // Si está en la última imagen, volver a la primera
       this.currentImageIndex = 0;
     }
     this.currentImage = this.galleryImages[this.currentImageIndex];
   }
 
-  // Escuchar eventos del teclado para navegación
+  // Escuchar eventos del teclado para navegación en el modal
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     if (this.isModalOpen) {
@@ -123,7 +125,7 @@ export class GaleriaComponent {
     }
   }
 
-  // Limpiar el overflow del body al destruir el componente
+  // Restaurar el scroll del body al destruir el componente
   ngOnDestroy(): void {
     document.body.style.overflow = 'auto';
   }
