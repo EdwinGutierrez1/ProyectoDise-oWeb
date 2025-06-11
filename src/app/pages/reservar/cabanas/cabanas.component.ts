@@ -1,4 +1,4 @@
-// cabanas.component.ts - COMPLETO CON TODAS LAS FUNCIONALIDADES
+// cabanas.component.ts - Componente para selección de cabañas con modal de galería
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -15,29 +15,28 @@ export class CabanasComponent implements OnInit, OnDestroy {
   selectedCabana: number | null = null;
   cantidadPersonas: number = 0;
   
-  // Variables para el modal
+  // Control del modal de galería fotográfica
   modalAbierto: boolean = false;
   cabanaModalActual: number | null = null;
   imagenActualIndex: number = 0;
   
-  // Suscripción para cleanup
   private subscription: Subscription = new Subscription();
 
-  // Precios base por tipo de cabaña
+  // Estructura de precios base para cada tipo de cabaña
   private preciosBase = {
     1: 150000, // Cabaña #1 - 2 personas (1 pareja)
     2: 300000, // Cabaña #2 - 3-4 personas (precio base)
     3: 500000  // Cabaña #3 - 6-8 personas (precio base)
   };
 
-  // Rangos de personas por cabaña
+  // Límites de capacidad por cabaña - la cabaña 1 es fija para parejas
   private rangosPersonas = {
     1: { min: 2, max: 2 }, // Cabaña #1: exactamente 2 personas (1 pareja)
     2: { min: 3, max: 6 }, // Cabaña #2: 3-6 personas
     3: { min: 6, max: 10 } // Cabaña #3: 6-10 personas
   };
 
-  // Imágenes por cabaña
+  // Galería de imágenes organizadas por cabaña
   private imagenesCabanas = {
     1: [
       '/cabañapequeña1.jpg',
@@ -61,7 +60,7 @@ export class CabanasComponent implements OnInit, OnDestroy {
     ]
   };
 
-  // Información detallada de cada cabaña
+  // Información descriptiva de cada cabaña para el modal
   private informacionCabanas = {
     1: {
       nombre: 'Cabaña Romántica',
@@ -80,7 +79,7 @@ export class CabanasComponent implements OnInit, OnDestroy {
     }
   };
 
-  // Características de cada cabaña (habitaciones y baños) - LÓGICA COHERENTE
+  // Especificaciones técnicas coherentes con la capacidad
   private caracteristicasCabanas = {
     1: {
       habitaciones: 1,
@@ -96,6 +95,7 @@ export class CabanasComponent implements OnInit, OnDestroy {
     }
   };
 
+  // Amenidades especiales que destacan cada cabaña
   private amenidadesCabanas = {
     1: {
       emoji: '🛁',
@@ -114,7 +114,7 @@ export class CabanasComponent implements OnInit, OnDestroy {
   constructor(private cotizacionService: CotizacionService) {}
 
   ngOnInit(): void {
-    // Suscribirse a cambios en la cotización para mantener sincronización
+    // Mantener sincronización con el estado global de la cotización
     this.subscription.add(
       this.cotizacionService.cotizacion$.subscribe(cotizacion => {
         if (cotizacion.cabana) {
@@ -129,7 +129,7 @@ export class CabanasComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  // MÉTODOS DEL MODAL
+  // === FUNCIONALIDADES DEL MODAL ===
 
   /**
    * Abre el modal de galería para una cabaña específica
@@ -139,7 +139,7 @@ export class CabanasComponent implements OnInit, OnDestroy {
     this.cabanaModalActual = cabanaId;
     this.imagenActualIndex = 0;
     this.modalAbierto = true;
-    // Prevenir scroll del body cuando el modal está abierto
+    // Evitar que se pueda hacer scroll mientras el modal está abierto
     document.body.style.overflow = 'hidden';
   }
 
@@ -150,7 +150,6 @@ export class CabanasComponent implements OnInit, OnDestroy {
     this.modalAbierto = false;
     this.cabanaModalActual = null;
     this.imagenActualIndex = 0;
-    // Restaurar scroll del body
     document.body.style.overflow = 'auto';
   }
 
@@ -272,7 +271,7 @@ export class CabanasComponent implements OnInit, OnDestroy {
     }
   }
 
-  // MÉTODOS ORIGINALES DEL COMPONENTE
+  // === LÓGICA PRINCIPAL DE SELECCIÓN ===
 
   /**
    * Selecciona una cabaña y ajusta la cantidad de personas según el rango
@@ -281,11 +280,10 @@ export class CabanasComponent implements OnInit, OnDestroy {
   selectCabana(cabanaId: number): void {
     this.selectedCabana = cabanaId;
     
-    // Establecer la cantidad mínima de personas según la cabaña
+    // Auto-establecer el mínimo de personas permitido para la cabaña
     const rango = this.rangosPersonas[cabanaId as keyof typeof this.rangosPersonas];
     this.cantidadPersonas = rango.min;
     
-    // Actualizar el servicio de cotización
     this.actualizarCotizacion();
     
     console.log(`Cabaña seleccionada: ${cabanaId}, Personas: ${this.cantidadPersonas}`);
@@ -344,25 +342,21 @@ export class CabanasComponent implements OnInit, OnDestroy {
 
     const precioBase = this.preciosBase[this.selectedCabana as keyof typeof this.preciosBase];
 
-    // Lógica de precios variables según cantidad de personas
+    // Sistema de precios dinámicos basado en cantidad de personas
     switch (this.selectedCabana) {
       case 1:
-        // Cabaña #1: precio fijo
+        // Cabaña romántica: precio fijo para parejas
         return precioBase;
       
       case 2:
-        // Cabaña #2: 
-        // - 3-4 personas: precio base (300,000)
-        // - 5-6 personas: 350,000
+        // Cabaña familiar: precio escalonado
         if (this.cantidadPersonas >= 5 && this.cantidadPersonas <= 6) {
           return 350000;
         }
         return precioBase;
       
       case 3:
-        // Cabaña #3:
-        // - 6-8 personas: precio base (500,000)
-        // - 9-10 personas: 600,000
+        // Cabaña grupal: precio escalonado
         if (this.cantidadPersonas >= 9 && this.cantidadPersonas <= 10) {
           return 600000;
         }

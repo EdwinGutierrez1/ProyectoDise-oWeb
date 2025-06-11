@@ -1,15 +1,17 @@
-// comidas.component.ts - ACTUALIZADO
+/* Importaciones necesarias */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CotizacionService, DatosCotizacion } from '../cotizacion.service';
 
+// Interfaz para las opciones individuales de cada comida
 interface OpcionComida {
   nombre: string;
   descripcion: string;
   imagen: string;
 }
 
+// Interfaz principal para cada tipo de comida (desayuno, almuerzo, cena)
 interface Comida {
   id: number;
   nombre: string;
@@ -47,7 +49,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     3: '🌙'  // Cena
   };
 
-  // Datos de las comidas
+  // Configuración de las comidas disponibles con sus opciones y precios
   private comidas: Comida[] = [
     {
       id: 1,
@@ -129,7 +131,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   constructor(private cotizacionService: CotizacionService) {}
 
   ngOnInit(): void {
-    // Suscribirse a cambios en la cotización
+    // Suscribirse a cambios en la cotización para mantener sincronizados los datos
     this.subscription.add(
       this.cotizacionService.cotizacion$.subscribe(cotizacion => {
         this.datosCotizacion = cotizacion;
@@ -148,7 +150,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Listener para cerrar modal con Escape
+    // Configurar listener para cerrar modal con la tecla Escape
     const escapeListener = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && this.showModal) {
         this.closeModal();
@@ -157,7 +159,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     
     document.addEventListener('keydown', escapeListener);
     
-    // Guardar referencia para poder remover el listener
+    // Guardar referencia para poder remover el listener en el cleanup
     this.subscription.add(() => {
       document.removeEventListener('keydown', escapeListener);
     });
@@ -548,5 +550,3 @@ export class MenuComponent implements OnInit, OnDestroy {
     return 'por persona';
   }
 }
-// REMOVE this erroneous line at the end of the file:
-// this.cotizacionService.setComidasSeleccionadas(this.selectedComidasArray);

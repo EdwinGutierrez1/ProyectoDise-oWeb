@@ -1,4 +1,6 @@
 /* comidas.component.css */
+
+/* Contenedor principal del componente de comidas */
 .comidas-container {
     max-width: 100%;
     margin: 0 auto;
@@ -6,8 +8,6 @@
     font-family: Arial, sans-serif;
     border-bottom: 2px solid #c4c3c3;
 }
-
-/*PUNTO DE CONTROL NOJODA*/
 
 .titulo {
     text-align: center;
@@ -18,6 +18,7 @@
     margin-top: 20px;
 }
 
+/* Grid layout para mostrar las tarjetas de comida en 3 columnas */
 .comidas-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -26,6 +27,7 @@
     justify-items: center;
 }
 
+/* Tarjeta individual de comida con efectos de hover */
 .comida-card {
     width: 380px;
     border: 2px solid #ccc;
@@ -37,12 +39,14 @@
     min-height: 395px;
 }
 
+/* Efecto hover para las tarjetas de comida */
 .comida-card:hover {
     border-color: #9e9e9e;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transform: scale(1.02);
 }
 
+/* Estado visual cuando una comida está seleccionada */
 .comida-card.selected {
     border-color: #28a745;
     border-width: 2.8px;
@@ -50,7 +54,7 @@
     background-color: #CCECCC;
 }
 
-/* Estilos específicos para el desayuno incluido */
+/* Estilos especiales para el desayuno incluido en el paquete */
 .comida-card.incluido {
     border-color: #007bff;
     border-width: 2.8px;
@@ -63,7 +67,7 @@
     box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
 }
 
-/* Estilos para cards deshabilitadas */
+/* Estado deshabilitado para opciones no disponibles */
 .comida-card.disabled {
     opacity: 0.7;
     cursor: not-allowed;
@@ -102,14 +106,16 @@
     padding: 0.5rem 1rem;
 }
 
+/* Layout centrado para las opciones de comida en el modal */
 .opcion-item-centered {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    max-width: 600px; /* Aumentamos el max-width para acomodar la imagen más grande */
+    max-width: 600px;
     width: 100%;
 }
 
+/* Contenedor de imagen con sombra y bordes redondeados */
 .opcion-image-container {
     flex-shrink: 0;
     width: 160px;
@@ -119,7 +125,6 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
     border: 1px solid #b6b5b5;
 }
-
 
 .opcion-image-container img.opcion-image {
     width: 160px;
@@ -132,11 +137,11 @@
 .opcion-info {
     flex: 1;
     min-width: 200px;
-    max-width: 380px; /* Ajustamos para que el texto tenga buen espacio */
+    max-width: 380px;
     margin-left: 30px;
 }
 
-/* Mensaje de validación */
+/* Mensaje informativo azul para validaciones */
 .mensaje-validacion {
     text-align: center;
     margin-bottom: 30px;
@@ -163,6 +168,7 @@
     font-size: 1.2rem;
 }
 
+/* Contenedor de imagen principal en las tarjetas */
 .image-container {
     width: 100%;
     height: 300px;
@@ -201,6 +207,7 @@
     padding-bottom: 0;
 }
 
+/* Precio con color verde distintivo */
 .precio {
     font-size: 1.6rem;
     color: #28a745;
@@ -209,7 +216,7 @@
     padding-bottom: 0;
 }
 
-/* Estilos específicos para "Incluido" */
+/* Estilo especial para mostrar "Incluido" en azul */
 .precio.incluido-texto {
     color: #007bff;
     font-size: 1.6rem;
@@ -225,12 +232,12 @@
     font-weight: 600;
 }
 
-/* Estilos para "en tu estadía" del desayuno */
+/* Color azul para el texto del desayuno incluido */
 .comida-card.incluido .por-persona {
     color: #007bff;
 }
 
-/* Modal Styles */
+/* Estilos del modal overlay con fondo semi-transparente */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -244,11 +251,12 @@
     z-index: 1060;
 }
 
+/* Contenedor principal del modal con scroll vertical */
 .modal-content {
     background-color: white;
     border-radius: 15px;
     width: 90%;
-    max-width: 750px; /* Aumentamos el ancho máximo para acomodar mejor las imágenes */
+    max-width: 750px;
     max-height: 90vh;
     overflow-y: auto;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -280,6 +288,7 @@
     flex-shrink: 0;
 }
 
+/* Botón de cerrar sin fondo circular */
 .close-btn {
     background: none;
     border: none;
@@ -293,18 +302,17 @@
     justify-content: center;
     transition: all 0.3s ease;
     flex-shrink: 0;
-    /* Eliminamos width, height y border-radius para quitar el círculo */
 }
 
 .close-btn:hover {
-    color: #000; /* Solo cambiamos el color al hacer hover, sin fondo */
+    color: #000;
 }
 
 .modal-body {
     padding: 15px 30px;
 }
 
-/* Estilos para el texto informativo del modal */
+/* Texto informativo del modal sin bordes ni fondos */
 .modal-info-texto {
     margin-bottom: 25px;
     padding: 0;
@@ -324,10 +332,11 @@
 .opciones-container {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Aumentamos el gap para mejor separación */
+    gap: 15px;
     margin-bottom: 15px;
 }
 
+/* Layout de opciones con separadores horizontales */
 .opcion-item {
     display: flex;
     gap: 20px;
@@ -356,6 +365,7 @@
     margin: 0;
 }
 
+/* Sección de precio del modal con borde superior */
 .modal-precio-container {
     text-align: center;
     margin-top: 10px;
@@ -372,7 +382,7 @@
     padding-bottom: 0;
 }
 
-/* Estilos para "Incluido" en el modal */
+/* Precio "Incluido" en azul para el modal */
 .modal-precio.incluido-modal {
     color: #007bff;
     font-size: 2.2rem;
@@ -386,7 +396,7 @@
     font-weight: normal;
 }
 
-/* Estilo específico para "en tu estadía" en el modal del desayuno */
+/* Texto azul para "en tu estadía" del desayuno */
 .modal-por-persona.incluido-modal-texto {
     color: #007bff;
 }
@@ -397,6 +407,7 @@
     justify-content: center;
 }
 
+/* Botón principal de selección con efectos hover */
 .seleccionar-btn {
     background-color: #28a745;
     color: white;
@@ -419,6 +430,7 @@
     transform: scale(0.95);
 }
 
+/* Botón rojo para quitar selección */
 .quitar-btn {
     background-color: #dc3545 !important;
 }
@@ -428,7 +440,7 @@
     transform: scale(1.05);
 }
 
-/* Estilos específicos para el botón de desayuno incluido */
+/* Botón especial para desayuno incluido - no interactivo */
 .incluido-btn {
     background-color: #007bff !important;
     cursor: default !important;
@@ -457,10 +469,10 @@
     font-size: 1.7rem;
 }
 
+/* ========== MEDIA QUERIES ========== */
 
-/* Media query para pantallas de computador más pequeñas */
+/* Ajustes para pantallas de computador medianas (1024px - 1366px) */
 @media (max-width: 1366px) and (min-width: 1024px) {
-    /* Ajustes para el contenedor principal */
     .comidas-container {
         padding: 40px 15px;
     }
@@ -470,7 +482,7 @@
         margin-bottom: 40px;
     }
 
-    /* Ajustes para los cards de comida */
+    /* Tarjetas más compactas para pantallas medianas */
     .comidas-grid {
         gap: 25px;
     }
@@ -507,7 +519,7 @@
         font-size: 0.9rem;
     }
 
-    /* Ajustes para el modal - Versión más compacta */
+    /* Modal más compacto para pantallas medianas */
     .modal-content {
         max-width: 550px;
         max-height: 85vh;
@@ -543,39 +555,39 @@
         line-height: 1.3;
     }
 
-    /* Ajustes para las opciones dentro del modal - CORREGIDO PARA CENTRADO */
+    /* Layout centrado mejorado para opciones del modal */
     .opciones-container {
         gap: 8px;
         margin-bottom: 8px;
         display: flex;
         flex-direction: column;
-        align-items: center; /* Centra todos los elementos hijos */
+        align-items: center;
     }
 
     .opcion-item {
-        justify-content: center; /* Centra el contenido horizontalmente */
+        justify-content: center;
     }
 
     .opcion-item-wrapper {
         display: flex;
-        justify-content: center; /* Centra el wrapper */
+        justify-content: center;
         padding: 0.5rem 1rem;
     }
 
     .opcion-item-centered {
         display: flex;
         align-items: center;
-        justify-content: center; /* Añadido para centrar mejor */
+        justify-content: center;
         gap: 1rem;
         max-width: 480px;
         width: 100%;
-        margin: 0 auto; /* Centra el contenedor completo */
+        margin: 0 auto;
     }
 
     .opcion-image-container {
         width: 110px;
         height: 85px;
-        flex-shrink: 0; /* Evita que la imagen se encoja */
+        flex-shrink: 0;
     }
 
     .opcion-image-container img.opcion-image {
@@ -600,7 +612,6 @@
         line-height: 1.3;
     }
 
-    /* Ajustes para el precio del modal */
     .modal-precio-container {
         margin-top: 6px;
         padding: 6px 0;
@@ -618,7 +629,6 @@
         font-size: 0.9rem;
     }
 
-    /* Ajustes para el footer del modal */
     .modal-footer {
         padding: 6px 20px 20px 20px;
     }
@@ -629,7 +639,6 @@
         min-width: 130px;
     }
 
-    /* Ajustes para el total de comidas */
     .total-comidas {
         margin-top: 35px;
     }
@@ -643,7 +652,7 @@
     }
 }
 
-/* Media query para moviles */
+/* Diseño responsive para dispositivos móviles */
 @media (max-width: 768px) {
     .comidas-container {
         padding: 30px 15px;
@@ -671,47 +680,49 @@
         text-align: center;
     }
 
+    /* Layout de una sola columna para móvil */
     .comidas-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
 
+    /* Tarjetas más angostas y altas para móvil */
     .comida-card {
-        width: 90%; /* Reducido de 100% para hacerlas más angostas */
-        max-width: 300px; /* Reducido de 350px para hacerlas más angostas */
-        padding: 15px 20px; /* Reducido el padding para mantener la proporción */
+        width: 90%;
+        max-width: 300px;
+        padding: 15px 20px;
     }
 
     .image-container {
-        height: 200px; /* Aumentado de 180px a 200px para hacer la imagen más alta */
+        height: 200px;
     }
 
     .comida-info h3 {
         margin-top: 20px;
-        font-size: 1.6rem; /* Aumentado de 1.2rem para hacerlo más grande */
-        min-height: 30px; /* Reducido de 35px para compensar el aumento de la imagen */
-        margin-bottom: 20px; /* Reducido de 10px para compensar el aumento de la imagen */
+        font-size: 1.6rem;
+        min-height: 30px;
+        margin-bottom: 20px;
     }
 
     .comida-info {
-        margin-top: 15px; /* Reducido de 20px para compensar el aumento de la imagen */
+        margin-top: 15px;
     }
 
     .precio {
-        font-size: 1.5rem; /* Aumentado de 1.25rem para hacerlo más grande */
-        margin-bottom: 5px; /* Añadido para separar del texto "por persona" */
+        font-size: 1.5rem;
+        margin-bottom: 5px;
     }
 
     .precio.incluido-texto {
-        font-size: 1.4rem; /* Aumentado de 1.25rem para hacerlo más grande */
+        font-size: 1.4rem;
     }
 
     .por-persona {
-        font-size: 1rem; /* Aumentado de 0.8rem para hacerlo más grande */
-        font-weight: 600; /* Mantenido el peso de la fuente para que sea visible */
+        font-size: 1rem;
+        font-weight: 600;
     }
 
-    /* Modal responsive */
+    /* Modal adaptado para pantallas pequeñas */
     .modal-content {
         width: 95%;
         margin: 20px;
@@ -725,8 +736,9 @@
         padding: 12px 20px;
     }
 
+    /* Botón de cerrar más grande para mejor usabilidad en móvil */
     .close-btn {
-        font-size: 2rem; /* Aumentado de 1.3rem para hacerlo más grande */
+        font-size: 2rem;
         background: none;
         border: none;
         cursor: pointer;
@@ -741,16 +753,16 @@
     }
 
     .close-btn:hover {
-        color: #000; /* Color más oscuro al pasar el cursor */
+        color: #000;
     }
     
     .modal-title {
-        font-size: 1.5rem; /* Reducido de 1.3rem para hacerlo más pequeño */
+        font-size: 1.5rem;
         gap: 8px;
     }
 
     .food-icon {
-        font-size: 1.2rem; /* Reducido de 1.4rem para mantener proporción */
+        font-size: 1.2rem;
     }
 
     .modal-info-texto {
@@ -759,13 +771,14 @@
     }
 
     .info-texto {
-        font-size: 1rem; /* Aumentado de 0.9rem para hacerlo más grande */
+        font-size: 1rem;
     }
 
     .opciones-container {
-        gap: 15px; /* Mantenemos buen espaciado en móvil */
+        gap: 15px;
     }
 
+    /* Layout vertical para opciones en móvil */
     .opcion-item-centered {
         flex-direction: column;
         gap: 15px;
@@ -773,9 +786,10 @@
         max-width: 100%;
     }
 
+    /* Imágenes más grandes para mejor visualización en móvil */
     .opcion-image-container {
-        width: 180px; /* Aumentado de 160px para hacer las imágenes más grandes */
-        height: 135px; /* Aumentado de 120px para mantener proporción */
+        width: 180px;
+        height: 135px;
         margin: 0 auto;
         border-radius: 10px;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
@@ -783,8 +797,8 @@
     }
 
     .opcion-image-container img.opcion-image {
-        width: 180px; /* Aumentado de 160px para hacer las imágenes más grandes */
-        height: 135px; /* Aumentado de 120px para mantener proporción */
+        width: 180px;
+        height: 135px;
         border: none;
     }
 
@@ -795,20 +809,21 @@
     }
 
     .opcion-info h4 {
-        font-size: 1.1rem; /* Reducido de 1.2rem para hacerlo más pequeño */
-        margin-bottom: 6px; /* Ajustado para mejor espaciado */
+        font-size: 1.1rem;
+        margin-bottom: 6px;
     }
 
     .opcion-info p {
-        font-size: 0.85rem; /* Reducido para hacer la descripción más pequeña */
-        line-height: 1.4; /* Ajustado para mejor legibilidad */
+        font-size: 0.85rem;
+        line-height: 1.4;
         margin-bottom: 18px;
     }
+    
     .modal-footer {
         padding: 15px 20px 25px 20px;
     }
 
-    /* Nuevo estilo para reducir el padding inferior en móvil cuando es el modal de desayuno incluido */
+    /* Padding reducido cuando el modal no tiene botones */
     .modal-footer:empty {
         padding: 5px;
     }
@@ -843,25 +858,25 @@
         font-size: 1.5rem;
     }
 
-    /*Desactivamos los hovers en moviles*/
+    /* Desactivar efectos hover en dispositivos móviles para mejor UX */
     .comida-card:hover {
-        border-color: #ccc; /* Mantener el color original del borde */
-        box-shadow: none; /* Eliminar la sombra */
-        transform: none; /* Eliminar el efecto de escala */
+        border-color: #ccc;
+        box-shadow: none;
+        transform: none;
     }
 
     .comida-card.incluido:hover {
-        border-color: #007bff; /* Mantener el color original del borde azul */
-        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); /* Mantener la sombra original */
+        border-color: #007bff;
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
     }
 
     .seleccionar-btn:hover {
-        background-color: #28a745; /* Mantener el color original */
-        transform: none; /* Eliminar el efecto de escala */
+        background-color: #28a745;
+        transform: none;
     }
 
     .quitar-btn:hover {
-        background-color: #dc3545 !important; /* Mantener el color original */
-        transform: none !important; /* Eliminar el efecto de escala */
+        background-color: #dc3545 !important;
+        transform: none !important;
     }
 }

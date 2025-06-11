@@ -5,32 +5,37 @@ describe('CalendarioComponent', () => {
   let component: CalendarioComponent;
   let fixture: ComponentFixture<CalendarioComponent>;
 
+  // Configuración inicial antes de cada test
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CalendarioComponent]
+      imports: [CalendarioComponent] // Importamos el componente standalone
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(CalendarioComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    fixture.detectChanges(); // Dispara el ciclo de detección de cambios
   });
 
+  // Test básico de creación del componente
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
+  // Verifica que el componente se inicialice con valores por defecto
   it('should initialize with current date', () => {
     expect(component.currentDate).toBeDefined();
     expect(component.selectedRange).toEqual({ startDate: null, endDate: null });
   });
 
+  // Prueba la generación del calendario con el número correcto de días
   it('should generate calendar days', () => {
     component.generateCalendar();
     expect(component.calendarDays.length).toBeGreaterThan(0);
     expect(component.calendarDays.length).toBeLessThanOrEqual(42); // máximo 6 semanas
   });
 
+  // Verifica el comportamiento de selección de fechas
   it('should handle date selection', () => {
     const mockDay = {
       date: new Date(),
@@ -47,6 +52,7 @@ describe('CalendarioComponent', () => {
     expect(component.isSelectingEndDate).toBe(true);
   });
 
+  // Asegura que las fechas deshabilitadas no se puedan seleccionar
   it('should not select disabled dates', () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
@@ -65,6 +71,7 @@ describe('CalendarioComponent', () => {
     expect(component.selectedRange.startDate).toBeNull();
   });
 
+  // Prueba la funcionalidad de selección de rangos predefinidos
   it('should handle predefined range selection', () => {
     const range = { label: '3 días', days: 3 };
     component.onPredefinedRangeClick(range);
@@ -74,8 +81,9 @@ describe('CalendarioComponent', () => {
     expect(component.isSelectingEndDate).toBe(false);
   });
 
+  // Verifica que se pueda limpiar la selección correctamente
   it('should clear selection', () => {
-    // Primero establecer una selección
+    // Establecer una selección inicial para probar la limpieza
     component.selectedRange = { 
       startDate: new Date(), 
       endDate: new Date() 
@@ -88,6 +96,7 @@ describe('CalendarioComponent', () => {
     expect(component.isSelectingEndDate).toBe(false);
   });
 
+  // Prueba la navegación entre meses del calendario
   it('should navigate months', () => {
     const currentMonth = component.currentDate.getMonth();
     
@@ -98,6 +107,7 @@ describe('CalendarioComponent', () => {
     expect(component.currentDate.getMonth()).toBe(currentMonth);
   });
 
+  // Verifica el cálculo correcto de días seleccionados
   it('should calculate selected days count correctly', () => {
     const startDate = new Date(2025, 0, 1);
     const endDate = new Date(2025, 0, 3);
@@ -107,6 +117,7 @@ describe('CalendarioComponent', () => {
     expect(component.selectedDaysCount).toBe(3);
   });
 
+  // Prueba la función utilitaria de comparación de fechas
   it('should check if dates are the same day', () => {
     const date1 = new Date(2025, 0, 1);
     const date2 = new Date(2025, 0, 1);
@@ -116,6 +127,7 @@ describe('CalendarioComponent', () => {
     expect(component.isSameDay(date1, date3)).toBe(false);
   });
 
+  // Confirma que las fechas pasadas están deshabilitadas
   it('should disable past dates', () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);

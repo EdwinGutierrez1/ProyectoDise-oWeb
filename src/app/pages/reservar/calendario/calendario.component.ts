@@ -3,11 +3,13 @@ import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
 import { CotizacionService, DatosCotizacion } from '../cotizacion.service';
 import { Subscription } from 'rxjs';
 
+// Interfaz para manejar el rango de fechas seleccionado
 interface DateRange {
   startDate: Date | null;
   endDate: Date | null;
 }
 
+// Interfaz que define las propiedades de cada día del calendario
 interface CalendarDay {
   date: Date;
   isCurrentMonth: boolean;
@@ -26,6 +28,7 @@ interface CalendarDay {
   styleUrls: ['./calendario.component.css']
 })
 export class CalendarioComponent implements OnInit, OnDestroy {
+  // Emite el rango de fechas seleccionado al componente padre
   @Output() dateRangeSelected = new EventEmitter<DateRange>();
 
   currentDate = new Date();
@@ -35,13 +38,14 @@ export class CalendarioComponent implements OnInit, OnDestroy {
   showErrorModal = false;
   errorMessage = '';
   
-  // Variables para la integración con el servicio de cotización
+  // Variables para integración con el servicio de cotización y cálculo de costos
   cotizacionData: DatosCotizacion | null = null;
   cotizacionSubscription: Subscription | null = null;
   costoTotalEstadia = 0;
   costoPorNoche = 0;
   cantidadNoches = 0;
   
+  // Arrays para los nombres de meses y días de la semana
   months = [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
@@ -49,7 +53,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
 
   weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
-  // Rangos predefinidos actualizados: 3 días, 5 días y una semana
+  // Opciones de rangos predefinidos para selección rápida
   predefinedRanges = [
     { label: '3 días', days: 3 },
     { label: '5 días', days: 5 },
@@ -64,6 +68,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // Limpieza de la suscripción para evitar memory leaks
     if (this.cotizacionSubscription) {
       this.cotizacionSubscription.unsubscribe();
     }
@@ -92,31 +97,27 @@ export class CalendarioComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Calcular cantidad de noches
+    // Calcular cantidad de noches entre las fechas seleccionadas
     const diffTime = Math.abs(this.selectedRange.endDate.getTime() - this.selectedRange.startDate.getTime());
     this.cantidadNoches = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    // Precio por noche de la cabaña
     this.costoPorNoche = this.cotizacionData.cabana.precio;
-
-    // Costo total de la estadía (solo hospedaje)
     this.costoTotalEstadia = this.costoPorNoche * this.cantidadNoches;
   }
 
+  // Genera la estructura del calendario para el mes actual
   generateCalendar() {
     const year = this.currentDate.getFullYear();
     const month = this.currentDate.getMonth();
     
-    // Primer día del mes
     const firstDay = new Date(year, month, 1);
-    // Último día del mes
     const lastDay = new Date(year, month + 1, 0);
     
-    // Días para mostrar del mes anterior
+    // Calcular los días del mes anterior que se muestran para completar la primera semana
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());
     
-    // Días para mostrar del mes siguiente
+    // Calcular los días del mes siguiente para completar la última semana
     const endDate = new Date(lastDay);
     const remainingDays = 6 - lastDay.getDay();
     endDate.setDate(endDate.getDate() + remainingDays);
@@ -124,6 +125,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
     this.calendarDays = [];
     const currentIterDate = new Date(startDate);
 
+    // Generar todos los días que se mostrarán en el calendario
     while (currentIterDate <= endDate) {
       const day: CalendarDay = {
         date: new Date(currentIterDate),
@@ -140,6 +142,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Verifica si una fecha está seleccionada (inicio o fin)
   isDateSelected(date: Date): boolean {
     if (!this.selectedRange.startDate) return false;
     
@@ -151,6 +154,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
     return this.isSameDay(date, this.selectedRange.startDate);
   }
 
+  // Verifica si una fecha está dentro del rango seleccionado
   isDateInRange(date: Date): boolean {
     if (!this.selectedRange.startDate || !this.selectedRange.endDate) return false;
     
@@ -167,39 +171,41 @@ export class CalendarioComponent implements OnInit, OnDestroy {
            this.isSameDay(date, this.selectedRange.endDate) : false;
   }
 
+  // Deshabilita fechas anteriores al día actual
   isDateDisabled(date: Date): boolean {
-    // Deshabilitar fechas pasadas
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return date < today;
   }
 
+  // Compara si dos fechas son el mismo día
   isSameDay(date1: Date, date2: Date): boolean {
     return  date1.getDate() === date2.getDate() &&
             date1.getMonth() === date2.getMonth() &&
             date1.getFullYear() === date2.getFullYear();
   }
 
+  // Maneja la selección de fechas con validaciones de rango
   onDateClick(day: CalendarDay) {
     if (day.isDisabled) return;
 
     if (!this.selectedRange.startDate || this.isSelectingEndDate === false) {
-      // Seleccionar fecha de inicio
+      // Primera selección: fecha de inicio
       this.selectedRange = { startDate: new Date(day.date), endDate: null };
       this.isSelectingEndDate = true;
     } else {
-      // Seleccionar fecha de fin
+      // Segunda selección: fecha de fin
       if (day.date >= this.selectedRange.startDate!) {
-        // Calcular días de diferencia
+        // Calcular días de diferencia incluyendo ambos días
         const daysDiff = Math.ceil((day.date.getTime() - this.selectedRange.startDate!.getTime()) / (1000 * 60 * 60 * 24)) + 1;
         
-        // Validar mínimo 2 días (1 noche)
+        // Validación de estadía mínima
         if (daysDiff < 2) {
           this.showError('La reserva debe ser de mínimo 2 días (1 noche).');
           return;
         }
         
-        // Validar que no exceda una semana (7 días)
+        // Validación de estadía máxima
         if (daysDiff > 7) {
           this.showError('Puedes seleccionar máximo 7 días consecutivos.');
           return;
@@ -209,30 +215,31 @@ export class CalendarioComponent implements OnInit, OnDestroy {
         this.isSelectingEndDate = false;
         this.emitDateRange();
       } else {
-        // Si la fecha seleccionada es anterior, reiniciar
+        // Si selecciona una fecha anterior, reinicia la selección
         this.selectedRange = { startDate: new Date(day.date), endDate: null };
       }
     }
 
     this.generateCalendar();
-    this.calcularCostoEstadia(); // Recalcular costo cuando cambian las fechas
+    this.calcularCostoEstadia();
   }
 
+  // Selecciona un rango predefinido desde la fecha actual
   onPredefinedRangeClick(range: { label: string; days: number }) {
     const today = new Date();
     const startDate = new Date(today);
     const endDate = new Date(today);
     
-    // Calcular fecha de fin basada en los días del rango
     endDate.setDate(startDate.getDate() + range.days - 1);
 
     this.selectedRange = { startDate, endDate };
     this.isSelectingEndDate = false;
     this.generateCalendar();
-    this.calcularCostoEstadia(); // Recalcular costo
+    this.calcularCostoEstadia();
     this.emitDateRange();
   }
 
+  // Navegación entre meses
   previousMonth() {
     this.currentDate.setMonth(this.currentDate.getMonth() - 1);
     this.generateCalendar();
@@ -243,6 +250,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
     this.generateCalendar();
   }
 
+  // Limpia toda la selección y resetea los valores
   clearSelection() {
     this.selectedRange = { startDate: null, endDate: null };
     this.isSelectingEndDate = false;
@@ -253,11 +261,13 @@ export class CalendarioComponent implements OnInit, OnDestroy {
     this.dateRangeSelected.emit(this.selectedRange);
   }
 
+  // Emite el rango seleccionado y actualiza el servicio de cotización
   emitDateRange() {
     this.dateRangeSelected.emit(this.selectedRange);
-    this.cotizacionService.setFechaRange(this.selectedRange); // <-- Añade esta línea
+    this.cotizacionService.setFechaRange(this.selectedRange);
   }
 
+  // Muestra modal de error con mensaje personalizado
   showError(message: string) {
     this.errorMessage = message;
     this.showErrorModal = true;
@@ -268,10 +278,12 @@ export class CalendarioComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
   }
 
+  // Getter para mostrar el mes y año actual en el header
   get currentMonthYear(): string {
     return `${this.months[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
   }
 
+  // Calcula la cantidad total de días seleccionados
   get selectedDaysCount(): number {
     if (!this.selectedRange.startDate || !this.selectedRange.endDate) return 0;
     
@@ -281,19 +293,19 @@ export class CalendarioComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Getter para verificar si hay una cabaña seleccionada
+   * Verifica si hay una cabaña seleccionada en la cotización
    */
   get tieneCabanaSeleccionada(): boolean {
     return this.cotizacionData?.cabana !== null && this.cotizacionData?.cabana !== undefined;
   }
 
 /**
- * Getter para obtener el nombre de la cabaña seleccionada
+ * Mapea la capacidad de la cabaña a un número identificador
  */
 get nombreCabana(): string {
   if (!this.cotizacionData?.cabana) return '';
   
-  // Mapear según la capacidad a números de cabaña
+  // Mapeo de capacidades a números de cabaña
   switch (this.cotizacionData.cabana.capacidad) {
     case 'Parejas':
     case '2':
@@ -310,7 +322,7 @@ get nombreCabana(): string {
 }
 
   /**
-   * Getter para obtener la cantidad de personas
+   * Obtiene la cantidad de personas de la cotización actual
    */
   get cantidadPersonas(): number {
     return this.cotizacionData?.cantidadPersonas || 0;

@@ -1,9 +1,11 @@
-<!-- cabanas.component.html -->
+<!-- Contenedor principal del componente de selección de cabañas -->
 <div class="cabanas-container">
+    <!-- Título del primer paso del proceso de reserva -->
     <h1 class="titulo">Paso 1: Elige la Cabaña</h1>
     
+    <!-- Grid responsive con las 3 opciones de cabañas disponibles -->
     <div class="cabanas-grid">
-        <!-- Cabaña #1 -->
+        <!-- Cabaña #1 - Opción para parejas -->
         <div 
             class="cabana-card" 
             [class.selected]="selectedCabana === 1"
@@ -17,7 +19,7 @@
             </div>
         </div>
 
-        <!-- Cabaña #2 -->
+        <!-- Cabaña #2 - Opción para grupos medianos -->
         <div 
             class="cabana-card" 
             [class.selected]="selectedCabana === 2"
@@ -31,7 +33,7 @@
             </div>
         </div>
 
-        <!-- Cabaña #3 -->
+        <!-- Cabaña #3 - Opción para grupos grandes -->
         <div 
             class="cabana-card" 
             [class.selected]="selectedCabana === 3"
@@ -46,9 +48,9 @@
         </div>
     </div>
 
-    <!-- Contador y Precio en la misma línea -->
+    <!-- Panel de configuración que aparece después de seleccionar una cabaña -->
     <div class="contador-precio-container" *ngIf="selectedCabana">
-        <!-- Cuadro 1: Número de personas -->
+        <!-- Selector de cantidad de personas con controles + y - -->
         <div class="cuadro-info">
             <div class="cuadro-label">No. de personas</div>
             <div class="contador-box">
@@ -64,31 +66,30 @@
             </div>
         </div>
         
-        <!-- Cuadro 2: Valor por noche -->
+        <!-- Muestra el precio calculado según la cabaña y cantidad de personas -->
         <div class="cuadro-info">
             <div class="cuadro-label cuadro-label-precio">Valor por noche: </div>
             <div class="precio-box">${{ getPrecio() | number:'1.0-0' }}</div>
         </div>
     </div>
 
-    <!-- Texto informativo -->
+    <!-- Información adicional sobre la variación de precios -->
     <div class="texto-informativo" *ngIf="selectedCabana">
         <p>El valor por noche puede variar según la cantidad de personas ingresada</p>
     </div>
 
-
-    <!-- Modal de Galería -->
+    <!-- Modal de galería fotográfica para ver detalles de cada cabaña -->
     <div class="modal-overlay" *ngIf="modalAbierto" (click)="cerrarModal()">
         <div class="modal-content" (click)="$event.stopPropagation()">
-            <!-- Header del Modal -->
+            <!-- Cabecera del modal con título y botón de cierre -->
             <div class="modal-header">
                 <h2>Cabaña #{{ cabanaModalActual }}</h2>
                 <button class="modal-close" (click)="cerrarModal()">&times;</button>
             </div>
 
-            <!-- Galería de Imágenes -->
+            <!-- Galería interactiva de imágenes -->
             <div class="galeria-container">
-                <!-- Imagen Principal -->
+                <!-- Imagen principal con navegación por flechas -->
                 <div class="imagen-principal">
                     <img 
                         [src]="getImagenActual()" 
@@ -96,7 +97,7 @@
                         class="imagen-galeria"
                         loading="lazy">
                     
-                    <!-- Flecha Izquierda -->
+                    <!-- Controles de navegación entre imágenes -->
                     <button 
                         class="flecha-navegacion flecha-izquierda"
                         (click)="imagenAnterior()"
@@ -104,7 +105,6 @@
                         &#8249;
                     </button>
                     
-                    <!-- Flecha Derecha -->
                     <button 
                         class="flecha-navegacion flecha-derecha"
                         (click)="imagenSiguiente()"
@@ -113,7 +113,7 @@
                     </button>
                 </div>
 
-                <!-- Indicadores de Imagen -->
+                <!-- Indicadores visuales para navegación directa -->
                 <div class="indicadores">
                     <span 
                         *ngFor="let imagen of getImagenesCabana(); let i = index"
@@ -123,13 +123,13 @@
                     </span>
                 </div>
 
-                <!-- Información de la Imagen -->
+                <!-- Contador de posición actual en la galería -->
                 <div class="info-imagen">
                     <span>{{ imagenActualIndex + 1 }} de {{ getImagenesCabana().length }}</span>
                 </div>
             </div>
 
-            <!-- Información de la Cabaña - SIMPLIFICADA -->
+            <!-- Información detallada de las características de la cabaña -->
             <div class="modal-info">
                 <div class="caracteristicas-cabana">
                     <div class="caracteristica">
@@ -140,7 +140,7 @@
                         <span class="icono">🚿</span>
                         <span class="texto">{{ getBanosCabana() }} baños</span>
                     </div>
-                    <!-- NUEVA AMENIDAD CONDICIONAL -->
+                    <!-- Amenidad especial que varía según el tipo de cabaña -->
                     <div class="caracteristica" *ngIf="getAmenidadCabana()">
                         <span class="icono">{{ getAmenidadCabana()?.emoji }}</span>
                         <span class="texto">{{ getAmenidadCabana()?.texto }}</span>
@@ -148,7 +148,7 @@
                 </div>
             </div>
 
-            <!-- Botón de Selección -->
+            <!-- Botón para confirmar la selección de cabaña -->
             <div class="modal-footer">
                 <button 
                     class="btn-elegir"

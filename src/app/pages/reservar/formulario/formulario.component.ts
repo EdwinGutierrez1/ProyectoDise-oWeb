@@ -1,16 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CotizacionService, DatosCotizacion } from '../cotizacion.service';
 import { Subscription } from 'rxjs';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.css'],
 })
 export class FormularioComponent implements OnInit, OnDestroy {
+  @ViewChild('cotizarForm', { static: false }) cotizarForm!: NgForm;
+
   datosCotizacion: DatosCotizacion = {
     cabana: null,
     actividades: [],
@@ -23,13 +26,18 @@ export class FormularioComponent implements OnInit, OnDestroy {
   };
 
   mensajeEnviado: boolean = false;
-  mostrarPopup = false; // Para mostrar el popup
+  mostrarPopup = false;
   private subscription = new Subscription();
 
-  constructor(private cotizacionService: CotizacionService) {}
-
+  // Propiedades del formulario
   fechaLlegada: string = '';
   fechaSalida: string = '';
+  nombre: string = '';
+  email: string = '';
+  telefono: string = '';
+  comentarios: string = '';
+
+  constructor(private cotizacionService: CotizacionService) {}
 
   ngOnInit(): void {
     this.subscription.add(
@@ -47,6 +55,86 @@ export class FormularioComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  // Getter para verificar si el formulario es válido
+  get formularioValido(): boolean {
+    return this.cotizarForm?.valid ?? false;
+  }
+
+  // Propiedades para mostrar mensaje de validación general
+  mostrarMensajeValidacion: boolean = false;
+
+  // Método para verificar si un campo específico es inválido y ha sido tocado
+  esCampoInvalido(campo: string): boolean {
+    if (!this.cotizarForm) return false;
+    const control = this.cotizarForm.controls[campo];
+    return control ? (control.invalid && (control.dirty || control.touched)) : false;
+  }
+
+  // Método para verificar si un campo es válido y ha sido tocado
+  esCampoValido(campo: string): boolean {
+    if (!this.cotizarForm) return false;
+    const control = this.cotizarForm.controls[campo];
+    return control ? (control.valid && (control.dirty || control.touched)) : false;
+  }
+
+  // Método para obtener las clases CSS del campo
+  obtenerClasesCampo(campo: string): string {
+    if (!this.cotizarForm) return '';
+    const control = this.cotizarForm.controls[campo];
+    
+    if (!control || (!control.dirty && !control.touched)) return '';
+    
+    if (control.invalid) return 'is-invalid';
+    if (control.valid) return 'is-valid';
+    
+    return '';
+  }
+
+  // Método para obtener las clases CSS del grupo
+  obtenerClasesGrupo(campo: string): string {
+    if (!this.cotizarForm) return '';
+    const control = this.cotizarForm.controls[campo];
+    
+    if (!control || (!control.dirty && !control.touched)) return '';
+    
+    if (control.invalid) return 'is-invalid';
+    if (control.valid) return 'is-valid';
+    
+    return '';
+  }
+
+  // Método para mostrar errores específicos de cada campo
+  obtenerErrorCampo(campo: string): string {
+    if (!this.cotizarForm) return '';
+    const control = this.cotizarForm.controls[campo];
+    
+    if (!control || !control.errors) return '';
+    
+    if (control.errors?.['required']) {
+      switch (campo) {
+        case 'nombre': return 'El nombre es obligatorio.';
+        case 'email': return 'El correo es obligatorio.';
+        case 'telefono': return 'El teléfono es obligatorio.';
+        case 'fecha': return 'La fecha es obligatoria.';
+        default: return 'Este campo es obligatorio.';
+      }
+    }
+    
+    if (control.errors?.['pattern']) {
+      switch (campo) {
+        case 'email': return 'Correo no válido.';
+        case 'telefono': return 'Solo números (7-15 dígitos).';
+        default: return 'Formato no válido.';
+      }
+    }
+    
+    if (control.errors?.['minlength']) {
+      return 'Debe ingresar al menos 1 carácter.';
+    }
+    
+    return '';
   }
 
   get tieneCabana(): boolean {
@@ -81,33 +169,34 @@ export class FormularioComponent implements OnInit, OnDestroy {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const formData = new FormData(form);
-
+    if (!this.cotizarForm.valid) {
+      this.mostrarMensajeValidacion = true;
+      Object.keys(this.cotizarForm.controls).forEach(key => {
+        this.cotizarForm.controls[key].markAsTouched();
+      });
+      setTimeout(() => {
+        this.mostrarMensajeValidacion = false;
+      }, 5000);
+      return;
+    }
+    this.mostrarMensajeValidacion = false;
+    this.mensajeEnviado = true; // Mostrar mensaje de éxito
     const solicitudCompleta = {
       datosPersonales: {
-        nombre: formData.get('nombre'),
-        email: formData.get('email'),
-        telefono: formData.get('telefono'),
-        fecha: formData.get('fecha'),
-        comentarios: formData.get('comentarios'),
+        nombre: this.nombre,
+        email: this.email,
+        telefono: this.telefono,
+        fecha: this.fechaLlegada,
+        comentarios: this.comentarios,
       },
       cotizacion: this.datosCotizacion,
       fechaSolicitud: new Date().toISOString(),
     };
-
-    // Mostrar popup en vez de alert
-    this.mostrarPopup = true;
-
     this.enviarSolicitud(solicitudCompleta);
   }
 
   private enviarSolicitud(datos: any): void {
-    console.log('Enviando solicitud...', datos);
-    setTimeout(() => {
-      this.reiniciarFormulario();
-      // No cerramos popup automáticamente para que el usuario lo cierre
-    }, 1000);
+    this.reiniciarFormulario();
   }
 
   cerrarPopup(): void {
@@ -116,8 +205,22 @@ export class FormularioComponent implements OnInit, OnDestroy {
 
   private reiniciarFormulario(): void {
     this.cotizacionService.reiniciarCotizacion();
-    const form = document.getElementById('cotizar-form') as HTMLFormElement;
-    form?.reset();
+    
+    // Limpiar todas las propiedades del formulario
+    this.nombre = '';
+    this.email = '';
+    this.telefono = '';
+    this.fechaLlegada = '';
+    this.comentarios = '';
+    
+    // Ocultar mensajes
+    this.mostrarMensajeValidacion = false;
+    this.mensajeEnviado = false;
+    
+    // Reset del formulario
+    if (this.cotizarForm) {
+      this.cotizarForm.resetForm();
+    }
   }
 
   onVolver(): void {
@@ -129,7 +232,13 @@ export class FormularioComponent implements OnInit, OnDestroy {
   }
 
   formatDate(date: Date): string {
-    // Formato yyyy-MM-dd para input type="date"
     return date.toISOString().split('T')[0];
+  }
+
+  // Método helper para validación en tiempo real
+  validarCampo(campo: string): void {
+    if (this.cotizarForm && this.cotizarForm.controls[campo]) {
+      this.cotizarForm.controls[campo].markAsTouched();
+    }
   }
 }

@@ -1,6 +1,7 @@
 <div class="calendar-container">
     <h2 class="main-title">Paso 4: Selecciona el periodo de tu estadía</h2>
-    <!-- Rangos predefinidos -->
+    
+    <!-- Botones de selección rápida para fechas comunes -->
     <div class="predefined-ranges">
     <h3 style="margin-bottom: 20px;">Selección rápida</h3>
     <div class="range-buttons">
@@ -13,23 +14,23 @@
     </div>
     </div>
 
-    <!-- Layout principal: calendario e información -->
+    <!-- Layout principal con calendario y panel de información -->
     <div class="main-layout">
-    <!-- Calendario -->
+    <!-- Calendario de fechas -->
     <div class="calendar">
-        <!-- Header del calendario -->
+        <!-- Navegación entre meses -->
         <div class="calendar-header">
         <button class="nav-btn" (click)="previousMonth()">‹</button>
         <h2 class="month-year">{{currentMonthYear}}</h2>
         <button class="nav-btn" (click)="nextMonth()">›</button>
         </div>
 
-        <!-- Días de la semana -->
+        <!-- Encabezados de días de la semana -->
         <div class="weekdays">
         <div class="weekday" *ngFor="let day of weekDays">{{day}}</div>
         </div>
 
-        <!-- Días del calendario -->
+        <!-- Grid de días del mes con estados visuales -->
         <div class="calendar-grid">
         <div 
             *ngFor="let day of calendarDays" 
@@ -47,8 +48,9 @@
         </div>
     </div>
 
-    <!-- Información de selección -->
+    <!-- Panel lateral con información de la reserva -->
     <div class="selection-panel">
+        <!-- Información cuando ya hay fechas seleccionadas -->
         <div class="selection-info" *ngIf="selectedRange.startDate">
         <h3>Tu reserva</h3>
         <div class="selected-dates">
@@ -61,6 +63,8 @@
             <span class="date-value">{{selectedRange.endDate | date:'dd/MM/yyyy'}}</span>
             </div>
         </div>
+        
+        <!-- Contador de días y noches -->
         <div class="nights-count" *ngIf="selectedRange.endDate">
             <span class="days-info">
                 <span>📅</span>
@@ -72,7 +76,7 @@
             </span>
         </div>
 
-        <!-- Información de costos -->
+        <!-- Desglose de costos cuando hay cabaña seleccionada -->
         <div class="cost-info" *ngIf="selectedRange.endDate && tieneCabanaSeleccionada">
             <div class="cost-item">
                 <span class="cost-label">{{nombreCabana}}</span>
@@ -85,7 +89,7 @@
             </div>
         </div>
 
-        <!-- Mensaje cuando no hay cabaña seleccionada -->
+        <!-- Advertencia cuando no se ha seleccionado cabaña -->
         <div class="no-cabin-warning" *ngIf="selectedRange.endDate && !tieneCabanaSeleccionada">
             <div class="warning-content">
                 <span class="warning-icon">⚠️</span>
@@ -97,12 +101,14 @@
         </div>
         </div>
         
+        <!-- Estado inicial cuando no hay fechas seleccionadas -->
         <div class="selection-placeholder" *ngIf="!selectedRange.startDate">
         <h3>Selecciona tus fechas</h3>
         <p>Elige tu fecha de entrada y salida</p>
         <small>Mínimo 2 días (1 noche), máximo 7 días consecutivos</small>
         </div>
         
+        <!-- Estado intermedio cuando solo hay fecha de entrada -->
         <div class="selection-status" *ngIf="selectedRange.startDate && !selectedRange.endDate">
         <h3>Selecciona fecha de salida</h3>
         <p>Ya tienes tu fecha de llegada, ahora elige cuando te irás</p>
@@ -110,12 +116,12 @@
     </div>
     </div>
 
-    <!-- Botones de acción -->
+    <!-- Botón para reiniciar la selección -->
     <div class="calendar-actions">
     <button class="clear-btn" (click)="clearSelection()">Limpiar selección</button>
     </div>
 
-    <!-- Modal de error -->
+    <!-- Modal para mostrar errores de validación -->
     <div class="error-modal" *ngIf="showErrorModal" (click)="closeErrorModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
         <div class="modal-header">

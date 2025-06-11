@@ -1,8 +1,10 @@
-h1{
+/* Estilo para encabezados h1*/
+h1 {
     font-size: 40px;
-    color: #09f;            
+    color: rgb(0, 0, 0);            
 }
 
+/* Contenedor principal con espacio superior para no quedar oculto tras el navbar */
 .content-container {
-    padding-top: 120px; /* Ajusta este valor según la altura de tu navbar */
+    padding-top: 120px; 
 }

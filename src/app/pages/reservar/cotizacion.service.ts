@@ -1,9 +1,11 @@
-// cotizacion.service.ts
+    // Importaciones del core de Angular y RxJS
     import { CookieService } from 'ngx-cookie-service';
     import { Injectable } from '@angular/core';
     import { BehaviorSubject } from 'rxjs';
 
-    // Interfaces para tipado
+    // Definición de interfaces para el tipado fuerte del sistema
+
+    // Estructura de datos para la cabaña seleccionada
     export interface CabanaSeleccionada {
     id: number;
     precio: number;
@@ -11,6 +13,7 @@
     personas: number;
     }
 
+    // Estructura para actividades con cálculo de precio por persona
     export interface ActividadSeleccionada {
     id: number;
     nombre: string;
@@ -19,6 +22,7 @@
     precioTotal: number;
     }
 
+    // Estructura para comidas con tarifas variables por persona
     export interface ComidaSeleccionada {
     id: number;
     nombre: string;
@@ -27,6 +31,7 @@
     precioTotal: number;
     }
 
+    // Estructura principal que contiene toda la información de la cotización
     export interface DatosCotizacion {
     cabana: CabanaSeleccionada | null;
     actividades: ActividadSeleccionada[];
@@ -43,7 +48,7 @@
     })
     export class CotizacionService {
     
-    // Estado inicial de la cotización
+    // Estado inicial limpio para resetear la cotización
     private datosCotizacionIniciales: DatosCotizacion = {
         cabana: null,
         actividades: [],
@@ -55,27 +60,25 @@
         total: 0
     };
 
-    // BehaviorSubject para mantener el estado y notificar cambios
+    // Subject para manejar el estado reactivo de la cotización
     private cotizacionSubject = new BehaviorSubject<DatosCotizacion>(this.datosCotizacionIniciales);
     
-    // Observable público para que los componentes se suscriban
+    // Observable público para que los componentes se suscriban a cambios
     public cotizacion$ = this.cotizacionSubject.asObservable();
 
-    // Datos privados actuales
+    // Copia privada de los datos actuales para trabajar internamente
     private datosCotizacion: DatosCotizacion = { ...this.datosCotizacionIniciales };
 
     /**
      * Actualiza la información de la cabaña seleccionada
-     * @param cabana - Información de la cabaña seleccionada
-     * @param cantidadPersonas - Cantidad de personas
+     * Maneja la lógica de limpiar actividades/comidas cuando cambia el tipo de cabaña
      */
-    
     actualizarCabana(cabana: CabanaSeleccionada, cantidadPersonas: number): void {
-        // Verificar si ha cambiado la cabaña
+        // Detecta si cambió el tipo de cabaña para limpiar selecciones previas
         const cabanaAnterior = this.datosCotizacion.cabana;
         const haCambiadoCabana = !cabanaAnterior || cabanaAnterior.id !== cabana.id;
         
-        // Si cambió la cabaña, limpiar actividades y comidas
+        // Limpia actividades y comidas si cambió el tipo de cabaña
         if (haCambiadoCabana) {
         console.log('Cabaña cambió, limpiando actividades y comidas anteriores');
         this.datosCotizacion.actividades = [];
@@ -84,12 +87,12 @@
         this.datosCotizacion.subtotalComidas = 0;
         }
         
-        // Actualizar información de la cabaña
+        // Actualiza la información base de la cabaña
         this.datosCotizacion.cabana = cabana;
         this.datosCotizacion.cantidadPersonas = cantidadPersonas;
         this.datosCotizacion.subtotalCabana = cabana.precio;
         
-        // Si no cambió la cabaña pero cambió la cantidad de personas, recalcular actividades y comidas
+        // Recalcula precios si solo cambió la cantidad de personas
         if (!haCambiadoCabana && (this.datosCotizacion.actividades.length > 0 || this.datosCotizacion.comidas.length > 0)) {
         console.log('Recalculando actividades y comidas por cambio en cantidad de personas');
         this.recalcularActividadesConPersonas();
@@ -104,7 +107,7 @@
 
     /**
      * Agrega una actividad a la cotización
-     * @param actividad - Datos de la actividad
+     * Calcula automáticamente el precio total según si es por persona o fija
      */
     agregarActividad(actividad: {
         id: number;
@@ -112,14 +115,14 @@
         precioUnitario: number;
         porPersona: boolean;
     }): void {
-        // Verificar si ya existe la actividad
+        // Evita duplicados en la selección
         const existe = this.datosCotizacion.actividades.find(a => a.id === actividad.id);
         if (existe) {
         console.log('Actividad ya seleccionada:', actividad.nombre);
         return;
         }
 
-        // Calcular precio total según si es por persona o no
+        // Calcula el precio total considerando si es por persona o tarifa fija
         const precioTotal = actividad.porPersona 
         ? actividad.precioUnitario * this.datosCotizacion.cantidadPersonas
         : actividad.precioUnitario;
@@ -140,8 +143,7 @@
     }
 
     /**
-     * Quita una actividad de la cotización
-     * @param actividadId - ID de la actividad a quitar
+     * Remueve una actividad específica de la cotización
      */
     quitarActividad(actividadId: number): void {
         this.datosCotizacion.actividades = this.datosCotizacion.actividades.filter(
@@ -156,7 +158,7 @@
 
     /**
      * Agrega una comida a la cotización
-     * @param comida - Datos de la comida
+     * Maneja el cálculo automático de precios por persona vs precio fijo
      */
     agregarComida(comida: {
         id: number;
@@ -164,14 +166,14 @@
         precioUnitario: number;
         porPersona: boolean;
     }): void {
-        // Verificar si ya existe la comida
+        // Previene la selección duplicada de comidas
         const existe = this.datosCotizacion.comidas.find(c => c.id === comida.id);
         if (existe) {
         console.log('Comida ya seleccionada:', comida.nombre);
         return;
         }
 
-        // Calcular precio total según si es por persona o no
+        // Calcula precio total según el tipo de tarifa
         const precioTotal = comida.porPersona 
         ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas
         : comida.precioUnitario;
@@ -192,8 +194,7 @@
     }
 
     /**
-     * Quita una comida de la cotización
-     * @param comidaId - ID de la comida a quitar
+     * Elimina una comida específica de la selección
      */
     quitarComida(comidaId: number): void {
         this.datosCotizacion.comidas = this.datosCotizacion.comidas.filter(
@@ -207,7 +208,7 @@
     }
 
     /**
-     * Limpia todas las actividades seleccionadas
+     * Vacía completamente la lista de actividades seleccionadas
      */
     limpiarActividades(): void {
         this.datosCotizacion.actividades = [];
@@ -219,7 +220,7 @@
     }
 
     /**
-     * Limpia todas las comidas seleccionadas
+     * Vacía completamente la lista de comidas seleccionadas
      */
     limpiarComidas(): void {
         this.datosCotizacion.comidas = [];
@@ -231,7 +232,8 @@
     }
 
     /**
-     * Recalcula los precios de las actividades cuando cambia la cantidad de personas
+     * Recalcula precios de actividades cuando cambia la cantidad de personas
+     * Solo afecta actividades con tarifa por persona
      */
     private recalcularActividadesConPersonas(): void {
         this.datosCotizacion.actividades = this.datosCotizacion.actividades.map(actividad => ({
@@ -243,7 +245,8 @@
     }
 
     /**
-     * Recalcula los precios de las comidas cuando cambia la cantidad de personas
+     * Recalcula precios de comidas cuando cambia la cantidad de personas
+     * Solo afecta comidas con tarifa por persona
      */
     private recalcularComidasConPersonas(): void {
         this.datosCotizacion.comidas = this.datosCotizacion.comidas.map(comida => ({
@@ -255,77 +258,70 @@
     }
 
     /**
-     * Calcula los totales de la cotización
+     * Calcula todos los subtotales y el total general de la cotización
      */
     private calcularTotal(): void {
-        // Subtotal de actividades
+        // Suma todos los precios totales de actividades
         this.datosCotizacion.subtotalActividades = this.datosCotizacion.actividades.reduce(
         (total, actividad) => total + actividad.precioTotal, 0
         );
 
-        // Subtotal de comidas
+        // Suma todos los precios totales de comidas
         this.datosCotizacion.subtotalComidas = this.datosCotizacion.comidas.reduce(
         (total, comida) => total + comida.precioTotal, 0
         );
 
-        // Total general
+        // Calcula el gran total sumando todos los subtotales
         this.datosCotizacion.total = this.datosCotizacion.subtotalCabana + 
                                     this.datosCotizacion.subtotalActividades + 
                                     this.datosCotizacion.subtotalComidas;
     }
 
     /**
-     * Emite los cambios a todos los suscriptores
+     * Notifica a todos los componentes suscritos sobre cambios en la cotización
      */
     private emitirCambios(): void {
         this.cotizacionSubject.next({ ...this.datosCotizacion });
     }
 
     /**
-     * Obtiene la cantidad actual de personas
-     * @returns Número de personas
+     * Getter para la cantidad actual de personas en la reserva
      */
     obtenerCantidadPersonas(): number {
         return this.datosCotizacion.cantidadPersonas;
     }
 
     /**
-     * Obtiene los datos actuales de la cotización
-     * @returns Datos completos de la cotización
+     * Devuelve una copia completa de los datos actuales de cotización
      */
     obtenerDatosCotizacion(): DatosCotizacion {
         return { ...this.datosCotizacion };
     }
 
     /**
-     * Verifica si una actividad está seleccionada
-     * @param actividadId - ID de la actividad
-     * @returns true si está seleccionada
+     * Verifica si una actividad específica ya está seleccionada
      */
     isActividadSeleccionada(actividadId: number): boolean {
         return this.datosCotizacion.actividades.some(a => a.id === actividadId);
     }
 
     /**
-     * Verifica si una comida está seleccionada
-     * @param comidaId - ID de la comida
-     * @returns true si está seleccionada
+     * Verifica si una comida específica ya está seleccionada
      */
     isComidaSeleccionada(comidaId: number): boolean {
         return this.datosCotizacion.comidas.some(c => c.id === comidaId);
     }
 
     /**
-     * Obtiene el total de la cotización
-     * @returns Precio total
+     * Getter simple para el total actual de la cotización
      */
     obtenerTotal(): number {
         return this.datosCotizacion.total;
     }
 
     /**
-     * Obtiene información resumida para mostrar
-     * @returns Resumen de la cotización
+     * Genera un resumen compacto del estado actual de la cotización
+     * Útil para mostrar información rápida en la interfaz
      */
     obtenerResumen(): {
         tieneCabana: boolean;
@@ -348,7 +344,7 @@
     }
 
     /**
-     * Reinicia la cotización
+     * Resetea completamente la cotización al estado inicial
      */
     reiniciarCotizacion(): void {
         this.datosCotizacion = { ...this.datosCotizacionIniciales };
@@ -357,25 +353,27 @@
     }
 
     /**
-     * Obtiene las actividades seleccionadas
-     * @returns Array de actividades seleccionadas
+     * Devuelve una copia de las actividades actualmente seleccionadas
      */
     obtenerActividadesSeleccionadas(): ActividadSeleccionada[] {
         return [...this.datosCotizacion.actividades];
     }
 
     /**
-     * Obtiene las comidas seleccionadas
-     * @returns Array de comidas seleccionadas
+     * Devuelve una copia de las comidas actualmente seleccionadas
      */
     obtenerComidasSeleccionadas(): ComidaSeleccionada[] {
         return [...this.datosCotizacion.comidas];
     }
     
+    // Subject separado para manejar el rango de fechas de la reserva
     private fechaRangeSubject = new BehaviorSubject<{startDate: Date|null, endDate: Date|null}>({startDate: null, endDate: null});
     fechaRange$ = this.fechaRangeSubject.asObservable();
 
+    /**
+     * Actualiza el rango de fechas seleccionado para la reserva
+     */
     setFechaRange(range: {startDate: Date|null, endDate: Date|null}) {
         this.fechaRangeSubject.next(range);
     }
-}
+    }

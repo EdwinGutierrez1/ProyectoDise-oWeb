@@ -1,10 +1,12 @@
 /* actividades.component.css */
+
+/* Contenedor principal del componente */
 .actividades-container {
     max-width: 100%;
     margin: 0 auto;
     padding: 50px 20px;
     font-family: Arial, sans-serif;
-    border-bottom: 2px solid #c4c3c3;
+    border-bottom: 2px solid #c4c3c3; /* Separador visual con el siguiente componente */
 }
 
 .titulo {
@@ -16,14 +18,16 @@
     margin-top: 20px;
 }
 
+/* Grid principal que organiza las tarjetas de actividades */
 .actividades-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
     gap: 40px;
     margin-bottom: 30px;
     justify-items: center;
 }
 
+/* Tarjeta individual de cada actividad */
 .actividad-card {
     width: 380px;
     border: 2px solid #ccc;
@@ -34,7 +38,7 @@
     background-color: white;
 }
 
-/* Diferentes alturas para diferentes tipos de cards */
+/* Clases para manejar diferentes alturas según el contenido */
 .card-tipo-1 {
     min-height: 395px;
 }
@@ -43,12 +47,14 @@
     min-height: 520px;
 }
 
+/* Efecto hover para mejorar la interacción */
 .actividad-card:hover {
     border-color: #9e9e9e;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transform: scale(1.02);
 }
 
+/* Estado visual para actividades seleccionadas */
 .actividad-card.selected {
     border-color: #28a745;
     border-width: 2.8px;
@@ -56,8 +62,7 @@
     background-color: #CCECCC;
 }
 
-
-/* Estilos para cards deshabilitadas */
+/* Estilos para cards deshabilitadas cuando no hay cabaña seleccionada */
 .actividad-card.disabled {
     opacity: 0.7;
     cursor: not-allowed;
@@ -65,6 +70,7 @@
     border-color: #C8C8C8;
 }
 
+/* Mensaje de advertencia para actividades exclusivas de pareja */
 .mensaje-pareja-disabled {
     text-align: center;
     margin-bottom: 30px;
@@ -85,7 +91,7 @@
     font-size: 1.2rem;
 }
 
-/* Mensaje de validación */
+/* Mensaje informativo cuando no hay cabaña seleccionada */
 .mensaje-validacion {
     text-align: center;
     margin-bottom: 30px;
@@ -112,6 +118,7 @@
     font-size: 1.2rem;
 }
 
+/* Contenedor de imagen con proporción fija */
 .image-container {
     width: 100%;
     height: 300px;
@@ -120,7 +127,7 @@
     overflow: hidden;
 }
 
-/* Diferentes alturas de imagen según el tipo de card */
+/* Alturas específicas para diferentes tipos de actividades */
 .card-tipo-1 .image-container {
     height: 250px;
 }
@@ -132,7 +139,7 @@
 .actividad-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Mantiene proporción sin distorsión */
     background-color: #1e5799;
 }
 
@@ -141,21 +148,22 @@
     margin-top: 20px;
 }
 
+/* Títulos de actividades con altura mínima para mantener consistencia */
 .actividad-info h3 {
     font-size: 1.3rem;
     font-weight: bold;
     color: #1f1f1f;
     margin: 0 0 8px 0;
-    min-height: 60px;
+    min-height: 60px; /* Altura fija para alinear todos los títulos */
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 1.3;
-    hyphens: auto;
+    hyphens: auto; /* Separación automática de palabras largas */
     word-wrap: break-word;
 }
 
-/* Títulos largos más pequeños */
+/* Ajuste de tamaño para títulos largos */
 .actividad-info h3[data-long="true"],
 .actividad-info h3.long-title {
     font-size: 1.05rem;
@@ -184,7 +192,7 @@
     font-weight: 600;
 }
 
-/* Modal Styles */
+/* Estilos del modal */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -195,7 +203,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1060;
+    z-index: 1060; /* Z-index alto para estar sobre otros elementos */
 }
 
 .modal-content {
@@ -216,7 +224,7 @@
     border-bottom: 2px solid #f0f0f0;
 }
 
-/* Título del modal alineado a la izquierda */
+/* Título del modal con icono */
 .modal-title {
     font-size: 1.6rem;
     font-weight: bold;
@@ -234,6 +242,7 @@
     flex-shrink: 0;
 }
 
+/* Botón de cerrar modal */
 .close-btn {
     background: none;
     border: none;
@@ -255,6 +264,7 @@
     color: #333;
 }
 
+/* Layout del contenido del modal */
 .modal-body {
     padding: 30px;
     display: flex;
@@ -271,11 +281,10 @@
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-    border: 1px solid #ccc; /* Borde gris claro */
+    border: 1px solid #ccc;
 }
 
-/* CORREGIDO: Alturas específicas para imágenes del modal según el tipo de actividad */
-/* Primeros dos modales (Spa y Picnic): 395px */
+/* Alturas específicas para imágenes del modal según tipo de actividad */
 .modal-image[alt="Spa en pareja"] {
     height: 395px;
 }
@@ -284,7 +293,7 @@
     height: 422px;
 }
 
-/* Últimos cuatro modales (Kayak, Bici, Senderismo, Escalada): 590px */
+/* Actividades de aventura con mayor altura */
 .modal-image[alt="Kayak en río"],
 .modal-image[alt="Ruta en bici de montaña"],
 .modal-image[alt="Senderismo a cascada natural"],
@@ -347,7 +356,7 @@
     font-size: 0.95rem;
 }
 
-/* Estilos para duración en línea */
+/* Duración mostrada en línea con el título */
 .duracion-inline {
     display: inline;
     margin-bottom: 0 !important;
@@ -370,7 +379,7 @@
     line-height: 1.4;
 }
 
-/* Estilos compactos para el seguro de accidentes con más espacio superior */
+/* Información del seguro para actividades de aventura */
 .modal-seguro {
     display: inline-flex;
     align-items: center;
@@ -417,6 +426,7 @@
     justify-content: center;
 }
 
+/* Botón que cambia entre "Elegir" y "Quitar" */
 .elegir-btn {
     background-color: #28a745;
     color: white;
@@ -439,6 +449,7 @@
     transform: scale(0.95);
 }
 
+/* Estado "Quitar" del botón */
 .quitar-btn {
     background-color: #dc3545 !important;
 }
@@ -448,6 +459,7 @@
     transform: scale(1.05);
 }
 
+/* Resumen del total de actividades seleccionadas */
 .total-actividades {
     text-align: center;
     margin-top: 40px;
@@ -466,7 +478,7 @@
     font-size: 1.7rem;
 }
 
-/* Media query para pantallas de computador más pequeñas */
+/* Estilos para pantallas de computador medianas (1024px - 1366px) */
 @media (max-width: 1366px) and (min-width: 1024px) {
     .actividades-container {
         padding: 40px 15px;
@@ -482,6 +494,7 @@
         margin-bottom: 25px;
     }
 
+    /* Tarjetas más compactas para pantallas medianas */
     .actividad-card {
         width: 320px;
         padding: 20px 25px;
@@ -517,7 +530,7 @@
         font-size: 0.9rem;
     }
 
-    /* Estilos del modal más compactos */
+    /* Modal más compacto para pantallas medianas */
     .modal-content {
         max-width: 650px;
         max-height: 80vh;
@@ -545,7 +558,7 @@
         max-width: 250px;
     }
 
-    /* Alturas de imagen del modal ajustadas */
+    /* Alturas de imagen del modal ajustadas para pantallas medianas */
     .modal-image[alt="Spa en pareja"] {
         height: 280px;
     }
@@ -636,11 +649,13 @@
         font-size: 1.6rem;
     }
 }
+
+/* Estilos para dispositivos móviles */
 @media (max-width: 768px) {
     .actividades-container {
         padding: 30px 15px;
-        width: 100%; /*cambio*/
-        box-sizing: border-box; /*cambio*/
+        width: 100%; /* Ancho completo para móviles */
+        box-sizing: border-box; /* Incluye padding en el ancho total */
     }
 
     .titulo {
@@ -669,6 +684,7 @@
         text-align: center;
     }
 
+    /* Grid de una sola columna en móviles */
     .actividades-grid {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -702,19 +718,20 @@
         font-size: 1rem;
     }
 
-    /* Modal responsive */
+    /* Modal responsive para móviles */
     .modal-content {
         width: 95%;
         margin: 20px;
     }
 
+    /* Layout vertical del modal en móviles */
     .modal-body {
         flex-direction: column;
         padding: 20px;
         gap: 20px;
     }
 
-    /* Ocultar el contenedor de imagen en móvil */
+    /* Ocultamos la imagen del modal en móviles para ahorrar espacio */
     .modal-image-container {
         display: none;
     }
@@ -737,6 +754,7 @@
         gap: 8px;
     }
 
+    /* Título especial para títulos largos en móviles */
     .modal-title.long-title-mobile {
         font-size: 1.1rem !important;
         line-height: 1.2;
@@ -792,13 +810,14 @@
         font-size: 1.5rem;
     }
 
-    /*Desactivamos los hovers en moviles*/
+    /* Desactivamos los efectos hover en móviles para mejor experiencia táctil */
     .actividad-card:hover {
         border-color: #ccc;
         box-shadow: none;
         transform: none;
     }
     
+    /* Mantenemos el hover solo para tarjetas seleccionadas */
     .actividad-card.selected:hover {
         border-color: #28a745;
         box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);

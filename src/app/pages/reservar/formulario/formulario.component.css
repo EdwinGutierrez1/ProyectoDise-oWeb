@@ -86,6 +86,30 @@ body {
   font-weight: 500;
 }
 
+/* Mensaje de validación general */
+.mensaje-validacion {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.mensaje-validacion i {
+  font-size: 1.2rem;
+}
+
 /* Formulario */
 .form-group {
   margin-bottom: 20px;
@@ -100,11 +124,30 @@ body {
   color: #555;
   margin-bottom: 8px;
   font-size: 0.95rem;
+  transition: color 0.3s ease;
 }
 
 .form-group label i {
   color: #4CAF50;
   width: 16px;
+  transition: color 0.3s ease;
+}
+
+/* Estados de validación para labels */
+.form-group.is-invalid label {
+  color: #d32f2f;
+}
+
+.form-group.is-invalid label i {
+  color: #d32f2f;
+}
+
+.form-group.is-valid label {
+  color: #28a745;
+}
+
+.form-group.is-valid label i {
+  color: #28a745;
 }
 
 .form-control {
@@ -115,12 +158,79 @@ body {
   font-size: 1rem;
   transition: all 0.3s ease;
   background: white;
+  position: relative;
 }
 
 .form-control:focus {
   outline: none;
   border-color: #4CAF50;
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* Estados de validación para inputs */
+.form-control.is-invalid {
+  border-color: #d32f2f;
+  background-color: #fff5f5;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+.form-control.is-invalid:focus {
+  border-color: #d32f2f;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
+}
+
+.form-control.is-valid {
+  border-color: #28a745;
+  background-color: #f8fff8;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.form-control.is-valid:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+}
+
+/* Iconos de validación */
+.form-group {
+  position: relative;
+}
+
+.form-group::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.form-group.is-invalid::after {
+  content: '✕';
+  color: #d32f2f;
+  font-weight: bold;
+  font-size: 16px;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 38px;
+}
+
+.form-group.is-valid::after {
+  content: '✓';
+  color: #28a745;
+  font-weight: bold;
+  font-size: 16px;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 38px;
 }
 
 .form-row {
@@ -132,6 +242,51 @@ body {
 textarea.form-control {
   resize: vertical;
   min-height: 100px;
+}
+
+/* Mensaje de error específico */
+.invalid-feedback {
+  color: #d32f2f;
+  font-size: 0.875rem;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  animation: slideDown 0.3s ease-out;
+}
+
+.invalid-feedback::before {
+  content: '⚠';
+  font-size: 14px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mensaje de éxito */
+.valid-feedback {
+  color: #28a745;
+  font-size: 0.875rem;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  animation: slideDown 0.3s ease-out;
+}
+
+.valid-feedback::before {
+  content: '✓';
+  font-size: 14px;
 }
 
 /* Botones */
@@ -178,11 +333,42 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   gap: 8px;
+  position: relative;
 }
 
-.btn-cotizar:hover {
+.btn-cotizar:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
+.btn-cotizar:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.btn-cotizar:disabled::after {
+  content: 'Complete todos los campos obligatorios';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  margin-bottom: 5px;
+}
+
+.btn-cotizar:disabled:hover::after {
+  opacity: 1;
 }
 
 .mensaje-enviado {
