@@ -8,7 +8,7 @@ import { CookieBannerComponent } from './components/cookie-banner/cookie-banner.
 @Component({
   selector: 'app-root', // Selector del componente raíz de la app
   standalone: true, // No depende de un módulo
-  imports: [RouterOutlet, NavbarComponent, FooterComponent], // Componentes y funcionalidades que se usan en la plantilla
+  imports: [RouterOutlet, NavbarComponent, FooterComponent,CookieBannerComponent], // Componentes y funcionalidades que se usan en la plantilla
   templateUrl: './app.component.html', // HTML asociado
   styleUrl: './app.component.css' // CSS asociado
 })
