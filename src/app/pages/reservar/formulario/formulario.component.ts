@@ -19,6 +19,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
     actividades: [],
     comidas: [],
     cantidadPersonas: 0,
+    cantidadNoches: 0,
     subtotalCabana: 0,
     subtotalActividades: 0,
     subtotalComidas: 0,
@@ -155,12 +156,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
            this.datosCotizacion.subtotalComidas;
   }
 
-  get iva(): number {
-    return this.subtotalGeneral * 0.19;
-  }
-
   get total(): number {
-    return this.subtotalGeneral + this.iva;
+    return this.subtotalGeneral;
   }
 
   formatearPrecio(precio: number): string {

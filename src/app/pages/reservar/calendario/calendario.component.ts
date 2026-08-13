@@ -89,7 +89,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
   /**
    * Calcula el costo total de la estadía basado en las fechas seleccionadas
    */
-  private calcularCostoEstadia() {
+private calcularCostoEstadia() {
     if (!this.selectedRange.startDate || !this.selectedRange.endDate || !this.cotizacionData?.cabana) {
       this.costoTotalEstadia = 0;
       this.costoPorNoche = 0;
@@ -103,6 +103,9 @@ export class CalendarioComponent implements OnInit, OnDestroy {
 
     this.costoPorNoche = this.cotizacionData.cabana.precio;
     this.costoTotalEstadia = this.costoPorNoche * this.cantidadNoches;
+
+    // Avisa al servicio central para que el resumen de cotización quede correcto
+    this.cotizacionService.actualizarNoches(this.cantidadNoches);
   }
 
   // Genera la estructura del calendario para el mes actual

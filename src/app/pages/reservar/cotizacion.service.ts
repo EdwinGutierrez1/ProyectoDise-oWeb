@@ -37,6 +37,7 @@ cabana: CabanaSeleccionada | null;
 actividades: ActividadSeleccionada[];
 comidas: ComidaSeleccionada[];
 cantidadPersonas: number;
+cantidadNoches: number;
 subtotalCabana: number;
 subtotalActividades: number;
 subtotalComidas: number;
@@ -54,6 +55,7 @@ private datosCotizacionIniciales: DatosCotizacion = {
     actividades: [],
     comidas: [],
     cantidadPersonas: 0,
+    cantidadNoches: 0,
     subtotalCabana: 0,
     subtotalActividades: 0,
     subtotalComidas: 0,
@@ -118,7 +120,7 @@ actualizarCabana(cabana: CabanaSeleccionada, cantidadPersonas: number): void {
     // Actualiza la información base de la cabaña
     this.datosCotizacion.cabana = cabana;
     this.datosCotizacion.cantidadPersonas = cantidadPersonas;
-    this.datosCotizacion.subtotalCabana = cabana.precio;
+    this.datosCotizacion.subtotalCabana = cabana.precio * (this.datosCotizacion.cantidadNoches || 1);
     
     // Recalcula precios si solo cambió la cantidad de personas
     if (!haCambiadoCabana && (this.datosCotizacion.actividades.length > 0 || this.datosCotizacion.comidas.length > 0)) {
@@ -285,6 +287,23 @@ actualizarCabana(cabana: CabanaSeleccionada, cantidadPersonas: number): void {
         ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas
         : comida.precioUnitario
     }));
+    }
+
+    /**
+     * Actualiza la cantidad de noches y recalcula el subtotal de la cabaña
+     * Debe llamarse cada vez que el usuario elige o cambia el rango de fechas
+     */
+    actualizarNoches(cantidadNoches: number): void {
+    this.datosCotizacion.cantidadNoches = cantidadNoches;
+
+    if (this.datosCotizacion.cabana) {
+        this.datosCotizacion.subtotalCabana =
+        this.datosCotizacion.cabana.precio * (cantidadNoches || 1);
+    }
+
+    this.calcularTotal();
+    this.emitirCambios();
+    this.guardarEnCookies();
     }
 
     /**
