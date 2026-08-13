@@ -177,7 +177,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
       return;
     }
     this.mostrarMensajeValidacion = false;
-    this.mensajeEnviado = true; // Mostrar mensaje de éxito
     const solicitudCompleta = {
       datosPersonales: {
         nombre: this.nombre,
@@ -190,6 +189,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
       fechaSolicitud: new Date().toISOString(),
     };
     this.enviarSolicitud(solicitudCompleta);
+    this.mostrarPopup = true; // Muestra el modal elegante de confirmación
   }
 
   private enviarSolicitud(datos: any): void {
