@@ -96,8 +96,8 @@
 
 .modal-content {
   position: relative;
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 75%;
+  max-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,8 +113,8 @@
 
 .modal-close {
   position: absolute;
-  top: -40px;
-  right: 0;
+  top: 10px;
+  right: 10px;
   background: none;
   border: none;
   color: white;
@@ -151,16 +151,17 @@
 }
 
 .modal-prev {
-  left: -60px;
+  left: 30px;
 }
 
 .modal-next {
-  right: -60px;
+  right: 30px;
 }
 
 .modal-info {
   position: absolute;
-  bottom: -50px;
+  top: 100%;
+  margin-top: 15px;
   left: 50%;
   transform: translateX(-50%);
   color: white;
@@ -169,6 +170,7 @@
   padding: 10px 20px;
   border-radius: 20px;
   font-size: 16px;
+  max-width: 80vw;
 }
 
 .modal-title {
