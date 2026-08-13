@@ -139,16 +139,20 @@
 <div class="modal-overlay" [class.active]="isModalOpen" (click)="closeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <!-- Botón cerrar -->
-    <button class="modal-close" (click)="closeModal()">&times;</button>
+    <button class="modal-close" (click)="closeModal()" aria-label="Cerrar">&times;</button>
     
     <!-- Botón anterior -->
-    <button class="modal-nav modal-prev" (click)="previousImage()" *ngIf="galleryImages.length > 1">&#8249;</button>
+    <button class="modal-nav modal-prev" (click)="previousImage()" *ngIf="galleryImages.length > 1" aria-label="Anterior">
+      <span class="modal-nav-icon modal-prev-icon" aria-hidden="true"></span>
+    </button>
     
     <!-- Imagen del modal -->
     <img [src]="currentImage?.src" [alt]="currentImage?.alt" class="modal-image">
     
     <!-- Botón siguiente -->
-    <button class="modal-nav modal-next" (click)="nextImage()" *ngIf="galleryImages.length > 1">&#8250;</button>
+    <button class="modal-nav modal-next" (click)="nextImage()" *ngIf="galleryImages.length > 1" aria-label="Siguiente">
+      <span class="modal-nav-icon modal-next-icon" aria-hidden="true"></span>
+    </button>
     
     <!-- Información de la imagen -->
     <div class="modal-info">
