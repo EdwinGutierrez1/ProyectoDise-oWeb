@@ -125,6 +125,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
     
     if (control.errors?.['pattern']) {
       switch (campo) {
+        case 'nombre': return 'Por favor, digita tu nombre completo.';
         case 'email': return 'Correo no válido.';
         case 'telefono': return 'Solo números (7-15 dígitos).';
         default: return 'Formato no válido.';
@@ -226,6 +227,14 @@ export class FormularioComponent implements OnInit, OnDestroy {
 
   cotizar() {
     this.mensajeEnviado = true;
+  }
+
+  // Bloquea cualquier tecla que no sea un número (0-9) en el campo de teléfono
+  soloNumeros(event: KeyboardEvent): void {
+    const permitido = /^[0-9]$/;
+    if (!permitido.test(event.key)) {
+      event.preventDefault();
+    }
   }
 
   formatDate(date: Date): string {

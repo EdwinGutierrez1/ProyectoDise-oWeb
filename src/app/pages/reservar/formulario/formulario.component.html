@@ -27,7 +27,7 @@
             <i class="fas fa-user"></i>
             Nombre completo
           </label>
-          <input type="text" class="form-control" id="nombre" name="nombre" required minlength="1" [(ngModel)]="nombre" #nombreCtrl="ngModel">
+          <input type="text" class="form-control" id="nombre" name="nombre" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,}(\s+[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,})+$" [(ngModel)]="nombre" #nombreCtrl="ngModel">
           <div class="invalid-feedback" *ngIf="esCampoInvalido('nombre')">
             {{ obtenerErrorCampo('nombre') }}
           </div>
@@ -38,7 +38,7 @@
             <i class="fas fa-envelope"></i>
             Correo electrónico
           </label>
-          <input type="email" class="form-control" id="email" name="email" required pattern="^[^@\s]+@[^@\s]+\.com$" [(ngModel)]="email" #emailCtrl="ngModel">
+          <input type="email" class="form-control" id="email" name="email" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" [(ngModel)]="email" #emailCtrl="ngModel">
           <div class="invalid-feedback" *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)">
             <span *ngIf="emailCtrl.errors?.['required']">El correo es obligatorio.</span>
             <span *ngIf="emailCtrl.errors?.['pattern']">Correo no válido.</span>
@@ -51,7 +51,7 @@
               <i class="fas fa-phone"></i>
               Teléfono
             </label>
-            <input type="tel" class="form-control" id="telefono" name="telefono" required pattern="^[0-9]{7,15}$" [(ngModel)]="telefono" #telefonoCtrl="ngModel">
+            <input type="tel" class="form-control" id="telefono" name="telefono" required pattern="^[0-9]{7,15}$" [(ngModel)]="telefono" #telefonoCtrl="ngModel" (keypress)="soloNumeros($event)">
             <div class="invalid-feedback" *ngIf="telefonoCtrl.invalid && (telefonoCtrl.dirty || telefonoCtrl.touched)">
               <span *ngIf="telefonoCtrl.errors?.['required']">El teléfono es obligatorio.</span>
               <span *ngIf="telefonoCtrl.errors?.['pattern']">Solo números (7-15 dígitos).</span>
@@ -62,9 +62,9 @@
               <i class="fas fa-calendar"></i>
               Fecha de llegada
             </label>
-            <input type="date" class="form-control" id="fecha" name="fecha" required [(ngModel)]="fechaLlegada" #fechaCtrl="ngModel">
+            <input type="date" class="form-control" id="fecha" name="fecha" required readonly [(ngModel)]="fechaLlegada" #fechaCtrl="ngModel">
             <div class="invalid-feedback" *ngIf="fechaCtrl.invalid && (fechaCtrl.dirty || fechaCtrl.touched)">
-              <span *ngIf="fechaCtrl.errors?.['required']">La fecha es obligatoria.</span>
+              <span *ngIf="fechaCtrl.errors?.['required']">Selecciónala en el calendario.</span>
             </div>
           </div>
         </div>
@@ -206,20 +206,20 @@
   </div>
 
   <!-- Modal popup -->
-  <div class="modal-backdrop" *ngIf="mostrarPopup" (click)="cerrarPopup()">
-    <div class="modal" (click)="$event.stopPropagation()">
+  <div class="confirmacion-backdrop" *ngIf="mostrarPopup" (click)="cerrarPopup()">
+    <div class="confirmacion-modal" (click)="$event.stopPropagation()">
       <button class="modal-close" (click)="cerrarPopup()">
         <i class="fas fa-times"></i>
       </button>
 
-      <div class="modal-header">
+      <div class="confirmacion-header">
         <div class="modal-success-icon">
           <i class="fas fa-check"></i>
         </div>
         <h3>¡Reserva realizada!</h3>
       </div>
 
-      <div class="modal-body">
+      <div class="confirmacion-body">
         <p>Gracias por elegirnos. Te enviaremos la confirmación de tu reserva por correo electrónico junto con todos los detalles.</p>
 
         <div class="modal-buttons">

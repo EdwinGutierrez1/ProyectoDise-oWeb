@@ -167,6 +167,12 @@ body {
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
+#fecha:focus {
+  outline: none;
+  border-color: #e0e0e0;
+  box-shadow: none;
+}
+
 /* Estados de validación para inputs */
 .form-control.is-invalid {
   border-color: #d32f2f;
@@ -592,7 +598,7 @@ textarea.form-control {
 /* ===============================
  MODAL
  =============================== */
-.modal-backdrop {
+.confirmacion-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -605,7 +611,7 @@ textarea.form-control {
   z-index: 1000;
 }
 
-.modal {
+.confirmacion-modal {
   background: white;
   border-radius: 15px;
   max-width: 500px;
@@ -650,7 +656,7 @@ textarea.form-control {
   color: #333;
 }
 
-.modal-header {
+.confirmacion-header {
   text-align: center;
   padding: 40px 30px 20px;
 }
@@ -668,18 +674,18 @@ textarea.form-control {
   color: white;
 }
 
-.modal-header h3 {
+.confirmacion-header h3 {
   font-size: 1.5rem;
   color: #333;
   font-weight: 700;
 }
 
-.modal-body {
+.confirmacion-body {
   padding: 0 30px 40px;
   text-align: center;
 }
 
-.modal-body p {
+.confirmacion-body p {
   color: #666;
   line-height: 1.6;
   margin-bottom: 25px;
