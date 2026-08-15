@@ -122,7 +122,7 @@ export class ActividadesComponent implements OnInit, OnDestroy {
       nombre: 'Senderismo a cascada natural',
       precio: '$60.000',
       precioNumerico: 60000,
-      imagen: '/fotocascada2.jpg',
+      imagen: '/fotocascada2.png',
       descripcion: 'Descubre una cascada secreta a través de senderos naturales. Una caminata moderada que te llevará a uno de los lugares más hermosos de la región.',
       incluye: [
         '✔️ Guía naturalista experto',

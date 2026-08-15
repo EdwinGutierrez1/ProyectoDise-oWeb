@@ -20,47 +20,47 @@ export class GaleriaComponent {
   // Array con todas las imágenes de la galería y sus descripciones
   galleryImages = [
     {
-      src: 'decoracion.jpg',
+      src: 'decoracion.png',
       alt: 'Imagen 1',
       description: 'Decoración para toda ocasión'
     },
     {
-      src: 'rio.jpeg',
+      src: 'galeria_rio.jpg',
       alt: 'Imagen 2',
       description: 'Río natural con paisaje impresionante'
     },
     {
-      src: 'gamplin2-vertical.jpg',
+      src: 'galeria_glamping_naturaleza.png',
       alt: 'Imagen 3',
       description: 'Experiencia glamping en la naturaleza'
     },
     {
-      src: 'gamplin-v.jpg',
+      src: 'GaleriaVistaPanoramica.jpg',
       alt: 'Imagen 4',
       description: 'Glamping con vista panorámica'
     },
     {
-      src: 'gamplin2-1.jpg',
+      src: 'galeria_confort.png',
       alt: 'Imagen 5',
       description: 'Confort en medio de la naturaleza'
     },
     {
-      src: 'gampling2-2.jpg',
+      src: 'galeria_camping_lujo.jpg',
       alt: 'Imagen 6',
       description: 'Experiencia única de camping de lujo'
     },
     {
-      src: 'vaca.jpg',
+      src: 'galeria_conexion.png',
       alt: 'Imagen 7',
       description: 'Conexión con la naturaleza'
     },
     {
-      src: 'malla.jpg',
+      src: 'galeria_familia.png',
       alt: 'Imagen 8',
       description: 'Relajación en familia'
     },
     {
-      src: 'Vistas.jpg',
+      src: 'galeria_ensueño.jpg',
       alt: 'Imagen 9',
       description: 'Paisajes de ensueño'
     }
