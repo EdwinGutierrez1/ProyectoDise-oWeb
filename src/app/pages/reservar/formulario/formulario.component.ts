@@ -237,6 +237,13 @@ export class FormularioComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Convierte una fecha de formato yyyy-mm-dd (la que usa el input) a dd-mm-yyyy (solo para mostrar)
+  formatearFechaMostrar(fechaISO: string): string {
+    if (!fechaISO) return '';
+    const [year, month, day] = fechaISO.split('-');
+    return `${day}-${month}-${year}`;
+  }
+
   formatDate(date: Date): string {
     return date.toISOString().split('T')[0];
   }

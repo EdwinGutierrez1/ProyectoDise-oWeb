@@ -196,8 +196,7 @@
           <i class="fas fa-calendar-alt"></i>
           <span>Fecha:
             <strong id="fechaSeleccionada">
-              {{ fechaLlegada ? (fechaSalida ? (fechaLlegada + ' a ' + fechaSalida) : fechaLlegada) : 'Por definir' }}
-            </strong>
+              {{ fechaLlegada ? (fechaSalida ? (formatearFechaMostrar(fechaLlegada) + ' a ' + formatearFechaMostrar(fechaSalida)) : formatearFechaMostrar(fechaLlegada)) : 'Por definir' }}             </strong>
           </span>
         </div>
       </div>

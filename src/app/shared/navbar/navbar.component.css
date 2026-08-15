@@ -160,3 +160,18 @@
 .navbar-brand:hover {
     transform: scale(1.04);
 }
+
+.nav-link-cta {
+  background-color: #fff !important;
+  color: #19531c !important;
+  padding: 8px 22px !important;
+  border-radius: 25px !important;
+  font-weight: 600;
+  margin-left: 10px;
+  transition: all 0.3s ease;
+}
+
+.nav-link-cta:hover {
+  background-color: #f0f0f0 !important;
+  color: #1b5e20 !important;
+}

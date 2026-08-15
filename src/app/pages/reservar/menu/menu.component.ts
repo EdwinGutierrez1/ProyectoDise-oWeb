@@ -79,8 +79,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     {
       id: 2,
       nombre: 'Almuerzo',
-      precio: '$35.000',
-      precioNumerico: 35000,
+      precio: '$25.000',
+      precioNumerico: 25000,
       imagen: '/pechuga.jpg',
       incluido: false,
       opciones: [
@@ -104,8 +104,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     {
       id: 3,
       nombre: 'Cena',
-      precio: '$30.000',
-      precioNumerico: 30000,
+      precio: '$22.000',
+      precioNumerico: 22000,
       imagen: '/cena2.jpg',
       incluido: false,
       opciones: [
