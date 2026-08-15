@@ -205,7 +205,7 @@ actualizarCabana(cabana: CabanaSeleccionada, cantidadPersonas: number): void {
 
     // Calcula precio total según el tipo de tarifa
     const precioTotal = comida.porPersona 
-    ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas  * (this.datosCotizacion.cantidadNoches || 1)
+    ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas * ((this.datosCotizacion.cantidadNoches || 0) + 1)
     : comida.precioUnitario;
 
     const nuevaComida: ComidaSeleccionada = {
@@ -284,7 +284,7 @@ actualizarCabana(cabana: CabanaSeleccionada, cantidadPersonas: number): void {
     this.datosCotizacion.comidas = this.datosCotizacion.comidas.map(comida => ({
     ...comida,
     precioTotal: comida.porPersona 
-        ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas * (this.datosCotizacion.cantidadNoches || 1)
+        ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas * ((this.datosCotizacion.cantidadNoches || 0) + 1)
         : comida.precioUnitario
     }));
     }

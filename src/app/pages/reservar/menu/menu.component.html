@@ -70,8 +70,7 @@
 
     <!-- Resumen del costo total de las comidas seleccionadas -->
     <div class="total-comidas" *ngIf="datosCotizacion && datosCotizacion.comidas.length > 0">
-        <p class="total-texto">Costo total diario del menú: <span class="total-valor">${{ datosCotizacion.subtotalComidas.toLocaleString() }}</span></p>
-    </div>
+        <p class="total-texto">Costo total diario del menú: <span class="total-valor">${{ getTotalDiarioMenu().toLocaleString() }}</span></p>    </div>
 </div>
 
 <!-- Modal para mostrar detalles y opciones de cada comida -->

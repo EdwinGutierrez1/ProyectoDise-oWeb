@@ -403,6 +403,16 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Calcula el costo del menú para UN SOLO día (sin multiplicar por la cantidad de días de estadía)
+   * Se usa solo para la vista previa en la sección de selección de comidas
+   */
+  getTotalDiarioMenu(): number {
+    return this.getComidasSeleccionadas()
+      .filter(c => !c.incluido)
+      .reduce((total, c) => total + (c.precioNumerico * this.cantidadPersonas), 0);
+  }
+
+  /**
    * Obtiene el subtotal de comidas formateado
    * @returns String con el subtotal formateado
    */

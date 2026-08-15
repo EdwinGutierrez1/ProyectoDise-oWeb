@@ -230,6 +230,8 @@ private calcularCostoEstadia() {
   // Selecciona un rango predefinido desde la fecha actual
   onPredefinedRangeClick(range: { label: string; days: number }) {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const startDate = new Date(today);
     const endDate = new Date(today);
     

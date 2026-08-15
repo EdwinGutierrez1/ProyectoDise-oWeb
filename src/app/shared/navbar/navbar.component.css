@@ -171,7 +171,13 @@
   transition: all 0.3s ease;
 }
 
-.nav-link-cta:hover {
-  background-color: #f0f0f0 !important;
-  color: #1b5e20 !important;
+.navbar .nav-link-cta::before {
+  display: none;
+}
+
+.navbar .nav-link-cta:hover,
+.navbar .nav-link-cta:focus {
+  background-color: #fff !important;
+  color: #134d16 !important;
+  transform: scale(1.08);
 }
