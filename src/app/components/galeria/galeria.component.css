@@ -45,14 +45,14 @@
   transition: 0.5s ease; /* Transición suave para cambiar la altura del overlay */
 }
 
-/* Comportamiento al pasar el mouse sobre el contenedor de la imagen */
-.image-container:hover .overlay {
-  height: 100%; /* El overlay se expande para cubrir todo el contenedor */
-}
+@media (hover: hover) and (pointer: fine) {
+  .image-container:hover .overlay {
+    height: 100%;
+  }
 
-/* Efecto de zoom en la imagen al pasar el mouse */
-.image-container:hover img {
-  transform: scale(1.05); /* Escala la imagen al 105% de su tamaño original */
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
 }
 
 /* Texto dentro de la superposición (overlay) */

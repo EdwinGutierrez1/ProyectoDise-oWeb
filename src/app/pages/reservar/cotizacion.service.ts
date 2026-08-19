@@ -203,9 +203,12 @@ actualizarCabana(cabana: CabanaSeleccionada, cantidadPersonas: number): void {
     return;
     }
 
-    // Calcula precio total según el tipo de tarifa
+    const unidadesPorDia = comida.id === 3 
+    ? (this.datosCotizacion.cantidadNoches || 1)
+    : ((this.datosCotizacion.cantidadNoches || 0) + 1);
+
     const precioTotal = comida.porPersona 
-    ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas * ((this.datosCotizacion.cantidadNoches || 0) + 1)
+    ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas * unidadesPorDia
     : comida.precioUnitario;
 
     const nuevaComida: ComidaSeleccionada = {
@@ -281,12 +284,18 @@ actualizarCabana(cabana: CabanaSeleccionada, cantidadPersonas: number): void {
      * Solo afecta comidas con tarifa por persona
      */
     private recalcularComidasConPersonas(): void {
-    this.datosCotizacion.comidas = this.datosCotizacion.comidas.map(comida => ({
-    ...comida,
-    precioTotal: comida.porPersona 
-        ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas * ((this.datosCotizacion.cantidadNoches || 0) + 1)
-        : comida.precioUnitario
-    }));
+    this.datosCotizacion.comidas = this.datosCotizacion.comidas.map(comida => {
+      const unidadesPorDia = comida.id === 3 
+        ? (this.datosCotizacion.cantidadNoches || 1)
+        : ((this.datosCotizacion.cantidadNoches || 0) + 1);
+
+      return {
+        ...comida,
+        precioTotal: comida.porPersona 
+          ? comida.precioUnitario * this.datosCotizacion.cantidadPersonas * unidadesPorDia
+          : comida.precioUnitario
+      };
+    });
     }
 
     /**

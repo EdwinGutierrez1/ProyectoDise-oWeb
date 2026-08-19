@@ -134,6 +134,13 @@
         margin-left: 0;
     }
 
+    .navbar-collapse .nav-link-cta {
+        display: inline-block;
+        width: auto;
+        padding: 6px 18px !important;
+        margin-left: 0;
+    }
+
     .navbar-collapse {
         padding-left: 10px;
         padding-right: 10px;
