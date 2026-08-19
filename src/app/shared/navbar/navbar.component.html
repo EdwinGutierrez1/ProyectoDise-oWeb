@@ -25,11 +25,11 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" routerLink="/home" fragment="inicio">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="#conocenos">Conócenos</a></li>
-            <li class="nav-item"><a class="nav-link" href="#Galeria">Galería</a></li>
-            <li class="nav-item"><a class="nav-link" href="#Contacto">Contacto</a></li>
-            <li class="nav-item"><a class="nav-link nav-link-cta" routerLink="/reservar">Reservar</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/home" fragment="inicio" (click)="cerrarMenu()">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="#conocenos" (click)="cerrarMenu()">Conócenos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#Galeria" (click)="cerrarMenu()">Galería</a></li>
+            <li class="nav-item"><a class="nav-link" href="#Contacto" (click)="cerrarMenu()">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-cta" routerLink="/reservar" (click)="cerrarMenu()">Reservar</a></li>
         </ul>
         </div>
     </div>
