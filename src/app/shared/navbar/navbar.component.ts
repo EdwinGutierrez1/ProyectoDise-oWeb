@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
 declare const bootstrap: any;
 
 @Component({
@@ -9,7 +10,7 @@ declare const bootstrap: any;
   standalone: true,
   imports: [RouterLink]
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterViewInit {
   logoPath: string = '';
 
   ngOnInit(): void {
@@ -17,18 +18,23 @@ export class NavbarComponent implements OnInit {
     this.logoPath = hour >= 6 && hour < 18 ? 'logoDia.png' : 'logoNoche.png';
   }
 
-  // Cierra el menú hamburguesa manualmente al hacer clic en cualquier link
+  ngAfterViewInit(): void {
+    // Sincroniza el ícono (3 rayas / X) con el estado REAL del menú de Bootstrap,
+    // sin importar qué tan rápido o seguido se le dé clic al botón
+    const menu = document.getElementById('navbarSupportedContent');
+    const checkbox = document.getElementById('toggle-menu') as HTMLInputElement;
+
+    if (menu && checkbox) {
+      menu.addEventListener('shown.bs.collapse', () => checkbox.checked = true);
+      menu.addEventListener('hidden.bs.collapse', () => checkbox.checked = false);
+    }
+  }
+
   cerrarMenu(): void {
     const menu = document.getElementById('navbarSupportedContent');
     if (menu && menu.classList.contains('show')) {
       const bsCollapse = bootstrap.Collapse.getOrCreateInstance(menu);
       bsCollapse.hide();
-    }
-
-    // También reinicia el ícono animado de las 3 rayitas a su estado cerrado
-    const checkbox = document.getElementById('toggle-menu') as HTMLInputElement;
-    if (checkbox) {
-      checkbox.checked = false;
     }
   }
 }

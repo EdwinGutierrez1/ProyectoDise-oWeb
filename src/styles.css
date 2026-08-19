@@ -3,6 +3,10 @@
     color-scheme: light dark;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* Estilos básicos para el cuerpo de la página */
 body {
     /*Fuente predeterminada (la del sistema) */
